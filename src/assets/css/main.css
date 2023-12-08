@@ -1,0 +1,28 @@
+@import url(./reset.css);
+
+@font-face {
+    font-family: Inter;
+    src: url("../fonts/inter.ttf");
+}
+
+:root {
+    --bg: #181818;
+    --bg-2: #212121;
+    --bg-3: #313131;
+    --accent: #8E8DBE;
+    --accent-2: #B6B5D1;
+    --txt-white: #fff;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--txt-white);
+    font-family: Inter, Arial, Helvetica, sans-serif;
+}
+
+.sideBar {
+    background-color: var(--bg-2);
+    min-height: 100vh;
+    min-width: 400px;
+    width: min-content;
+}

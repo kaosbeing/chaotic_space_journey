@@ -1,0 +1,36 @@
+.user {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.user__symbol {
+    color: var(--accent);
+    font-family: Inter;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.user__infos {
+    display: flex;
+    flex-direction: column;
+}
+
+.user__headquarters {}
+
+.user__faction {}
+
+.user__creditsWrapper {
+    display: flex;
+    align-items: center;
+
+}
+
+.user__credits {}
+
+.user__creditsIcon {}
