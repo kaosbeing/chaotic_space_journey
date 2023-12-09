@@ -17,8 +17,8 @@ const User: React.FC<UserComponentProps> = ({ user }) => {
 						<span className='user__faction'>Faction : {user.data.startingFaction}</span>
 					</div>
 					<div className='user__creditsWrapper'>
-						<span className='user__credits'>{user.data.credits}</span>
 						<img className='user__creditsIcon' src={credits} alt="credits" />
+						<span className='user__credits'>{user.data.credits}</span>
 					</div>
 				</div>
 			) : (

@@ -2,7 +2,7 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     gap: 0.5rem;
 }
@@ -19,18 +19,24 @@
 .user__infos {
     display: flex;
     flex-direction: column;
+    gap: 0.25rem;
 }
 
-.user__headquarters {}
+.user__headquarters {
+    font-weight: 600;
+}
 
-.user__faction {}
+.user__faction {
+    font-weight: 600;
+}
 
 .user__creditsWrapper {
     display: flex;
     align-items: center;
-
 }
 
-.user__credits {}
+.user__credits {
+    font-weight: 600;
+}
 
 .user__creditsIcon {}
