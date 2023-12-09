@@ -7,6 +7,7 @@ import in_transitIcon from "../assets/icons/in_transit.svg";
 import locationIcon from "../assets/icons/location.svg";
 
 function FleetItem({ ship }: { ship: ShipData }) {
+    const [shipData, setShipData] = useState<ShipData>(ship);
     const [timeUntilArrival, setTimeUntilArrival] = useState<number | undefined>(0);
     const [flightProgress, setFlightProgress] = useState<number | undefined>(0);
 
@@ -18,12 +19,19 @@ function FleetItem({ ship }: { ship: ShipData }) {
         let flightProgress = Math.floor(100 * (Date.now() - departureDate.getTime()) / (arrivalDate.getTime() - departureDate.getTime()));
 
         const timer = setInterval(() => {
-            (timeUntilArrival - 1) >= 0 ? setTimeUntilArrival(timeUntilArrival - 1) : clearInterval(timer);
+            if ((timeUntilArrival - 1) >= 0) {
+                setTimeUntilArrival(timeUntilArrival - 1);
+            } else {
+                clearInterval(timer);
+                let editedShipData = shipData;
+                editedShipData.nav.status = "IN_ORBIT";
+                setShipData(editedShipData);
+            }
             setFlightProgress(Math.floor(100 * (Date.now() - departureDate.getTime()) / (arrivalDate.getTime() - departureDate.getTime())));
 
         }, 1000);
 
-        if (ship.nav.status === "IN_TRANSIT") {
+        if (shipData.nav.status === "IN_TRANSIT") {
             return (
                 <div className='fleetItem__travelStatus'>
                     <span className='fleetItem__timer'>{timeUntilArrival}s</span>
@@ -38,7 +46,7 @@ function FleetItem({ ship }: { ship: ShipData }) {
     }
 
     const renderStatusIcon = () => {
-        switch (ship.nav.status) {
+        switch (shipData.nav.status) {
             case "DOCKED":
                 return <img className='fleetItem__status' src={dockedIcon} alt="DOCKED" />
             case "IN_ORBIT":
@@ -53,17 +61,17 @@ function FleetItem({ ship }: { ship: ShipData }) {
     return (
         <div className='fleetItem'>
             <div className='fleetItem__header'>
-                <span className='fleetItem__symbol'>{ship.symbol}</span>
+                <span className='fleetItem__symbol'>{shipData.symbol}</span>
                 {renderStatusIcon()}
             </div>
             <div className='fleetItem__location'>
                 <img className='fleetItem__locationIcon' src={locationIcon} alt="" />
-                <span className='fleetItem__waypointSymbol'>{ship.nav.waypointSymbol}</span>
+                <span className='fleetItem__waypointSymbol'>{shipData.nav.waypointSymbol}</span>
             </div>
             {renderTransitInfos()}
             <div className='fleetItem__frameInfo'>
-                <span className='fleetItem__frameName'>{ship.frame.name}</span>
-                <p className='fleetItem__frameDesc'>{ship.frame.description}</p>
+                <span className='fleetItem__frameName'>{shipData.frame.name}</span>
+                <p className='fleetItem__frameDesc'>{shipData.frame.description}</p>
             </div>
         </div>
     )
