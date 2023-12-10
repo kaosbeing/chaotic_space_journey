@@ -13,23 +13,8 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
     // Get agent using token in arguments
     async function login(token: string): Promise<void> {
-        const options = {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                Authorization: `Bearer ${token}`
-            }
-        };
-
-        try {
-            const response = await fetch("https://api.spacetraders.io/v2/my/agent", options);
-            const data = await response.json();
-
-            localStorage.setItem("agent-token", token);
-            navigate('/');
-        } catch (error) {
-            console.error(error);
-        }
+        localStorage.setItem("agent-token", token);
+        navigate('/');
     };
 
     function logout(): void {
