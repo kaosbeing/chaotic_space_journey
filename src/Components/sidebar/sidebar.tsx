@@ -1,7 +1,8 @@
-import { AgentData } from '../Models/AgentInterface';
-import { FleetData } from '../Models/ShipInterface';
-import Fleet from '../Components/fleet';
-import User from '../Components/user';
+import "./sidebar.css";
+import { AgentData } from '../../Models/AgentInterface';
+import { FleetData } from '../../Models/ShipInterface';
+import Fleet from '../fleet/fleet';
+import User from '../user/user';
 
 interface SidebarProps {
     user: AgentData | null;

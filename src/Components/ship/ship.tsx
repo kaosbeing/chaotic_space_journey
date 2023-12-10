@@ -1,13 +1,13 @@
-import '../assets/css/fleet_item.css';
+import './ship.css';
 import { useEffect, useState } from 'react';
-import { ShipData } from '../Models/ShipInterface';
+import { ShipData } from '../../Models/ShipInterface';
 import { Link } from 'react-router-dom';
 
 // Icons
-import dockedIcon from "../assets/icons/docked.svg";
-import in_orbitIcon from "../assets/icons/in_orbit.svg";
-import in_transitIcon from "../assets/icons/in_transit.svg";
-import locationIcon from "../assets/icons/location.svg";
+import dockedIcon from "../../assets/icons/docked.svg";
+import in_orbitIcon from "../../assets/icons/in_orbit.svg";
+import in_transitIcon from "../../assets/icons/in_transit.svg";
+import locationIcon from "../../assets/icons/location.svg";
 
 function Ship({ ship }: { ship: ShipData }) {
     const [shipData, setShipData] = useState<ShipData>(ship);

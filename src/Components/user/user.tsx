@@ -1,4 +1,4 @@
-import { AgentData } from '../Models/AgentInterface';
+import { AgentData } from '../../Models/AgentInterface';
 import "../assets/css/user_item.css";
 import credits from "../assets/icons/credits.svg";
 

@@ -2,7 +2,7 @@ import "./assets/css/main.css";
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import SpaceTraders, { token } from './SpaceTraders';
-import Sidebar from './Components/sidebar';
+import Sidebar from './Components/sidebar/sidebar';
 import { Outlet } from 'react-router-dom';
 
 /* Interfaces */

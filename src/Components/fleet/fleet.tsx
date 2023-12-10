@@ -1,5 +1,5 @@
-import { FleetData, ShipData } from "../Models/ShipInterface";
-import Ship from "./ship";
+import { FleetData, ShipData } from "../../Models/ShipInterface";
+import Ship from "../ship/ship";
 
 interface FleetComponentProps {
     fleet: FleetData | null;
