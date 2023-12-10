@@ -22,7 +22,7 @@ const User: React.FC<UserComponentProps> = ({ user }) => {
 					</div>
 				</div>
 			) : (
-				<p>Loading user data...</p>
+				<div className='user'>Loading user data...</div>
 			)}
 		</>
 	);

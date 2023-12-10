@@ -13,7 +13,7 @@ const Fleet: React.FC<FleetComponentProps> = ({ fleet }) => {
                     <Ship key={ship.symbol} ship={ship} />
                 ))
             ) : (
-                <p>Loading user data...</p>
+                <p>Loading fleet data...</p>
             )}
         </>
     );

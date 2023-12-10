@@ -10,10 +10,6 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ user, fleet }) => {
-    if (!user || !fleet) {
-        return <div className='sideBar'>Loading...</div>;
-    }
-
     return (
         <div className='sideBar'>
             <User user={user} />
