@@ -34,7 +34,7 @@ const CooldownComponent = () => {
                     <h3 className="cooldown__title">Cooldown</h3>
                 </div>
                 <div className="cooldown__timerWrapper">
-                    <span className="cooldown__timer">{timer}s</span>
+                    <span className="cooldown__timer">{timer ? timer : 0}s</span>
                 </div>
             </div>
         </>

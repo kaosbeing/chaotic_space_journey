@@ -11,14 +11,14 @@ const User: React.FC<UserComponentProps> = ({ user }) => {
 		<>
 			{user ? (
 				<div className='user'>
-					<h3 className='user__symbol'>{user.data.symbol}</h3>
+					<h3 className='user__symbol'>{user.symbol}</h3>
 					<div className='user__infos'>
-						<span className='user__headquarters'>HQ : {user.data.headquarters}</span>
-						<span className='user__faction'>Faction : {user.data.startingFaction}</span>
+						<span className='user__headquarters'>HQ : {user.headquarters}</span>
+						<span className='user__faction'>Faction : {user.startingFaction}</span>
 					</div>
 					<div className='user__creditsWrapper'>
 						<img className='user__creditsIcon' src={credits} alt="credits" />
-						<span className='user__credits'>{user.data.credits}</span>
+						<span className='user__credits'>{user.credits}</span>
 					</div>
 				</div>
 			) : (

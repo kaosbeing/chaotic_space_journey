@@ -37,8 +37,10 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
         console.log("Dashboard Update : Waypoint");
 
         const fetchWaypointData = async () => {
-            if (ship?.nav && ship?.nav) {
-                const waypointData = await SpaceTraders.getWaypoint(ship?.nav.systemSymbol, ship?.nav.waypointSymbol)
+            console.log(ship);
+
+            if (ship?.nav) {
+                const waypointData = await SpaceTraders.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol)
                 setWaypoint(waypointData);
             }
         }

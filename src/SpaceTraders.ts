@@ -19,7 +19,7 @@ class SpaceTraders {
             const data = await response.json();
             console.log("Fetching AGENT");
 
-            return data;
+            return data.data;
         } catch (error) {
             console.error(error);
             throw error;
@@ -40,7 +40,7 @@ class SpaceTraders {
             const data = await response.json();
             console.log("Fetching FLEET");
 
-            return data;
+            return data.data;
         } catch (error) {
             console.error(error);
             throw error;
@@ -61,7 +61,7 @@ class SpaceTraders {
             const data = await response.json();
             console.log("Fetching SHIP");
 
-            return data;
+            return data.data;
         } catch (error) {
             console.error(error);
             throw error;
@@ -82,7 +82,7 @@ class SpaceTraders {
             const data = await response.json();
             console.log("Fetching MARKET");
 
-            return data;
+            return data.data;
         } catch (error) {
             console.error(error);
             throw error;
@@ -103,7 +103,7 @@ class SpaceTraders {
             const data = await response.json();
             console.log("Fetching WAYPOINT");
 
-            return data;
+            return data.data;
         } catch (error) {
             console.error(error);
             throw error;
