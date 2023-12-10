@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import SpaceTraders from './SpaceTraders';
 import Sidebar from './Components/sidebar/sidebar';
 import { Outlet } from 'react-router-dom';
+import { DashboardContextProvider } from "./Context/dashboard/DashboardContextProvider";
 
 /* Interfaces */
 import { FleetData } from './Models/ShipInterface';
@@ -24,12 +25,9 @@ function App() {
 			try {
 				const user = await SpaceTraders.getUser();
 				setUserData(user);
-				console.log(user);
-
 
 				const fleet = await SpaceTraders.getFleet();
 				setFleetData(fleet);
-				console.log(fleet);
 
 			} catch (error) {
 				console.error('Error fetching some data:', error);
@@ -41,7 +39,9 @@ function App() {
 	return (
 		<>
 			<Sidebar user={userData} fleet={fleetData} />
-			<Outlet></Outlet>
+			<DashboardContextProvider>
+				<Outlet></Outlet>
+			</DashboardContextProvider>
 		</>
 	)
 }
