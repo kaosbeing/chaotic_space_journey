@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import SpaceTraders, { token } from './SpaceTraders';
 import Sidebar from './Components/sidebar';
+import { Outlet } from 'react-router-dom';
 
 /* Interfaces */
 import { FleetData } from './Models/ShipInterface';
@@ -39,6 +40,7 @@ function App() {
 	return (
 		<>
 			<Sidebar user={userData} fleet={fleetData} />
+			<Outlet></Outlet>
 		</>
 	)
 }
