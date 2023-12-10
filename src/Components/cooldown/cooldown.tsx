@@ -8,23 +8,29 @@ import cooldownIcon from "../../assets/icons/cooldown.svg";
 const CooldownComponent = () => {
     const dashboardContext = useContext(DashboardContext);
 
-    const [timer, setTimer] = useState<number | undefined>(0);
+    const [timer, setTimer] = useState<number>(0);
 
-    useEffect(() => {
-        setTimer(dashboardContext.ship?.cooldown.remainingSeconds);
+    const calculateTimer = () => {
+        if (dashboardContext.ship) {
+            const cooldownExpiration = new Date(dashboardContext.ship?.cooldown.expiration).getTime();
+            const timeLeft = Math.floor((cooldownExpiration - Date.now()) / 1000)
 
-        if (timer) {
-            const interval = setInterval(() => {
-                console.log(timer);
-                if ((timer - 1) >= 0) {
-                    setTimer(timer - 1);
-                } else {
-                    setTimer(0);
-                    clearInterval(interval);
-                }
-            }, 1000)
+            setTimer(timeLeft);
+
+            if (timeLeft == 0) {
+                clearInterval(interval);
+            }
         }
-    }, [dashboardContext.ship])
+
+    }
+
+    const interval = setInterval(() => {
+        console.log(timer);
+
+        if ((timer) > 0) {
+            calculateTimer();
+        }
+    }, 1000)
 
     return (
         <>

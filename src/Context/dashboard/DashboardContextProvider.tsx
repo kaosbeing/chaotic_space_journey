@@ -1,5 +1,4 @@
 import { ReactElement, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
 import { DashboardContext } from './DashboardContext';
 import SpaceTraders from '../../SpaceTraders';
 import { ShipData } from '../../Models/ShipInterface';
@@ -15,6 +14,11 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
     const [ship, setShip] = useState<ShipData | null>(null);
     const [waypoint, setWaypoint] = useState<Waypoint | null>(null);
     const [market, setMarket] = useState<Market | null>(null);
+    const [dashboardData, setDashboardData] = useState({
+        ship: ship,
+        waypoint: waypoint,
+        market: market,
+    });
 
     let { shipSymbol } = useParams();
 
@@ -26,6 +30,11 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
                 const shipData = await SpaceTraders.getShip(shipSymbol);
                 setShip(shipData);
             }
+            setDashboardData({
+                ship: ship,
+                waypoint: waypoint,
+                market: market,
+            });
         }
 
         if (shipSymbol && (ship?.symbol != shipSymbol)) {
@@ -43,6 +52,11 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
                 const waypointData = await SpaceTraders.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol)
                 setWaypoint(waypointData);
             }
+            setDashboardData({
+                ship: ship,
+                waypoint: waypoint,
+                market: market,
+            });
         }
 
         fetchWaypointData();
@@ -62,6 +76,11 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
                 const marketData = await SpaceTraders.getMarket(ship?.nav.systemSymbol, ship?.nav.waypointSymbol);
                 setMarket(marketData);
             }
+            setDashboardData({
+                ship: ship,
+                waypoint: waypoint,
+                market: market,
+            });
         }
 
         fetchMarketData();
@@ -70,11 +89,7 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
 
 
 
-    const [dashboardData, setDashboardData] = useState({
-        ship: ship,
-        waypoint: waypoint,
-        market: market,
-    });
+
 
     return <DashboardContext.Provider value={dashboardData}>
         {children}
