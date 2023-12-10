@@ -14,8 +14,6 @@ function Ship({ ship }: { ship: ShipData }) {
     const [timeUntilArrival, setTimeUntilArrival] = useState<number>(0);
     const [flightProgress, setFlightProgress] = useState<number>(0);
 
-
-
     const renderTransitInfos = () => {
         let departureDate = new Date(ship.nav.route.departureTime);
         let arrivalDate = new Date(ship.nav.route.arrival);
