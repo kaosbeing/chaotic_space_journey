@@ -1,4 +1,4 @@
-import { FleetData, ShipData } from "../Interfaces/SpaceShipInterface";
+import { FleetData, ShipData } from "../Models/ShipInterface";
 import FleetItem from "./fleet_item";
 
 interface FleetComponentProps {

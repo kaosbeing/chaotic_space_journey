@@ -1,10 +1,10 @@
-import { UserData } from '../Interfaces/UserInterface';
-import { FleetData } from '../Interfaces/SpaceShipInterface';
+import { AgentData } from '../Models/AgentInterface';
+import { FleetData } from '../Models/ShipInterface';
 import Fleet from '../Components/fleet';
 import User from '../Components/user';
 
 interface SidebarProps {
-    user: UserData | null;
+    user: AgentData | null;
     fleet: FleetData | null;
 }
 

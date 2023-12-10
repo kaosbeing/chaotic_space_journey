@@ -1,11 +1,10 @@
-import { FleetData } from "./Interfaces/SpaceShipInterface";
-import { UserData } from "./Interfaces/UserInterface";
+import { FleetData } from "./Models/ShipInterface";
+import { AgentData } from "./Models/AgentInterface";
 export const token = localStorage.getItem("agent-token");
 
 class SpaceTraders {
-    static token = localStorage.getItem('token');
 
-    static async getUser(): Promise<UserData> {
+    static async getUser(): Promise<AgentData> {
         const options = {
             headers: {
                 Accept: 'application/json',

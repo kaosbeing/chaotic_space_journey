@@ -1,9 +1,9 @@
-import { UserData } from '../Interfaces/UserInterface';
+import { AgentData } from '../Models/AgentInterface';
 import "../assets/css/user_item.css";
 import credits from "../assets/icons/credits.svg";
 
 interface UserComponentProps {
-	user: UserData | null;
+	user: AgentData | null;
 }
 
 const User: React.FC<UserComponentProps> = ({ user }) => {
