@@ -1,14 +1,20 @@
 import "./assets/css/main.css";
+import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
-import SpaceTraders from './SpaceTraders';
+import SpaceTraders, { token } from './SpaceTraders';
 import Sidebar from './Components/sidebar';
 
 /* Interfaces */
-import { FleetData } from './Interfaces/SpaceShipInterface';
-import { UserData } from './Interfaces/UserInterface';
+import { FleetData } from './Models/ShipInterface';
+import { AgentData } from './Models/AgentInterface';
 
 function App() {
-	const [userData, setUserData] = useState<UserData | null>(null);
+	const navigate = useNavigate();
+
+	if (!token) {
+		navigate('/login');
+	}
+	const [userData, setUserData] = useState<AgentData | null>(null);
 	const [fleetData, setFleetData] = useState<FleetData | null>(null);
 
 	useEffect(() => {

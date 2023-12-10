@@ -11,13 +11,22 @@
     --bg-3: #313131;
     --accent: #8E8DBE;
     --accent-2: #B6B5D1;
-    --txt-white: #fff;
+    --txt: #fff;
+    --txt-muted: #878787;
+    --confirm: #508B41;
+    --cancel: #8D3535;
+    --info: #376EA1;
 }
 
 body {
+    height: 100vh;
     background-color: var(--bg);
-    color: var(--txt-white);
+    color: var(--txt);
     font-family: Inter, Arial, Helvetica, sans-serif;
+}
+
+#root {
+    height: 100%;
 }
 
 .sideBar {
