@@ -9,7 +9,7 @@ import in_orbitIcon from "../assets/icons/in_orbit.svg";
 import in_transitIcon from "../assets/icons/in_transit.svg";
 import locationIcon from "../assets/icons/location.svg";
 
-function FleetItem({ ship }: { ship: ShipData }) {
+function Ship({ ship }: { ship: ShipData }) {
     const [shipData, setShipData] = useState<ShipData>(ship);
     const [timeUntilArrival, setTimeUntilArrival] = useState<number>(0);
     const [flightProgress, setFlightProgress] = useState<number>(0);
@@ -90,4 +90,4 @@ function FleetItem({ ship }: { ship: ShipData }) {
     )
 }
 
-export default FleetItem;
+export default Ship;

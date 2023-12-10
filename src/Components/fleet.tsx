@@ -1,5 +1,5 @@
 import { FleetData, ShipData } from "../Models/ShipInterface";
-import FleetItem from "./fleet_item";
+import Ship from "./ship";
 
 interface FleetComponentProps {
     fleet: FleetData | null;
@@ -10,7 +10,7 @@ const Fleet: React.FC<FleetComponentProps> = ({ fleet }) => {
         <>
             {fleet ? (
                 fleet.data.map((ship: ShipData) => (
-                    <FleetItem key={ship.symbol} ship={ship} />
+                    <Ship key={ship.symbol} ship={ship} />
                 ))
             ) : (
                 <p>Loading user data...</p>
