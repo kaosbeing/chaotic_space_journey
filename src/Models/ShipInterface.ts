@@ -22,7 +22,7 @@ export interface ShipData {
     cargo: Cargo;
 }
 
-interface Nav {
+export interface Nav {
     systemSymbol: string;
     waypointSymbol: string;
     route: {
@@ -36,7 +36,7 @@ interface Nav {
     flightMode: string;
 }
 
-interface Waypoint {
+export interface Waypoint {
     symbol: string;
     type: string;
     systemSymbol: string;
@@ -53,7 +53,7 @@ interface Crew {
     wages: number;
 }
 
-interface Fuel {
+export interface Fuel {
     current: number;
     capacity: number;
     consumed: {
@@ -62,7 +62,7 @@ interface Fuel {
     };
 }
 
-interface Cooldown {
+export interface Cooldown {
     shipSymbol: string;
     totalSeconds: number;
     remainingSeconds: number;
@@ -136,8 +136,15 @@ interface Registration {
     role: string;
 }
 
-interface Cargo {
+export interface Cargo {
     capacity: number;
     units: number;
-    inventory: any[];
+    inventory: Item[];
+}
+
+export interface Item {
+    symbol: string,
+    name: string,
+    description: string,
+    units: number
 }
