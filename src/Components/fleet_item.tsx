@@ -1,6 +1,9 @@
 import '../assets/css/fleet_item.css';
 import { useEffect, useState } from 'react';
 import { ShipData } from '../Models/ShipInterface';
+import { Link } from 'react-router-dom';
+
+// Icons
 import dockedIcon from "../assets/icons/docked.svg";
 import in_orbitIcon from "../assets/icons/in_orbit.svg";
 import in_transitIcon from "../assets/icons/in_transit.svg";
@@ -8,28 +11,38 @@ import locationIcon from "../assets/icons/location.svg";
 
 function FleetItem({ ship }: { ship: ShipData }) {
     const [shipData, setShipData] = useState<ShipData>(ship);
-    const [timeUntilArrival, setTimeUntilArrival] = useState<number | undefined>(0);
-    const [flightProgress, setFlightProgress] = useState<number | undefined>(0);
+    const [timeUntilArrival, setTimeUntilArrival] = useState<number>(0);
+    const [flightProgress, setFlightProgress] = useState<number>(0);
+
+
 
     const renderTransitInfos = () => {
         let departureDate = new Date(ship.nav.route.departureTime);
         let arrivalDate = new Date(ship.nav.route.arrival);
 
-        let timeUntilArrival = Math.floor((arrivalDate.getTime() - Date.now()) / 1000);
-        let flightProgress = Math.floor(100 * (Date.now() - departureDate.getTime()) / (arrivalDate.getTime() - departureDate.getTime()));
+        const calculateTimeAndProgress = () => {
+            const currentTime = Date.now();
+            const timeUntilArrival = Math.floor((arrivalDate.getTime() - currentTime) / 1000);
+            const flightProgress = Math.floor(100 * (currentTime - departureDate.getTime()) / (arrivalDate.getTime() - departureDate.getTime()));
 
-        const timer = setInterval(() => {
-            if ((timeUntilArrival - 1) >= 0) {
-                setTimeUntilArrival(timeUntilArrival - 1);
-            } else {
+            setTimeUntilArrival(timeUntilArrival);
+            setFlightProgress(flightProgress);
+
+            if (timeUntilArrival <= 0) {
                 clearInterval(timer);
                 let editedShipData = shipData;
                 editedShipData.nav.status = "IN_ORBIT";
                 setShipData(editedShipData);
             }
-            setFlightProgress(Math.floor(100 * (Date.now() - departureDate.getTime()) / (arrivalDate.getTime() - departureDate.getTime())));
+        };
 
+        const timer = setInterval(() => {
+            calculateTimeAndProgress();
         }, 1000);
+
+        useEffect(() => {
+            calculateTimeAndProgress();
+        }, []);
 
         if (shipData.nav.status === "IN_TRANSIT") {
             return (
@@ -59,7 +72,7 @@ function FleetItem({ ship }: { ship: ShipData }) {
     }
 
     return (
-        <div className='fleetItem'>
+        <Link to={shipData.symbol} className='fleetItem'>
             <div className='fleetItem__header'>
                 <span className='fleetItem__symbol'>{shipData.symbol}</span>
                 {renderStatusIcon()}
@@ -73,7 +86,7 @@ function FleetItem({ ship }: { ship: ShipData }) {
                 <span className='fleetItem__frameName'>{shipData.frame.name}</span>
                 <p className='fleetItem__frameDesc'>{shipData.frame.description}</p>
             </div>
-        </div>
+        </Link>
     )
 }
 
