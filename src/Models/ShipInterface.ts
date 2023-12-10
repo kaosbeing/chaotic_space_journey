@@ -36,7 +36,7 @@ export interface Nav {
     flightMode: string;
 }
 
-export interface Waypoint {
+interface Waypoint {
     symbol: string;
     type: string;
     systemSymbol: string;
