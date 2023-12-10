@@ -1,14 +1,14 @@
 import { FleetData } from "./Models/ShipInterface";
 import { AgentData } from "./Models/AgentInterface";
-export const token = localStorage.getItem("agent-token");
 
 class SpaceTraders {
+    static token = localStorage.getItem("agent-token");
 
     static async getUser(): Promise<AgentData> {
         const options = {
             headers: {
                 Accept: 'application/json',
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${SpaceTraders.token}`
             },
         };
 
@@ -28,7 +28,7 @@ class SpaceTraders {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${SpaceTraders.token}`
             }
         };
 

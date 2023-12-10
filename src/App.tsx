@@ -1,7 +1,7 @@
 import "./assets/css/main.css";
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
-import SpaceTraders, { token } from './SpaceTraders';
+import SpaceTraders from './SpaceTraders';
 import Sidebar from './Components/sidebar/sidebar';
 import { Outlet } from 'react-router-dom';
 
@@ -12,9 +12,10 @@ import { AgentData } from './Models/AgentInterface';
 function App() {
 	const navigate = useNavigate();
 
-	if (!token) {
+	if (!SpaceTraders.token || SpaceTraders.token.length == 0) {
 		navigate('/login');
 	}
+
 	const [userData, setUserData] = useState<AgentData | null>(null);
 	const [fleetData, setFleetData] = useState<FleetData | null>(null);
 

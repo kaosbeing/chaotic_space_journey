@@ -1,6 +1,6 @@
 import { AgentData } from '../../Models/AgentInterface';
-import "../assets/css/user_item.css";
-import credits from "../assets/icons/credits.svg";
+import "./user.css";
+import credits from "../../assets/icons/credits.svg";
 
 interface UserComponentProps {
 	user: AgentData | null;

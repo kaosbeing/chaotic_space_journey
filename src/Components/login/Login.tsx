@@ -1,8 +1,8 @@
-import "./assets/css/main.css";
-import "./assets/css/login.css"
-import logo from "./assets/logo.svg"
+import "../../assets/css/main.css";
+import "./login.css"
+import logo from "../../assets/logo.svg"
 import { FormEvent, useContext, useState } from "react";
-import { AuthContext } from "./Context/auth/AuthContext";
+import { AuthContext } from "../../Context/auth/AuthContext";
 
 function LoginPage() {
     const authContext = useContext(AuthContext);
