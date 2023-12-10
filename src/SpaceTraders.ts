@@ -40,7 +40,7 @@ class SpaceTraders {
             const data = await response.json();
             console.log("Fetching FLEET");
 
-            return data.data;
+            return data;
         } catch (error) {
             console.error(error);
             throw error;

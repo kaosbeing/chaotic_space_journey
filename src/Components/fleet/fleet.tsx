@@ -9,7 +9,7 @@ const Fleet: React.FC<FleetComponentProps> = ({ fleet }) => {
     return (
         <>
             {fleet ? (
-                fleet.map((ship: ShipData) => (
+                fleet.data.map((ship: ShipData) => (
                     <Ship key={ship.symbol} ship={ship} />
                 ))
             ) : (
