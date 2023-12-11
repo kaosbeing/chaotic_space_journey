@@ -5,46 +5,49 @@ import { Cooldown } from "../../Models/ShipInterface";
 import "./cooldown.css";
 import cooldownIcon from "../../assets/icons/cooldown.svg";
 
-const CooldownComponent = () => {
-    const dashboardContext = useContext(DashboardContext);
-
+const CooldownComponent = ({ cooldown }: { cooldown: Cooldown | null }) => {
     const [timer, setTimer] = useState<number>(0);
 
-    const calculateTimer = () => {
-        if (dashboardContext.ship) {
-            const cooldownExpiration = new Date(dashboardContext.ship?.cooldown.expiration).getTime();
-            const timeLeft = Math.floor((cooldownExpiration - Date.now()) / 1000)
+    useEffect(() => {
+        if (cooldown) {
+            setTimer(cooldown.remainingSeconds);
+        }
 
-            setTimer(timeLeft);
+        const timerInterval = setInterval(() => {
+            if (cooldown?.expiration) {
+                const cooldownExpiration = new Date(cooldown.expiration).getTime();
+                const timeLeft = Math.floor((cooldownExpiration - Date.now()) / 1000);
 
-            if (timeLeft == 0) {
-                clearInterval(interval);
+                setTimer(timeLeft);
+
+                if (timeLeft === 0) {
+                    console.log("Clearing timer");
+                    clearInterval(timerInterval);
+                }
+            } else {
+                setTimer(0);
+                clearInterval(timerInterval);
             }
-        }
+        }, 1000);
 
-    }
-
-    const interval = setInterval(() => {
-        console.log(timer);
-
-        if ((timer) > 0) {
-            calculateTimer();
-        }
-    }, 1000)
+        return () => {
+            clearInterval(timerInterval);
+        };
+    }, [cooldown]);
 
     return (
         <>
             <div className="cooldown">
                 <div className="cooldown__header">
-                    <img className="cooldown__icon" src={cooldownIcon} />
+                    <img className="cooldown__icon" src={cooldownIcon} alt="Cooldown Icon" />
                     <h3 className="cooldown__title">Cooldown</h3>
                 </div>
                 <div className="cooldown__timerWrapper">
-                    <span className="cooldown__timer">{timer ? timer : 0}s</span>
+                    <span className="cooldown__timer">{timer}s</span>
                 </div>
             </div>
         </>
     );
-}
+};
 
 export default CooldownComponent;
