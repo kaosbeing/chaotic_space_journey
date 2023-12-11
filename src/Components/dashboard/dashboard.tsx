@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CooldownComponent from "../cooldown/cooldown";
-import { DashboardContext } from "../../Context/dashboard/DashboardContext";
 import NavComponent from "../nav/nav";
+import FuelComponent from "../fuel/fuel";
 
 import "./dashboard.css";
 import { Cargo, Cooldown, Fuel, Nav, ShipData } from "../../Models/ShipInterface";
@@ -50,6 +50,7 @@ const Dashboard = () => {
         <div className="dashboard">
             <CooldownComponent cooldown={cooldown}></CooldownComponent>
             <NavComponent nav={nav} changeFlightMode={changeFlightMode}></NavComponent>
+            <FuelComponent fuel={fuel} ></FuelComponent>
         </div>
     )
 }
