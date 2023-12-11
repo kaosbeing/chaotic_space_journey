@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import CooldownComponent from "../cooldown/cooldown";
 import { DashboardContext } from "../../Context/dashboard/DashboardContext";
+import NavComponent from "../nav/nav";
 
 import "./dashboard.css";
 import { Cargo, Cooldown, Fuel, Nav, ShipData } from "../../Models/ShipInterface";
 import { Waypoint } from "../../Models/WaypointInterface";
 import { Market } from "../../Models/MarketInterface";
 import SpaceTraders from "../../SpaceTraders";
-import { useParams } from "react-router-dom";
 
 const Dashboard = () => {
     const { shipSymbol } = useParams();
@@ -38,9 +39,17 @@ const Dashboard = () => {
         fetchData();
     }, [])
 
+    const changeFlightMode = async (flightMode: string) => {
+        if (shipSymbol) {
+            let updatedNav = await SpaceTraders.patchNav(shipSymbol, flightMode);
+            setNav(updatedNav);
+        }
+    }
+
     return (
         <div className="dashboard">
             <CooldownComponent cooldown={cooldown}></CooldownComponent>
+            <NavComponent nav={nav} changeFlightMode={changeFlightMode}></NavComponent>
         </div>
     )
 }
