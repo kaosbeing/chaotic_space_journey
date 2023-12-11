@@ -1,4 +1,4 @@
-import { FleetData, ShipData } from "./Models/ShipInterface";
+import { FleetData, Nav, ShipData } from "./Models/ShipInterface";
 import { Waypoint } from "./Models/WaypointInterface";
 import { AgentData } from "./Models/AgentInterface";
 import { Market } from "./Models/MarketInterface";
@@ -102,6 +102,29 @@ class SpaceTraders {
             const response = await fetch(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}`, options);
             const data = await response.json();
             console.log("Fetching WAYPOINT");
+
+            return data.data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    static async patchNav(shipSymbol: string, flightMode: string): Promise<Nav> {
+        const options = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${SpaceTraders.token}`
+            },
+            body: `{"flightMode":"${flightMode}"}`
+        };
+
+        try {
+            const response = await fetch(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/nav`, options);
+            const data = await response.json();
+            console.log("Patching NAV");
 
             return data.data;
         } catch (error) {
