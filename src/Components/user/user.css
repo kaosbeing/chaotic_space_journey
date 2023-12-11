@@ -5,6 +5,7 @@
     align-items: flex-start;
     justify-content: center;
     gap: 0.5rem;
+    border-bottom: 1px solid var(--bg-3);
 }
 
 .user__symbol {
