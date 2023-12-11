@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { DashboardContext } from './DashboardContext';
 import SpaceTraders from '../../SpaceTraders';
-import { ShipData } from '../../Models/ShipInterface';
+import { Cargo, Cooldown, Fuel, Nav, ShipData } from '../../Models/ShipInterface';
 import { Market } from '../../Models/MarketInterface';
 import { Waypoint } from '../../Models/WaypointInterface';
 import { useParams } from 'react-router-dom';
@@ -10,10 +10,31 @@ interface DashboardContextProviderProps {
     children: ReactElement;
 }
 
+interface PartialShip {
+    symbol: String | null,
+    cargo: Cargo | null,
+    nav: Nav | null,
+    cooldown: Cooldown | null,
+    fuel: Fuel | null,
+}
+
 export function DashboardContextProvider({ children }: DashboardContextProviderProps) {
-    const [ship, setShip] = useState<ShipData | null>(null);
+    const [cargo, setCargo] = useState<Cargo | null>(null);
+    const [nav, setNav] = useState<Nav | null>(null);
+    const [cooldown, setCooldown] = useState<Cooldown | null>(null);
+    const [fuel, setFuel] = useState<Fuel | null>(null);
+    const [symbol, setSymbol] = useState<String | null>(null);
+
+    const [ship, setShip] = useState<PartialShip | null>({
+        symbol: symbol,
+        cargo: cargo,
+        nav: nav,
+        cooldown: cooldown,
+        fuel: fuel,
+    });
     const [waypoint, setWaypoint] = useState<Waypoint | null>(null);
     const [market, setMarket] = useState<Market | null>(null);
+
     const [dashboardData, setDashboardData] = useState({
         ship: ship,
         waypoint: waypoint,
@@ -28,13 +49,14 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
         const fetchShipData = async () => {
             if (shipSymbol && (ship?.symbol != shipSymbol)) {
                 const shipData = await SpaceTraders.getShip(shipSymbol);
-                setShip(shipData);
+                setNav(shipData.nav);
+                setCargo(shipData.cargo);
+                setCooldown(shipData.cooldown);
+                setFuel(shipData.fuel);
+                setSymbol(shipData.symbol);
+
+                setShip({ symbol: symbol, nav: nav, cargo: cargo, cooldown: cooldown, fuel: fuel });
             }
-            setDashboardData({
-                ship: ship,
-                waypoint: waypoint,
-                market: market,
-            });
         }
 
         if (shipSymbol && (ship?.symbol != shipSymbol)) {
@@ -52,11 +74,6 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
                 const waypointData = await SpaceTraders.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol)
                 setWaypoint(waypointData);
             }
-            setDashboardData({
-                ship: ship,
-                waypoint: waypoint,
-                market: market,
-            });
         }
 
         fetchWaypointData();
@@ -73,14 +90,9 @@ export function DashboardContextProvider({ children }: DashboardContextProviderP
             };
 
             if (waypoint?.traits.includes(marketplaceTrait)) {
-                const marketData = await SpaceTraders.getMarket(ship?.nav.systemSymbol, ship?.nav.waypointSymbol);
+                const marketData = await SpaceTraders.getMarket(ship?.nav?.systemSymbol, ship?.nav?.waypointSymbol);
                 setMarket(marketData);
             }
-            setDashboardData({
-                ship: ship,
-                waypoint: waypoint,
-                market: market,
-            });
         }
 
         fetchMarketData();

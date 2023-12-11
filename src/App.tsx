@@ -39,9 +39,7 @@ function App() {
 	return (
 		<>
 			<Sidebar user={userData} fleet={fleetData} />
-			<DashboardContextProvider>
-				<Outlet></Outlet>
-			</DashboardContextProvider>
+			<Outlet></Outlet>
 		</>
 	)
 }
