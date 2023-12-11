@@ -1,0 +1,121 @@
+.nav {
+    height: min-content;
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--bg-2);
+}
+
+.nav__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-grow: 1;
+}
+
+.nav__header {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.nav__icon {}
+
+.nav__title {
+    color: var(--accent);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nav__location {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    align-self: stretch;
+}
+
+.nav__systemWrapper,
+.nav__waypointWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.nav__systemIcon {}
+
+.nav__system {}
+
+.nav__waypointIcon {}
+
+.nav__waypoint {}
+
+.nav__travelStatus {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav__transitInfos {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav__timer {}
+
+.nav__arrivalTime {}
+
+.nav__progressBar {
+    align-self: stretch;
+    height: 0.25rem;
+    border-radius: 100px;
+    background-color: var(--bg);
+    border: none;
+    outline: none;
+}
+
+.nav__patch {
+    display: flex;
+}
+
+.nav__cruise,
+.nav__drift,
+.nav__burn,
+.nav__stealth {
+    background: var(--bg);
+    display: flex;
+    padding: 0.5rem 1.5rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.nav__cruise--active,
+.nav__drift--active,
+.nav__burn--active,
+.nav__stealth--active {
+    background-color: var(--bg-3);
+}
+
+.nav__cruise {
+    border-radius: 0.25rem 0rem 0rem 0.25rem;
+}
+
+.nav__stealth {
+    border-radius: 0rem 0.25rem 0.25rem 0rem;
+}
+
+.nav__cruiseIcon {}
+
+.nav__driftIcon {}
+
+.nav__burnIcon {}
+
+.nav__stealthIcon {}
