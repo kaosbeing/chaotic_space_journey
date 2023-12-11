@@ -1,6 +1,11 @@
 .login {
+    padding: 2.5rem;
+    background-color: var(--bg-2);
+    border-radius: 0.5rem;
     margin-top: 5rem;
-    height: 100%;
+    height: fit-content;
+    width: fit-content;
+    margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,7 +20,7 @@
 }
 
 .login__logo {
-    max-width: 15rem;
+    max-width: 10rem;
 }
 
 .login__title {
@@ -27,23 +32,24 @@
 .login__form {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
     gap: 1rem;
 }
 
 .login__textInput {
+    align-self: stretch;
     padding: 1rem;
     background-color: var(--bg);
     border-radius: 0.5rem;
-    border: 1px solid var(--bg-2);
+    border: 1px solid var(--bg-3);
     outline: none;
     color: var(--txt);
     font-family: Inter;
 }
 
 .login__submit {
+    align-self: stretch;
     padding: 0.5rem;
-    background-color: var(--bg-2);
+    background-color: var(--confirm);
     color: var(--txt);
     border: none;
     outline: none;
