@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { DashboardContext } from "../../Context/dashboard/DashboardContext";
+import { useEffect, useState } from "react";
 import { Cooldown } from "../../Models/ShipInterface";
 
 import "./cooldown.css";
