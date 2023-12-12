@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import SpaceTraders from './SpaceTraders';
 import Sidebar from './Components/sidebar/sidebar';
 import { Outlet } from 'react-router-dom';
-import { DashboardContextProvider } from "./Context/dashboard/DashboardContextProvider";
 
 /* Interfaces */
 import { FleetData } from './Models/ShipInterface';
