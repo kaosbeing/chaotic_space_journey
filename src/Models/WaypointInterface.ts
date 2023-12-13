@@ -18,7 +18,7 @@ interface Orbital {
     symbol: string;
 }
 
-interface Trait {
+export interface Trait {
     symbol: string;
     name: string;
     description: string;

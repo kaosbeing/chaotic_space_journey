@@ -1,0 +1,74 @@
+.waypointInfo {
+    display: flex;
+    flex-direction: column;
+    height: min-content;
+    width: 400px;
+    background-color: var(--bg-2);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.waypointInfo__header {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.waypointInfo__icon {}
+
+.waypointInfo__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.waypointInfo__infos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.waypointInfo__waypointTypeWrapper,
+.waypointInfo__waypointCoordsWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.waypointInfo__waypointTypeIcon {}
+
+.waypointInfo__waypointType {}
+
+
+.waypointInfo__waypointCoordsIcon {}
+
+.waypointInfo__waypointCoords {}
+
+.waypointInfo__traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.waypointInfo__trait {
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    background-color: var(--bg-0);
+}
+
+.waypointInfo__excavate {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    color: var(--txt);
+    background-color: var(--confirm);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.waypointInfo__excavate:hover {
+    background-color: var(--confirm-hover);
+}

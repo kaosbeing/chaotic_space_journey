@@ -2,6 +2,7 @@ import { FleetData, Nav, ShipData } from "./Models/ShipInterface";
 import { Waypoint } from "./Models/WaypointInterface";
 import { AgentData } from "./Models/AgentInterface";
 import { Market } from "./Models/MarketInterface";
+import { Extract } from "./Models/ExtractInterface";
 
 class SpaceTraders {
     static token = localStorage.getItem("agent-token");
@@ -127,6 +128,29 @@ class SpaceTraders {
             console.log("Patching NAV");
 
             return data.data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    static async postExtract(shipSymbol: string): Promise<Extract> {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${SpaceTraders.token}`
+            },
+            body: ''
+        };
+
+        try {
+            const response = await fetch(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/extract`, options);
+            const data = await response.json();
+            console.log("Extracting RESSOURCES");
+
+            return data;
         } catch (error) {
             console.error(error);
             throw error;
