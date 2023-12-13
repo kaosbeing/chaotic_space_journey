@@ -73,6 +73,7 @@ function Ship({ ship }: { ship: ShipData }) {
         <Link to={shipData.symbol} className='fleetItem'>
             <div className='fleetItem__header'>
                 <span className='fleetItem__symbol'>{shipData.symbol}</span>
+                <span className='fleetItem__frameName'>{shipData.frame.name}</span>
                 {renderStatusIcon()}
             </div>
             <div className='fleetItem__location'>
@@ -80,10 +81,6 @@ function Ship({ ship }: { ship: ShipData }) {
                 <span className='fleetItem__waypointSymbol'>{shipData.nav.waypointSymbol}</span>
             </div>
             {renderTransitInfos()}
-            <div className='fleetItem__frameInfo'>
-                <span className='fleetItem__frameName'>{shipData.frame.name}</span>
-                <p className='fleetItem__frameDesc'>{shipData.frame.description}</p>
-            </div>
         </Link>
     )
 }
