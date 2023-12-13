@@ -2,11 +2,7 @@ import { FleetData, ShipData } from "../../Models/ShipInterface";
 import Ship from "../ship/ship";
 import "./fleet.css";
 
-interface FleetComponentProps {
-    fleet: FleetData | null;
-}
-
-const Fleet: React.FC<FleetComponentProps> = ({ fleet }) => {
+const Fleet = ({ fleet }: { fleet: FleetData }) => {
     return (
         <>
             <div className="fleet">
