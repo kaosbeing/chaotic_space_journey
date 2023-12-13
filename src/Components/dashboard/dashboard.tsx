@@ -5,6 +5,7 @@ import NavComponent from "../nav/nav";
 import FuelComponent from "../fuel/fuel";
 
 import "./dashboard.css";
+import "../../assets/css/loader.css"
 import { Cooldown, Fuel, Nav, ShipData } from "../../Models/ShipInterface";
 import SpaceTraders from "../../SpaceTraders";
 
@@ -44,11 +45,19 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="dashboard">
-            <CooldownComponent cooldown={cooldown}></CooldownComponent>
-            <NavComponent nav={nav} changeFlightMode={changeFlightMode}></NavComponent>
-            <FuelComponent fuel={fuel} ></FuelComponent>
-        </div>
+        <div className="dashboard" >
+            {
+                ship ? (
+                    <>
+                        <CooldownComponent cooldown={cooldown}></CooldownComponent>
+                        <NavComponent nav={nav} changeFlightMode={changeFlightMode}></NavComponent>
+                        <FuelComponent fuel={fuel} ></FuelComponent>
+                    </>
+                ) : (
+                    <div className="loader"></div>
+                )
+            }
+        </div >
     )
 }
 
