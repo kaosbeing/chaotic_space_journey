@@ -150,7 +150,7 @@ class SpaceTraders {
             const data = await response.json();
             console.log("Extracting RESSOURCES");
 
-            return data;
+            return data.data;
         } catch (error) {
             console.error(error);
             throw error;

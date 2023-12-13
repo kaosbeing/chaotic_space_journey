@@ -7,7 +7,7 @@ import WaypointComponent from "../waypoint/waypoint";
 
 import "./dashboard.css";
 import "../../assets/css/loader.css"
-import { Cargo, Cooldown, Fuel, Nav, ShipData } from "../../Models/ShipInterface";
+import { Cooldown, Fuel, Nav, ShipData } from "../../Models/ShipInterface";
 import { Waypoint as WaypointData } from "../../Models/WaypointInterface";
 import SpaceTraders from "../../SpaceTraders";
 
@@ -57,6 +57,7 @@ const Dashboard = () => {
             let response = await SpaceTraders.postExtract(shipSymbol);
             //setCargo(response.cargo);
             setCooldown(response.cooldown);
+
             // result of extraction : response.extraction (a mettre dans une notif plus tard)
         }
     }
