@@ -1,9 +1,3 @@
-interface Survey {
-    cooldown: Cooldown;
-    extraction: Extraction;
-    cargo: Cargo;
-}
-
 interface Cooldown {
     shipSymbol: string;
     totalSeconds: number;

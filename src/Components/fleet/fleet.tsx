@@ -2,7 +2,7 @@ import { FleetData, ShipData } from "../../Models/ShipInterface";
 import Ship from "../ship/ship";
 import "./fleet.css";
 
-const Fleet = ({ fleet }: { fleet: FleetData }) => {
+const Fleet = ({ fleet }: { fleet: FleetData | null }) => {
     return (
         <>
             <div className="fleet">
