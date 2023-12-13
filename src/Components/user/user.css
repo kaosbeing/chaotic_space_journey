@@ -20,9 +20,9 @@
 }
 
 .user__infos {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
 }
 
 .user__headquarters,

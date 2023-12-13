@@ -4,12 +4,7 @@ import { FleetData } from '../../Models/ShipInterface';
 import Fleet from '../fleet/fleet';
 import User from '../user/user';
 
-interface SidebarProps {
-    user: AgentData | null;
-    fleet: FleetData | null;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ user, fleet }) => {
+const Sidebar = ({ user, fleet }: { user: AgentData, fleet: FleetData }) => {
     return (
         <div className='sideBar'>
             <User user={user} />

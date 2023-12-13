@@ -5,7 +5,7 @@ import { Nav as NavData } from "../../Models/ShipInterface";
 
 import navIcon from "../../assets/icons/nav.svg";
 import systemIcon from "../../assets/icons/system.svg";
-import waypointIcon from "../../assets/icons/waypoint_type.svg";
+import waypointIcon from "../../assets/icons/location.svg";
 
 import dockedIcon from "../../assets/icons/docked.svg";
 import inOrbitIcon from "../../assets/icons/in_orbit.svg";
