@@ -4,7 +4,7 @@ import { FleetData } from '../../Models/ShipInterface';
 import Fleet from '../fleet/fleet';
 import User from '../user/user';
 
-const Sidebar = ({ user, fleet }: { user: AgentData, fleet: FleetData }) => {
+const Sidebar = ({ user, fleet }: { user: AgentData | null, fleet: FleetData | null }) => {
     return (
         <div className='sideBar'>
             <User user={user} />
