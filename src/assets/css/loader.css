@@ -1,11 +1,25 @@
+.loading {
+    min-width: fit-content;
+    min-height: fit-content;
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .loader {
-    width: 17px;
-    height: 17px;
-    aspect-ratio: 1;
+    width: 20px;
+    height: 20px;
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
-    background: #fff;
+    background-color: var(--accent);
     display: grid;
     animation: l22-0 2s infinite linear;
+}
+
+.loader--big {
+    width: 2em;
+    height: 2em;
 }
 
 .loader:before,
@@ -16,6 +30,7 @@
     border-radius: 50%;
     background: inherit;
     transform: rotate(0deg) translate(150%);
+    background-color: var(--accent-2);
     animation: l22 1s infinite;
 }
 

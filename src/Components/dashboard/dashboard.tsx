@@ -63,20 +63,22 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="dashboard" >
+        <>
             {
                 ship && waypoint ? (
-                    <>
+                    <div className="dashboard">
                         <CooldownComponent cooldown={cooldown}></CooldownComponent>
                         <NavComponent nav={nav} changeFlightMode={changeFlightMode}></NavComponent>
                         <FuelComponent fuel={fuel} ></FuelComponent>
                         <WaypointComponent waypoint={waypoint} extract={extractRessources}></WaypointComponent>
-                    </>
+                    </div >
                 ) : (
-                    <div className="loader"></div>
+                    <div className="dashboard loading">
+                        <div className="loader loader--big"></div>
+                    </div >
                 )
             }
-        </div >
+        </>
     )
 }
 

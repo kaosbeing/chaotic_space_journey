@@ -35,7 +35,9 @@ const User: React.FC<UserComponentProps> = ({ user }) => {
 					</div>
 				</div>
 			) : (
-				<div className='user'>Loading user data...</div>
+				<div className='user loading'>
+					<div className='loader'></div>
+				</div>
 			)}
 		</>
 	);
