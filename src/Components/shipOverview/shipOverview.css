@@ -1,10 +1,11 @@
 .shipOverview {
+    height: min-content;
     display: flex;
     flex-direction: column;
     padding: 1rem;
     background-color: var(--bg-2);
     border-radius: 0.5rem;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .shipOverview__header {
@@ -20,25 +21,53 @@
     font-weight: 600;
 }
 
-.shipOverview__symbol {}
+.shipOverview__hero {
+    position: relative;
+}
+
+.shipOverview__heroImg {
+    max-width: 350px;
+    border-radius: 0.5rem;
+}
+
+.shipOverview__shipType {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent-2);
+    background-color: var(--bg-0);
+    border-radius: 1rem;
+    padding: 0.25rem 1rem;
+}
+
+.shipOverview__symbol {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+}
 
 .shipOverview__fuel,
 .shipOverview__cargo,
 .shipOverview__integrity {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.5rem;
 }
 
 .shipOverview__fuelHeader,
 .shipOverview__cargoHeader,
 .shipOverview__integrityHeader {
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 
-.shipOverview__titleWrapper {
+.shipOverview__progressTitleWrapper {
     display: flex;
+    align-items: center;
     gap: 0.25rem;
 }
 
@@ -50,59 +79,3 @@
     font-weight: 700;
     color: var(--accent);
 }
-
-.shipOverview__fuelLevel {}
-
-.shipOverview__fuelCurrent {}
-
-.shipOverview__fuelMax {}
-
-.shipOverview__fuelProgressBar,
-.shipOverview__cargoProgressBar,
-.shipOverview__integrityProgressBar {
-    background-color: var(--bg);
-    height: 0.25rem;
-    border-radius: 0.5rem;
-    outline: none;
-    border: none;
-}
-
-.shipOverview__fuelProgressBar::-webkit-progress-value,
-.shipOverview__cargoProgressBar::-webkit-progress-value,
-.shipOverview__integrityProgressBar::-webkit-progress-value {
-    background-color: red;
-}
-
-.shipOverview__cargo {}
-
-.shipOverview__cargoHeader {}
-
-.shipOverview__titleWrapper {}
-
-.shipOverview__cargoIcon {}
-
-.shipOverview__cargoTitle {}
-
-.shipOverview__cargoLevel {}
-
-.shipOverview__cargoCurrent {}
-
-.shipOverview__cargoMax {}
-
-.shipOverview__cargoProgressBar {}
-
-.shipOverview__integrity {}
-
-.shipOverview__integrityHeader {}
-
-.shipOverview__titleWrapper {}
-
-.shipOverview__integrityIcon {}
-
-.shipOverview__integrityTitle {}
-
-.shipOverview__integrityLevel {}
-
-.shipOverview__integrityCurrent {}
-
-.shipOverview__integrityProgressBar {}

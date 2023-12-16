@@ -68,11 +68,9 @@ const Dashboard = () => {
             {
                 ship && waypoint ? (
                     <div className="dashboard">
-                        <CooldownComponent cooldown={cooldown}></CooldownComponent>
-                        <NavComponent nav={nav} changeFlightMode={changeFlightMode}></NavComponent>
-                        <FuelComponent fuel={fuel} ></FuelComponent>
-                        <WaypointComponent waypoint={waypoint} extract={extractRessources}></WaypointComponent>
                         <ShipOverview ship={ship}></ShipOverview>
+                        <NavComponent nav={nav} changeFlightMode={changeFlightMode}></NavComponent>
+                        <WaypointComponent waypoint={waypoint} extract={extractRessources}></WaypointComponent>
                     </div >
                 ) : (
                     <div className="dashboard loading">
