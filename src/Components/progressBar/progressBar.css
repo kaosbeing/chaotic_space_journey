@@ -1,5 +1,5 @@
 .progressBar {
-    background-color: var(--bg);
+    background-color: var(--bg-3);
     height: 0.25rem;
     border-radius: 0.5rem;
     outline: none;
