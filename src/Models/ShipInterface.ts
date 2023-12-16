@@ -69,7 +69,7 @@ export interface Cooldown {
     expiration?: string;
 }
 
-interface Frame {
+export interface Frame {
     symbol: string;
     name: string;
     description: string;
