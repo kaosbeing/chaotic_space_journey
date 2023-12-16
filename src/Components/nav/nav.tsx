@@ -1,5 +1,6 @@
 import "./nav.css";
 import "../../assets/icons/nav.svg";
+import ProgressBar from "../progressBar/progressBar";
 import { useState } from "react";
 import { Nav as NavData } from "../../Models/ShipInterface";
 
@@ -50,7 +51,7 @@ const Nav = ({ nav, changeFlightMode }: { nav: NavData | null, changeFlightMode:
                             <span className='nav__timer'>{timeUntilArrival}s</span>
                             <span className='nav__arrivalTime'>{arrivalDate.toLocaleString("fr-FR").replace("/2023", "")}</span>
                         </div>
-                        <progress max={100} value={flightProgress} className='nav__progressBar'></progress>
+                        <ProgressBar max={100} value={flightProgress} color="var(--confirm)" ></ProgressBar>
                     </div>
                 )
             }

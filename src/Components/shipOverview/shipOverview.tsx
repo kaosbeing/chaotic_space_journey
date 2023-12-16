@@ -1,4 +1,5 @@
 import { ShipData } from "../../Models/ShipInterface";
+import ProgressBar from "../progressBar/progressBar";
 import "./shipOverview.css";
 
 const ShipOverview = ({ ship }: { ship: ShipData }) => {
@@ -22,7 +23,7 @@ const ShipOverview = ({ ship }: { ship: ShipData }) => {
                         <span className="shipOverview__fuelCurrent">{ship.fuel.current}</span> / <span className="shipOverview__fuelMax">{ship.fuel.capacity}</span>
                     </div>
                 </div>
-                <progress className="shipOverview__fuelProgressBar" max={ship.fuel.capacity} value={ship.fuel.current}></progress>
+                <ProgressBar max={ship.fuel.capacity} value={ship.fuel.current} color="var(--confirm)"></ProgressBar>
             </div>
             <div className="shipOverview__cargo">
                 <div className="shipOverview__cargoHeader">
@@ -34,7 +35,7 @@ const ShipOverview = ({ ship }: { ship: ShipData }) => {
                         <span className="shipOverview__cargoCurrent">{ship.cargo.units}</span> / <span className="shipOverview__cargoMax">{ship.cargo.capacity}</span>
                     </div>
                 </div>
-                <progress className="shipOverview__cargoProgressBar" max={ship.cargo.capacity} value={ship.cargo.units}></progress>
+                <ProgressBar max={ship.cargo.capacity} value={ship.cargo.units} color="var(--cancel)"></ProgressBar>
             </div>
             <div className="shipOverview__integrity">
                 <div className="shipOverview__integrityHeader">
@@ -46,7 +47,7 @@ const ShipOverview = ({ ship }: { ship: ShipData }) => {
                         <span className="shipOverview__integrityCurrent">{ship.frame.condition}%</span>
                     </div>
                 </div>
-                <progress className="shipOverview__integrityProgressBar" max={ship.fuel.capacity} value={ship.fuel.current}></progress>
+                <ProgressBar max={100} value={ship.frame.condition} color="red"></ProgressBar>
             </div>
         </div>
     )

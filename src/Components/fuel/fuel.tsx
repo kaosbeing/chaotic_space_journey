@@ -1,3 +1,4 @@
+import ProgressBar from "../progressBar/progressBar";
 import { Fuel as FuelData } from "../../Models/ShipInterface";
 import fuelIcon from "../../assets/icons/fuel.svg";
 import "./fuel.css";
@@ -14,7 +15,7 @@ const Fuel = ({ fuel }: { fuel: FuelData | null }) => {
                     <div className="fuel__content">
                         <span className="fuel__current">{fuel.current}</span> / <span className="fuel__max">{fuel.capacity}</span>
                     </div>
-                    <progress className="fuel__progressBar" max={fuel.capacity} value={fuel.current}></progress>
+                    <ProgressBar max={fuel.capacity} value={fuel.current} color="var(--confirm)"></ProgressBar>
                 </div>
             ) : (
                 <p>Loading data</p>

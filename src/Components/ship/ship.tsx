@@ -2,6 +2,7 @@ import './ship.css';
 import { useEffect, useState } from 'react';
 import { ShipData } from '../../Models/ShipInterface';
 import { Link } from 'react-router-dom';
+import ProgressBar from '../progressBar/progressBar';
 
 // Icons
 import dockedIcon from "../../assets/icons/docked.svg";
@@ -46,7 +47,7 @@ function Ship({ ship }: { ship: ShipData }) {
             return (
                 <div className='fleetItem__travelStatus'>
                     <span className='fleetItem__timer'>{timeUntilArrival}s</span>
-                    <progress max={100} value={flightProgress} className='fleetItem__progressBar'></progress>
+                    <ProgressBar max={100} value={flightProgress} color='var(--confirm)'></ProgressBar>
                     <div className='fleetItem__transitTiming'>
                         <span className='fleetItem__departureTime'>{departureDate.toLocaleString("fr-FR").replace("/2023", "")}</span>
                         <span className='fleetItem__arrivalTime'>{arrivalDate.toLocaleString("fr-FR").replace("/2023", "")}</span>
