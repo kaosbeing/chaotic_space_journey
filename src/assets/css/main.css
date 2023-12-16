@@ -16,8 +16,9 @@
     --txt: #fff;
     --txt-muted: #878787;
     --confirm: #508B41;
+    --confirm-2: #6BC754;
     --confirm-hover: #406F34;
-    --cancel: #8D3535;
+    --cancel: #DB3939;
     --info: #376EA1;
 }
 
@@ -31,4 +32,5 @@ body {
 #root {
     height: 100%;
     display: flex;
+    flex-grow: 1;
 }

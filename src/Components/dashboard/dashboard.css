@@ -1,7 +1,43 @@
 .dashboard {
-    padding: 3rem;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-grow: 1;
+}
+
+.dashboard__content {
+    padding: 1rem 2rem;
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
+}
+
+.dashboard__content.loading {
+    align-self: stretch;
+}
+
+.dashboard__header {
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard__title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-2);
+    font-family: Inter;
+}
+
+.dashboard__refresh {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    background-color: var(--bg-2);
+    outline: none;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
 }
