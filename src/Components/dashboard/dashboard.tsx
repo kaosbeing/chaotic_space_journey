@@ -4,6 +4,7 @@ import CooldownComponent from "../cooldown/cooldown";
 import NavComponent from "../nav/nav";
 import FuelComponent from "../fuel/fuel";
 import WaypointComponent from "../waypoint/waypoint";
+import ShipOverview from "../shipOverview/shipOverview";
 
 import "./dashboard.css";
 import "../../assets/css/loader.css"
@@ -71,6 +72,7 @@ const Dashboard = () => {
                         <NavComponent nav={nav} changeFlightMode={changeFlightMode}></NavComponent>
                         <FuelComponent fuel={fuel} ></FuelComponent>
                         <WaypointComponent waypoint={waypoint} extract={extractRessources}></WaypointComponent>
+                        <ShipOverview ship={ship}></ShipOverview>
                     </div >
                 ) : (
                     <div className="dashboard loading">
