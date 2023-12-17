@@ -46,7 +46,7 @@ const Nav = ({ nav, changeFlightMode, changeNavStatus }: { nav: NavData | null, 
                     }
                 }, 1000);
 
-                if (timeUntilArrival <= 0) {
+                if (timeUntilArrival >= 0) {
                     return (
 
                         <div className='nav__travelStatus'>
