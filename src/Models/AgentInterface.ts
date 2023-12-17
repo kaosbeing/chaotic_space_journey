@@ -1,4 +1,4 @@
-export interface AgentData {
+export interface Agent {
     accountId: string;
     symbol: string;
     headquarters: string;

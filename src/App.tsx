@@ -7,7 +7,7 @@ import { Outlet } from 'react-router-dom';
 
 /* Interfaces */
 import { FleetData } from './Models/ShipInterface';
-import { AgentData } from './Models/AgentInterface';
+import { Agent } from './Models/AgentInterface';
 
 function App() {
 	const navigate = useNavigate();
@@ -16,7 +16,7 @@ function App() {
 		navigate('/login');
 	}
 
-	const [userData, setUserData] = useState<AgentData | null>(null);
+	const [userData, setUserData] = useState<Agent | null>(null);
 	const [fleetData, setFleetData] = useState<FleetData | null>(null);
 
 	useEffect(() => {

@@ -1,13 +1,13 @@
 import { FleetData, Nav, ShipData } from "./Models/ShipInterface";
 import { Waypoint } from "./Models/WaypointInterface";
-import { AgentData } from "./Models/AgentInterface";
+import { Agent } from "./Models/AgentInterface";
 import { Market } from "./Models/MarketInterface";
 import { Extract } from "./Models/ExtractInterface";
 
 class SpaceTraders {
     static token = localStorage.getItem("agent-token");
 
-    static async getUser(): Promise<AgentData> {
+    static async getUser(): Promise<Agent> {
         const options = {
             headers: {
                 Accept: 'application/json',
