@@ -5,13 +5,13 @@ Let's just say it goes from here..
 - [x] Display user infos
 - [x] Display fleet overview
 - [ ] Display ship details 
-    - [x] Display cargo
+    - [ ] Display cargo
     - [x] Display fuel
     - [x] Display cooldown
     - [x] Display nav status
     - [x] Display waypoint (location) details
     - [x] Change flight mode
-    - [ ] Dock/Orbit
+    - [x] Dock/Orbit
     - [x] Display location
 - [x] Excavate from Asteroid
 - [ ] Refuel
