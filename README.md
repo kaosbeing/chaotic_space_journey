@@ -20,3 +20,8 @@ Let's just say it goes from here..
     - [ ] Purchase stuff
     - [ ] Sell stuff
 - [ ] Buy ship at shipyard
+
+## Bugs 
+- SetInterval (cooldown at least, maybe nav, maybe fleet item)
+- Fleet item ship.nav.status is always ORBIT (never DOCK)
+- maybe need to add more controls over the buttons 
