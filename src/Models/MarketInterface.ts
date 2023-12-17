@@ -4,12 +4,12 @@ interface TradeMaterial {
     description: string;
 }
 
-interface Transaction {
+export interface Transaction {
     waypointSymbol: string;
     shipSymbol: string;
     tradeSymbol: string;
     type: string;
-    units: 0;
+    units: string;
     pricePerUnit: number;
     totalPrice: number;
     timestamp: string;
