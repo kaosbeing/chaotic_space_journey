@@ -52,12 +52,23 @@
 }
 
 .waypointInfo__trait {
-    padding: 0.25rem;
+    padding: 0.35rem;
     border-radius: 0.25rem;
     background-color: var(--bg-0);
+    color: var(--accent-2);
 }
 
-.waypointInfo__excavate {
+.waypointInfo__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.waypointInfo__excavate,
+.waypointInfo__refuel {
+    width: 100%;
+    align-self: stretch;
     padding: 0.5rem;
     border-radius: 0.25rem;
     font-size: 1rem;
@@ -69,6 +80,16 @@
     transition: 300ms;
 }
 
-.waypointInfo__excavate:hover {
+.waypointInfo__excavate:hover,
+.waypointInfo__refuel:hover {
     background-color: var(--confirm-hover);
+}
+
+.waypointInfo__excavate--disabled,
+.waypointInfo__excavate--disabled:hover,
+.waypointInfo__refuel--disabled,
+.waypointInfo__refuel--disabled:hover {
+    cursor: not-allowed;
+    background-color: var(--bg-0);
+    color: var(--bg-3);
 }

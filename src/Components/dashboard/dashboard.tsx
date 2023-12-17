@@ -12,14 +12,14 @@ import { Cargo, Cooldown, Fuel, Nav, ShipData } from "../../Models/ShipInterface
 import { Waypoint as WaypointData } from "../../Models/WaypointInterface";
 import SpaceTraders from "../../SpaceTraders";
 import refreshIcon from "../../assets/icons/refresh.svg";
+import { Market } from "../../Models/MarketInterface";
 
 const Dashboard = () => {
     const { shipSymbol } = useParams();
 
     const [ship, setShip] = useState<ShipData | null>(null)
     const [waypoint, setWaypoint] = useState<WaypointData | null>(null)
-    // use state Waypoint
-    // use state Market
+    const [market, setMarket] = useState<Market | null>(null);
 
     const [cargo, setCargo] = useState<Cargo | null>(null);
     const [nav, setNav] = useState<Nav | null>(null);
@@ -31,7 +31,10 @@ const Dashboard = () => {
     }
 
     useEffect(() => {
+        fetchData();
+    }, [])
 
+    useEffect(() => {
         if (ship) {
             const fetchWaypoint = async () => {
                 setWaypoint(await SpaceTraders.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol));
@@ -46,8 +49,14 @@ const Dashboard = () => {
     }, [ship])
 
     useEffect(() => {
-        fetchData();
-    }, [])
+        if (waypoint && ship && waypoint.traits.some((trait) => trait.symbol == "MARKETPLACE")) {
+            const fetchMarket = async () => {
+                setMarket(await SpaceTraders.getMarket(ship.nav.systemSymbol, ship.nav.waypointSymbol));
+            }
+
+            fetchMarket();
+        }
+    }, [waypoint])
 
     const changeFlightMode = async (flightMode: string) => {
         if (shipSymbol) {
@@ -62,6 +71,11 @@ const Dashboard = () => {
         setCooldown(response.cooldown);
 
         // result of extraction : response.extraction (a mettre dans une notif plus tard)
+    }
+
+    const refuelShip = async (shipSymbol: string) => {
+        let response = await SpaceTraders.postRefuel(shipSymbol);
+        setFuel(response.fuel);
     }
 
     const changeNavStatus = async (action: string, shipSymbol: string) => {
@@ -85,7 +99,7 @@ const Dashboard = () => {
                     <div className="dashboard__content">
                         <ShipOverview symbol={ship.symbol} cargo={cargo} cooldown={cooldown} fuel={fuel} frame={ship.frame}></ShipOverview>
                         <NavComponent nav={nav} changeFlightMode={changeFlightMode} changeNavStatus={changeNavStatus}></NavComponent>
-                        <WaypointComponent waypoint={waypoint} extract={extractRessources}></WaypointComponent>
+                        <WaypointComponent waypoint={waypoint} market={market} nav={nav} extract={extractRessources} refuel={refuelShip}></WaypointComponent>
                     </div >
                 ) : (
                     <div className="dashboard__content loading">

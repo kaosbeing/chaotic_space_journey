@@ -4,17 +4,13 @@ import typeIcon from "../../assets/icons/waypoint_type.svg";
 import locationIcon from "../../assets/icons/location.svg";
 import "./waypoint.css";
 import { useParams } from "react-router-dom";
+import { Market } from "../../Models/MarketInterface";
+import { Nav } from "../../Models/ShipInterface";
 
-const WaypointInfo = ({ waypoint, extract }: { waypoint: WaypointData | null, extract: (shipSymbol: string) => void }) => {
+const WaypointInfo = ({ nav, waypoint, market, extract, refuel }: { nav: Nav | null, waypoint: WaypointData | null, market: Market | null, extract: (shipSymbol: string) => void, refuel: (shipSymbol: string) => void }) => {
     const { shipSymbol } = useParams();
-
-    const renderExcavateButton = () => {
-        if (waypoint?.type == "ASTEROID" || waypoint?.type == "ENGINEERED_ASTEROID" || waypoint?.type == "ASTEROID_FIELD") {
-            return (
-                <button onClick={() => { if (shipSymbol) { extract(shipSymbol) } }} className="waypointInfo__excavate">Excavate</button>
-            )
-        }
-    }
+    const canExcavate = (waypoint?.type == "ASTEROID" || waypoint?.type == "ENGINEERED_ASTEROID" || waypoint?.type == "ASTEROID_FIELD") && nav?.status == "IN_ORBIT";
+    const canRefuel = market?.tradeGoods?.some((tradeGood) => tradeGood.symbol == "FUEL") && nav?.status == "DOCKED";
 
     return (
         <div className="waypointInfo">
@@ -39,7 +35,10 @@ const WaypointInfo = ({ waypoint, extract }: { waypoint: WaypointData | null, ex
                     )))
                 }
             </div>
-            {renderExcavateButton()}
+            <div className="waypointInfo__actions">
+                <button onClick={() => { if (shipSymbol) { refuel(shipSymbol) } }} className={canRefuel ? "waypointInfo__refuel" : "waypointInfo__refuel waypointInfo__refuel--disabled"} disabled={!canRefuel}>Refuel</button>
+                <button onClick={() => { if (shipSymbol) { extract(shipSymbol) } }} className={canExcavate ? "waypointInfo__excavate" : "waypointInfo__excavate waypointInfo__excavate--disabled"} disabled={!canExcavate}>Excavate</button>
+            </div>
         </div>
     )
 }
