@@ -98,8 +98,8 @@ const Nav = ({ nav, changeFlightMode, changeNavStatus }: { nav: NavData | null, 
                 </div>
                 {renderTransitInfos()}
                 <div className="nav_status">
-                    <button onClick={() => { if (shipSymbol) { changeNavStatus("DOCK", shipSymbol) } }} className={nav?.status == "DOCKED" ? "nav__changeStatus nav__changeStatus--dock nav__changeStatus--active" : "nav__changeStatus nav__changeStatus--dock"}>{nav?.status == "DOCKED" ? "Docked" : "Dock"}</button>
-                    <button onClick={() => { if (shipSymbol) { changeNavStatus("ORBIT", shipSymbol) } }} className={nav?.status == "IN_ORBIT" ? "nav__changeStatus nav__changeStatus--orbit nav__changeStatus--active" : "nav__changeStatus nav__changeStatus--orbit"}>{nav?.status == "IN_ORBIT" ? "In orbit" : "Orbit"}</button>
+                    <button onClick={() => { if (shipSymbol) { changeNavStatus("DOCK", shipSymbol) } }} className={nav?.status == "DOCKED" ? "nav__changeStatus nav__changeStatus--dock nav__changeStatus--active" : "nav__changeStatus nav__changeStatus--dock"} disabled={nav?.status == "DOCKED"}>{nav?.status == "DOCKED" ? "Docked" : "Dock"}</button>
+                    <button onClick={() => { if (shipSymbol) { changeNavStatus("ORBIT", shipSymbol) } }} className={nav?.status == "IN_ORBIT" ? "nav__changeStatus nav__changeStatus--orbit nav__changeStatus--active" : "nav__changeStatus nav__changeStatus--orbit"} disabled={nav?.status == "IN_ORBIT"}>{nav?.status == "IN_ORBIT" ? "In orbit" : "Orbit"}</button>
                 </div>
                 <div className="nav__patch">
                     <button onClick={() => { changeFlightMode("CRUISE") }} className={nav?.flightMode == "CRUISE" ? "nav__cruise nav__cruise--active" : "nav__cruise"} disabled={nav?.flightMode == "CRUISE"}>
