@@ -3,6 +3,7 @@ import { Waypoint } from "./Models/WaypointInterface";
 import { Agent } from "./Models/AgentInterface";
 import { Market } from "./Models/MarketInterface";
 import { Extract } from "./Models/ExtractInterface";
+import { Refuel } from "./Models/RefuelInterface";
 
 class SpaceTraders {
     static token = localStorage.getItem("agent-token");
@@ -150,6 +151,28 @@ class SpaceTraders {
             const data = await response.json();
             console.log("Extracting RESSOURCES");
 
+            return data.data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    static async postRefuel(shipSymbol: string): Promise<Refuel> {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${SpaceTraders.token}`
+            },
+            body: undefined
+        };
+
+        try {
+            const response = await fetch(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/refuel`, options);
+            const data = await response.json();
+            console.log(data);
             return data.data;
         } catch (error) {
             console.error(error);
