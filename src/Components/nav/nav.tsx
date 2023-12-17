@@ -20,8 +20,10 @@ import burnIcon from "../../assets/icons/burn.svg";
 import burnIconMuted from "../../assets/icons/burn_muted.svg";
 import stealthIcon from "../../assets/icons/stealth.svg";
 import stealthIconMuted from "../../assets/icons/stealth_muted.svg";
+import { useParams } from "react-router-dom";
 
-const Nav = ({ nav, changeFlightMode }: { nav: NavData | null, changeFlightMode: (flightMode: string) => void }) => {
+const Nav = ({ nav, changeFlightMode, changeNavStatus }: { nav: NavData | null, changeFlightMode: (flightMode: string) => void, changeNavStatus: (action: string, shipSymbol: string) => void }) => {
+    const { shipSymbol } = useParams();
     const [timeUntilArrival, setTimeUntilArrival] = useState<number>(0);
     const [flightProgress, setFlightProgress] = useState<number>(0);
 
@@ -40,20 +42,22 @@ const Nav = ({ nav, changeFlightMode }: { nav: NavData | null, changeFlightMode:
                     setFlightProgress(flightProgress);
 
                     if (timeUntilArrival <= 0) {
-
                         clearInterval(interval);
                     }
                 }, 1000);
 
-                return (
-                    <div className='nav__travelStatus'>
-                        <div className="nav__transitInfos">
-                            <span className='nav__timer'>{timeUntilArrival}s</span>
-                            <span className='nav__arrivalTime'>{arrivalDate.toLocaleString("fr-FR").replace("/2023", "")}</span>
+                if (timeUntilArrival <= 0) {
+                    return (
+
+                        <div className='nav__travelStatus'>
+                            <div className="nav__transitInfos">
+                                <span className='nav__timer'>{timeUntilArrival}s</span>
+                                <span className='nav__arrivalTime'>{arrivalDate.toLocaleString("fr-FR").replace("/2023", "")}</span>
+                            </div>
+                            <ProgressBar max={100} value={flightProgress} color="var(--confirm)" ></ProgressBar>
                         </div>
-                        <ProgressBar max={100} value={flightProgress} color="var(--confirm)" ></ProgressBar>
-                    </div>
-                )
+                    )
+                }
             }
         }
     }
@@ -76,8 +80,11 @@ const Nav = ({ nav, changeFlightMode }: { nav: NavData | null, changeFlightMode:
         <div className="nav">
             <div className="nav__content">
                 <div className="nav__header">
-                    <img className="nav__icon" src={navIcon} alt="" />
-                    <h3 className="nav__title">Nav</h3>
+                    <div className="nav__titleWrapper">
+                        <img className="nav__icon" src={navIcon} alt="" />
+                        <h3 className="nav__title">Nav</h3>
+                    </div>
+                    {renderStatusIcon()}
                 </div>
                 <div className="nav__location">
                     <div className="nav__systemWrapper">
@@ -90,22 +97,25 @@ const Nav = ({ nav, changeFlightMode }: { nav: NavData | null, changeFlightMode:
                     </div>
                 </div>
                 {renderTransitInfos()}
+                <div className="nav_status">
+                    <button onClick={() => { if (shipSymbol) { changeNavStatus("DOCK", shipSymbol) } }} className={nav?.status == "DOCKED" ? "nav__changeStatus nav__changeStatus--dock nav__changeStatus--active" : "nav__changeStatus nav__changeStatus--dock"}>{nav?.status == "DOCKED" ? "Docked" : "Dock"}</button>
+                    <button onClick={() => { if (shipSymbol) { changeNavStatus("ORBIT", shipSymbol) } }} className={nav?.status == "IN_ORBIT" ? "nav__changeStatus nav__changeStatus--orbit nav__changeStatus--active" : "nav__changeStatus nav__changeStatus--orbit"}>{nav?.status == "IN_ORBIT" ? "In orbit" : "Orbit"}</button>
+                </div>
                 <div className="nav__patch">
-                    <button onClick={() => { changeFlightMode("CRUISE") }} className={nav?.flightMode == "CRUISE" ? "nav__cruise nav__cruise--active" : "nav__cruise"}>
+                    <button onClick={() => { changeFlightMode("CRUISE") }} className={nav?.flightMode == "CRUISE" ? "nav__cruise nav__cruise--active" : "nav__cruise"} disabled={nav?.flightMode == "CRUISE"}>
                         <img className="nav__cruiseIcon" src={nav?.flightMode == "CRUISE" ? cruiseIcon : cruiseIconMuted} />
                     </button>
-                    <button onClick={() => { changeFlightMode("DRIFT") }} className={nav?.flightMode == "DRIFT" ? "nav__drift nav__drift--active" : "nav__drift"}>
+                    <button onClick={() => { changeFlightMode("DRIFT") }} className={nav?.flightMode == "DRIFT" ? "nav__drift nav__drift--active" : "nav__drift"} disabled={nav?.flightMode == "DRIFT"}>
                         <img className="nav__driftIcon" src={nav?.flightMode == "DRIFT" ? driftIcon : driftIconMuted} />
                     </button>
-                    <button onClick={() => { changeFlightMode("BURN") }} className={nav?.flightMode == "BURN" ? "nav__burn nav__burn--active" : "nav__burn"}>
+                    <button onClick={() => { changeFlightMode("BURN") }} className={nav?.flightMode == "BURN" ? "nav__burn nav__burn--active" : "nav__burn"} disabled={nav?.flightMode == "BURN"}>
                         <img className="nav__burnIcon" src={nav?.flightMode == "BURN" ? burnIcon : burnIconMuted} />
                     </button>
-                    <button onClick={() => { changeFlightMode("STEALTH") }} className={nav?.flightMode == "STEALTH" ? "nav__stealth nav__stealth--active" : "nav__stealth"}>
+                    <button onClick={() => { changeFlightMode("STEALTH") }} className={nav?.flightMode == "STEALTH" ? "nav__stealth nav__stealth--active" : "nav__stealth"} disabled={nav?.flightMode == "STEALTH"}>
                         <img className="nav__stealthIcon" src={nav?.flightMode == "STEALTH" ? stealthIcon : stealthIconMuted} />
                     </button>
                 </div>
             </div>
-            {renderStatusIcon()}
         </div>
     );
 }

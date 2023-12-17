@@ -17,6 +17,13 @@
 }
 
 .nav__header {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav__titleWrapper {
     display: flex;
     align-items: center;
     gap: 0.25rem;
@@ -78,6 +85,42 @@
     outline: none;
 }
 
+.nav_status {
+    display: flex;
+    align-self: stretch;
+}
+
+.nav__changeStatus {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    font-size: 1rem;
+    padding: 0.75rem;
+    border: none;
+    outline: none;
+    background-color: var(--bg);
+    color: var(--bg-3);
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.nav__changeStatus--dock {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.nav__changeStatus--orbit {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.nav__changeStatus--active {
+    color: var(--accent-2);
+    background-color: var(--bg-3);
+}
+
 .nav__patch {
     display: flex;
 }
@@ -95,6 +138,7 @@
     outline: none;
     border: none;
     cursor: pointer;
+    transition: 300ms;
 }
 
 .nav__cruise--active,
@@ -110,6 +154,22 @@
 
 .nav__stealth {
     border-radius: 0rem 0.25rem 0.25rem 0rem;
+}
+
+.nav__cruise:hover,
+.nav__drift:hover,
+.nav__burn:hover,
+.nav__stealth:hover,
+.nav__changeStatus:hover {
+    background-color: var(--bg-0);
+}
+
+.nav__cruise--active:hover,
+.nav__drift--active:hover,
+.nav__burn--active:hover,
+.nav__stealth--active:hover,
+.nav__changeStatus--active:hover {
+    background-color: var(--bg-3);
 }
 
 .nav__cruiseIcon {}

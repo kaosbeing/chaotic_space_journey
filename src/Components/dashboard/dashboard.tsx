@@ -57,12 +57,20 @@ const Dashboard = () => {
     }
 
     const extractRessources = async (shipSymbol: string) => {
-        if (shipSymbol) {
-            let response = await SpaceTraders.postExtract(shipSymbol);
-            setCargo(response.cargo);
-            setCooldown(response.cooldown);
+        let response = await SpaceTraders.postExtract(shipSymbol);
+        setCargo(response.cargo);
+        setCooldown(response.cooldown);
 
-            // result of extraction : response.extraction (a mettre dans une notif plus tard)
+        // result of extraction : response.extraction (a mettre dans une notif plus tard)
+    }
+
+    const changeNavStatus = async (action: string, shipSymbol: string) => {
+        if (action === "DOCK") {
+            let response = await SpaceTraders.postDock(shipSymbol);
+            setNav(response);
+        } else if (action === "ORBIT") {
+            let response = await SpaceTraders.postOrbit(shipSymbol);
+            setNav(response)
         }
     }
 
@@ -76,7 +84,7 @@ const Dashboard = () => {
                 ship && waypoint ? (
                     <div className="dashboard__content">
                         <ShipOverview symbol={ship.symbol} cargo={cargo} cooldown={cooldown} fuel={fuel} frame={ship.frame}></ShipOverview>
-                        <NavComponent nav={nav} changeFlightMode={changeFlightMode}></NavComponent>
+                        <NavComponent nav={nav} changeFlightMode={changeFlightMode} changeNavStatus={changeNavStatus}></NavComponent>
                         <WaypointComponent waypoint={waypoint} extract={extractRessources}></WaypointComponent>
                     </div >
                 ) : (

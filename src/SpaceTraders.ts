@@ -156,6 +156,52 @@ class SpaceTraders {
             throw error;
         }
     }
+
+    static async postOrbit(shipSymbol: string): Promise<Nav> {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${SpaceTraders.token}`
+            },
+            body: ""
+        };
+
+        try {
+            const response = await fetch(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/orbit`, options);
+            const data = await response.json();
+            console.log("ORBITTING");
+
+            return data.data.nav;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    static async postDock(shipSymbol: string): Promise<Nav> {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${SpaceTraders.token}`
+            },
+            body: ""
+        };
+
+        try {
+            const response = await fetch(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/dock`, options);
+            const data = await response.json();
+            console.log("DOCKING");
+
+            return data.data.nav;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
 }
 
 export default SpaceTraders;
