@@ -15,8 +15,10 @@ const ShipOverview = ({ symbol, frame, cargo, fuel, cooldown }: { symbol: string
     const [timer, setTimer] = useState(cooldown?.remainingSeconds || 0);
 
     useEffect(() => {
-        if (cooldown) {
-            setTimer(cooldown.remainingSeconds);
+        if (cooldown && cooldown.expiration) {
+            setTimer(Math.round((new Date(cooldown.expiration).getTime() - Date.now()) / 1000));
+        } else {
+            setTimer(0);
         }
     }, [cooldown])
 
