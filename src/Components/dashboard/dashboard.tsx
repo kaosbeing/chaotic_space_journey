@@ -10,7 +10,7 @@ import CargoComponent from "../cargo/cargo";
 
 import "./dashboard.css";
 import "../../assets/css/loader.css"
-import { Cargo, Cooldown, Fuel, Nav, ShipData } from "../../Models/ShipInterface";
+import { Cargo, Cooldown, Fuel, Nav, Ship } from "../../Models/ShipInterface";
 import { Waypoint as WaypointData } from "../../Models/WaypointInterface";
 import refreshIcon from "../../assets/icons/refresh.svg";
 import { Market } from "../../Models/MarketInterface";
@@ -18,7 +18,7 @@ import { Market } from "../../Models/MarketInterface";
 const Dashboard = () => {
     const { shipSymbol } = useParams();
 
-    const [ship, setShip] = useState<ShipData | null>(null)
+    const [ship, setShip] = useState<Ship | null>(null)
     const [waypoint, setWaypoint] = useState<WaypointData | null>(null)
     const [market, setMarket] = useState<Market | null>(null);
 

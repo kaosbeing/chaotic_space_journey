@@ -1,13 +1,4 @@
-export interface FleetData {
-    data: ShipData[],
-    meta: {
-        total: number,
-        page: number,
-        limit: number
-    }
-}
-
-export interface ShipData {
+export interface Ship {
     symbol: string;
     nav: Nav;
     crew: Crew;

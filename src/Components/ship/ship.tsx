@@ -1,6 +1,6 @@
 import './ship.css';
 import { useEffect, useState } from 'react';
-import { ShipData } from '../../Models/ShipInterface';
+import { Ship as ShipData } from '../../Models/ShipInterface';
 import { Link } from 'react-router-dom';
 import ProgressBar from '../progressBar/progressBar';
 
