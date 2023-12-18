@@ -6,7 +6,7 @@ import Sidebar from './Components/sidebar/sidebar';
 import { Outlet } from 'react-router-dom';
 
 /* Interfaces */
-import { FleetData } from './Models/ShipInterface';
+import { Ship } from './Models/ShipInterface';
 import { Agent } from './Models/AgentInterface';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
 	}
 
 	const [userData, setUserData] = useState<Agent | null>(null);
-	const [fleetData, setFleetData] = useState<FleetData | null>(null);
+	const [fleetData, setFleetData] = useState<Ship[] | null>(null);
 
 	useEffect(() => {
 		const fetchData = async () => {

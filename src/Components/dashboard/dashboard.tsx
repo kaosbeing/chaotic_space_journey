@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SpaceTraders from "../../SpaceTraders";
-import CooldownComponent from "../cooldown/cooldown";
 import NavComponent from "../nav/nav";
-import FuelComponent from "../fuel/fuel";
 import WaypointComponent from "../waypoint/waypoint";
 import ShipOverview from "../shipOverview/shipOverview";
 import CargoComponent from "../cargo/cargo";

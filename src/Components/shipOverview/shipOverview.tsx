@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Cargo, Cooldown, Frame, Fuel, Ship } from "../../Models/ShipInterface";
+import { Cargo, Cooldown, Frame, Fuel } from "../../Models/ShipInterface";
 import ProgressBar from "../progressBar/progressBar";
 import "./shipOverview.css";
 
