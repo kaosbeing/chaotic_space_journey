@@ -20,13 +20,13 @@ const ShipOverview = ({ symbol, frame, cargo, fuel, cooldown }: { symbol: string
         } else {
             setTimer(0);
         }
-    }, [cooldown])
 
-    useEffect(() => {
         let intervalId: NodeJS.Timeout;
 
         if (timer > 0) {
             intervalId = setInterval(() => {
+                console.log("tick");
+
                 setTimer((time) => time > 0 ? time - 1 : 0);
             }, 1000);
         }
@@ -34,7 +34,7 @@ const ShipOverview = ({ symbol, frame, cargo, fuel, cooldown }: { symbol: string
         return () => {
             clearInterval(intervalId)
         };
-    }, []);
+    }, [cooldown, timer]);
 
     return (
         <>

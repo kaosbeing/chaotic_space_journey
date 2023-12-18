@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import SpaceTraders from "../../SpaceTraders";
 import CooldownComponent from "../cooldown/cooldown";
 import NavComponent from "../nav/nav";
 import FuelComponent from "../fuel/fuel";
 import WaypointComponent from "../waypoint/waypoint";
 import ShipOverview from "../shipOverview/shipOverview";
+import CargoComponent from "../cargo/cargo";
 
 import "./dashboard.css";
 import "../../assets/css/loader.css"
 import { Cargo, Cooldown, Fuel, Nav, ShipData } from "../../Models/ShipInterface";
 import { Waypoint as WaypointData } from "../../Models/WaypointInterface";
-import SpaceTraders from "../../SpaceTraders";
 import refreshIcon from "../../assets/icons/refresh.svg";
 import { Market } from "../../Models/MarketInterface";
 
@@ -97,6 +98,7 @@ const Dashboard = () => {
             {
                 ship && waypoint ? (
                     <div className="dashboard__content">
+                        <CargoComponent cargo={cargo}></CargoComponent>
                         <ShipOverview symbol={ship.symbol} cargo={cargo} cooldown={cooldown} fuel={fuel} frame={ship.frame}></ShipOverview>
                         <NavComponent nav={nav} changeFlightMode={changeFlightMode} changeNavStatus={changeNavStatus}></NavComponent>
                         <WaypointComponent waypoint={waypoint} market={market} nav={nav} extract={extractRessources} refuel={refuelShip}></WaypointComponent>
