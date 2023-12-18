@@ -11,7 +11,7 @@ const Cargo = ({ cargo }: { cargo: CargoModel | null }) => {
             </div>
             <div className="cargo__content">
                 {cargo?.inventory.map((item: ItemModel) => (
-                    <div className="cargo__item">
+                    <div key={item.symbol} className="cargo__item">
                         <span className="cargo__itemName">{item.name}</span>
                         <span className="cargo__itemUnits">x{item.units}</span>
                     </div>
