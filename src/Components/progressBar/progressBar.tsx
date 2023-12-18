@@ -10,7 +10,7 @@ const ProgressBar = ({ color, value, max }: { color: string, value: number, max:
     }
 
     useEffect(() => {
-        max != 0 ? setProgress(value / max * 100) : setProgress(100);
+        max != 0 ? setProgress(value / max * 100) : setProgress(0);
     }, [value, max])
 
     return (
