@@ -27,14 +27,16 @@ const Dashboard = () => {
     const [cooldown, setCooldown] = useState<Cooldown | null>(null);
     const [fuel, setFuel] = useState<Fuel | null>(null);
 
-    const fetchData = async () => {
+    const fetchShip = async () => {
         setShip(await SpaceTraders.getShip(shipSymbol))
     }
 
+    // Fetch ship on load
     useEffect(() => {
-        fetchData();
+        fetchShip();
     }, [])
 
+    // Once ship is fetched, fetch ship
     useEffect(() => {
         if (ship) {
             const fetchWaypoint = async () => {
@@ -49,6 +51,7 @@ const Dashboard = () => {
         }
     }, [ship])
 
+    // If ship is at waypoint with marketplace, fetch market
     useEffect(() => {
         if (waypoint && ship && waypoint.traits.some((trait) => trait.symbol == "MARKETPLACE")) {
             const fetchMarket = async () => {
@@ -58,6 +61,37 @@ const Dashboard = () => {
             fetchMarket();
         }
     }, [waypoint])
+
+    useEffect(() => {
+        let data = {
+            waypoint: waypoint,
+            market: market,
+            cargo: cargo,
+            nav: nav,
+            cooldown: cooldown,
+            fuel: fuel
+        }
+
+        if (shipSymbol) {
+            localStorage.setItem(shipSymbol, JSON.stringify(data));
+        }
+    }, [waypoint, market, cargo, nav, cooldown, fuel])
+
+    useEffect(() => {
+        if (shipSymbol && localStorage.getItem(shipSymbol)) {
+            let localData = localStorage.getItem(shipSymbol);
+            if (localData) {
+                let shipData = JSON.parse(localData);
+
+                setNav(shipData.nav);
+                setCooldown(shipData.cooldown);
+                setFuel(shipData.fuel);
+                setCargo(shipData.cargo);
+                setWaypoint(shipData.waypoint);
+                setMarket(shipData.market);
+            }
+        }
+    }, [shipSymbol])
 
     const changeFlightMode = async (flightMode: string) => {
         if (shipSymbol) {
@@ -93,15 +127,15 @@ const Dashboard = () => {
         <div className="dashboard">
             <header className="dashboard__header">
                 <h2 className="dashboard__title">Dashboard</h2>
-                <button onClick={fetchData} className="dashboard__refresh"><img src={refreshIcon} alt="" /></button>
+                <button onClick={fetchShip} className="dashboard__refresh"><img src={refreshIcon} alt="" /></button>
             </header>
             {
                 ship && waypoint ? (
                     <div className="dashboard__content">
-                        <CargoComponent cargo={cargo}></CargoComponent>
                         <ShipOverview symbol={ship.symbol} cargo={cargo} cooldown={cooldown} fuel={fuel} frame={ship.frame}></ShipOverview>
                         <NavComponent nav={nav} changeFlightMode={changeFlightMode} changeNavStatus={changeNavStatus}></NavComponent>
                         <WaypointComponent waypoint={waypoint} market={market} nav={nav} extract={extractRessources} refuel={refuelShip}></WaypointComponent>
+                        <CargoComponent cargo={cargo}></CargoComponent>
                     </div >
                 ) : (
                     <div className="dashboard__content loading">
