@@ -10,8 +10,8 @@ import "./dashboard.css";
 import "../../assets/css/loader.css"
 import { Cargo, Cooldown, Fuel, Nav, Ship } from "../../Models/ShipInterface";
 import { Waypoint as WaypointData } from "../../Models/WaypointInterface";
-import refreshIcon from "../../assets/icons/refresh.svg";
 import { Market } from "../../Models/MarketInterface";
+import refreshIcon from "../../assets/icons/refresh.svg";
 
 const Dashboard = () => {
     const { shipSymbol } = useParams();
