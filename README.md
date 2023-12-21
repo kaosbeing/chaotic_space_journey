@@ -7,7 +7,7 @@ Let's just say it goes from here..
 -   [x] Display user infos
 -   [x] Display fleet overview
 -   [ ] Display ship details
-    -   [ ] Display cargo
+    -   [x] Display cargo
     -   [x] Display fuel
     -   [x] Display cooldown
     -   [x] Display nav status
