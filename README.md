@@ -16,7 +16,7 @@ Let's just say it goes from here..
     -   [x] Dock/Orbit
     -   [x] Display location
 -   [x] Excavate from Asteroid
--   [ ] Refuel
+-   [x] Refuel
 -   [ ] Navigate ship
 -   [ ] Display market details
     -   [ ] Purchase stuff

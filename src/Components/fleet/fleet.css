@@ -1,11 +1,14 @@
 .fleet {
     height: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
     padding: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--bg-2) var(--bg-0);
+
 }
 
 .fleet__title {
