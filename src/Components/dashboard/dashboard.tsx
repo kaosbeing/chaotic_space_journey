@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SpaceTraders from "../../SpaceTraders";
 import NavComponent from "../nav/nav";
-import WaypointComponent from "../waypoint/waypoint";
+import WaypointComponent from "../location/location";
 import ShipOverview from "../shipOverview/shipOverview";
 import CargoComponent from "../cargo/cargo";
 

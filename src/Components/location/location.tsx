@@ -2,12 +2,12 @@ import { Waypoint as WaypointData, Trait as TraitData } from "../../Models/Waypo
 import infoIcon from "../../assets/icons/info.svg";
 import typeIcon from "../../assets/icons/waypoint_type.svg";
 import locationIcon from "../../assets/icons/location.svg";
-import "./waypoint.css";
+import "./location.css";
 import { useParams } from "react-router-dom";
 import { Market } from "../../Models/MarketInterface";
 import { Nav } from "../../Models/ShipInterface";
 
-const WaypointInfo = ({ nav, waypoint, market, extract, refuel }: { nav: Nav | null, waypoint: WaypointData | null, market: Market | null, extract: (shipSymbol: string) => void, refuel: (shipSymbol: string) => void }) => {
+const Location = ({ nav, waypoint, market, extract, refuel }: { nav: Nav | null, waypoint: WaypointData | null, market: Market | null, extract: (shipSymbol: string) => void, refuel: (shipSymbol: string) => void }) => {
     const { shipSymbol } = useParams();
     const canExcavate = (waypoint?.type == "ASTEROID" || waypoint?.type == "ENGINEERED_ASTEROID" || waypoint?.type == "ASTEROID_FIELD") && nav?.status == "IN_ORBIT";
     const canRefuel = market?.tradeGoods?.some((tradeGood) => tradeGood.symbol == "FUEL") && nav?.status == "DOCKED";
@@ -16,7 +16,7 @@ const WaypointInfo = ({ nav, waypoint, market, extract, refuel }: { nav: Nav | n
         <div className="waypointInfo">
             <div className="waypointInfo__header">
                 <img className="waypointInfo__icon" src={infoIcon} />
-                <h3 className="waypointInfo__title">Waypoint Info</h3>
+                <h3 className="waypointInfo__title">Current location</h3>
             </div>
             <div className="waypointInfo__infos">
                 <div className="waypointInfo__waypointTypeWrapper">
@@ -43,4 +43,4 @@ const WaypointInfo = ({ nav, waypoint, market, extract, refuel }: { nav: Nav | n
     )
 }
 
-export default WaypointInfo;
+export default Location;

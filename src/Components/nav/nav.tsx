@@ -82,7 +82,7 @@ const Nav = ({ nav, changeFlightMode, changeNavStatus }: { nav: NavData | null, 
                 <div className="nav__header">
                     <div className="nav__titleWrapper">
                         <img className="nav__icon" src={navIcon} alt="" />
-                        <h3 className="nav__title">Nav</h3>
+                        <h3 className="nav__title">Ship Navigation</h3>
                     </div>
                     {renderStatusIcon()}
                 </div>

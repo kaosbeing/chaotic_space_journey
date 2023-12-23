@@ -7,7 +7,7 @@ Let's just say it goes from here..
 -   [x] Display user infos
 -   [x] Display fleet overview
 -   [ ] Display ship details
-    -   [ ] Display cargo
+    -   [x] Display cargo
     -   [x] Display fuel
     -   [x] Display cooldown
     -   [x] Display nav status
@@ -16,7 +16,7 @@ Let's just say it goes from here..
     -   [x] Dock/Orbit
     -   [x] Display location
 -   [x] Excavate from Asteroid
--   [ ] Refuel
+-   [x] Refuel
 -   [ ] Navigate ship
 -   [ ] Display market details
     -   [ ] Purchase stuff

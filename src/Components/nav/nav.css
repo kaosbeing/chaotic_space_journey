@@ -32,9 +32,10 @@
 .nav__icon {}
 
 .nav__title {
-    color: var(--accent);
+    color: var(--accent-2);
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 .nav__location {

@@ -3,7 +3,9 @@
     flex-direction: column;
     align-items: stretch;
     flex-grow: 1;
-    overflow: scroll;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--bg-2) var(--bg);
 }
 
 .dashboard__content {
