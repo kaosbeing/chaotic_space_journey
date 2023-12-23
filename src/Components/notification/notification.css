@@ -1,0 +1,37 @@
+.notification {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.notification__header {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.notification__icon {}
+
+.notification__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent-2);
+}
+
+.notification__title--SUCCESS {
+    color: var(--confirm);
+}
+
+.notification__title--ERROR {
+    color: var(--cancel);
+}
+
+.notification__title--WARNING {
+    color: var(--warning);
+}
+
+.notification__title--INFO {
+    color: var(--info);
+}
+
+.notification__message {}
