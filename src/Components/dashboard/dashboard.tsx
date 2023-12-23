@@ -26,7 +26,9 @@ const Dashboard = () => {
     const [fuel, setFuel] = useState<Fuel | null>(null);
 
     const fetchShip = async () => {
-        setShip(await SpaceTraders.getShip(shipSymbol))
+        if (shipSymbol) {
+            setShip(await SpaceTraders.getShip(shipSymbol))
+        }
     }
 
     // Fetch ship on load
@@ -60,6 +62,7 @@ const Dashboard = () => {
         }
     }, [waypoint])
 
+    // If anything changes, store it in localstorage
     useEffect(() => {
         let data = {
             waypoint: waypoint,
@@ -75,6 +78,7 @@ const Dashboard = () => {
         }
     }, [waypoint, market, cargo, nav, cooldown, fuel])
 
+    // Get all infos from localstorage if there is
     useEffect(() => {
         if (shipSymbol && localStorage.getItem(shipSymbol)) {
             let localData = localStorage.getItem(shipSymbol);

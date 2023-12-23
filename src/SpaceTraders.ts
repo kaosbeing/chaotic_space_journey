@@ -10,52 +10,62 @@ class SpaceTraders {
 
     static async getUser(): Promise<Agent> {
         console.log("Fetching AGENT");
-        return await SpaceTraders.get("https://api.spacetraders.io/v2/my/agent");
+        const response = await SpaceTraders.get("https://api.spacetraders.io/v2/my/agent");
+        return response.data;
     }
 
     static async getFleet(): Promise<Ship[]> {
         console.log("Fetching FLEET");
-        return await SpaceTraders.get("https://api.spacetraders.io/v2/my/ships");
+        const response = await SpaceTraders.get("https://api.spacetraders.io/v2/my/ships");
+        return response.data;
     }
 
-    static async getShip(shipSymbol: string | undefined): Promise<Ship> {
+    static async getShip(shipSymbol: string): Promise<Ship> {
         console.log("Fetching SHIP");
-        return await SpaceTraders.get(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}`);
+        const response = await SpaceTraders.get(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}`);
+        return response.data;
     }
 
-    static async getMarket(systemSymbol: string | undefined, waypointSymbol: string | undefined): Promise<Market> {
+    static async getMarket(systemSymbol: string, waypointSymbol: string): Promise<Market> {
         console.log("Fetching MARKET");
-        return await SpaceTraders.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}/market`);
+        const response = await SpaceTraders.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}/market`);
+        return response.data;
     }
 
-    static async getWaypoint(systemSymbol: string | undefined, waypointSymbol: string | undefined): Promise<Waypoint> {
+    static async getWaypoint(systemSymbol: string, waypointSymbol: string): Promise<Waypoint> {
         console.log("Fetching WAYPOINT");
-        return await SpaceTraders.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}`);
+        const response = await SpaceTraders.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}`);
+        return response.data;
     }
 
     static async patchNav(shipSymbol: string, flightMode: string): Promise<Nav> {
         console.log("Patching NAV");
-        return await SpaceTraders.patch(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/nav`, `{"flightMode":"${flightMode}"}`);
+        const response = await SpaceTraders.patch(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/nav`, `{"flightMode":"${flightMode}"}`);
+        return response.data;
     }
 
     static async postExtract(shipSymbol: string): Promise<Extract> {
         console.log("Extracting RESSOURCES");
-        return await SpaceTraders.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/extract`, "");
+        const response = await SpaceTraders.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/extract`, "");
+        return response.data;
     }
 
     static async postRefuel(shipSymbol: string): Promise<Refuel> {
         console.log("REFUELLING");
-        return await SpaceTraders.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/refuel`, "");
+        const response = await SpaceTraders.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/refuel`, "");
+        return response.data;
     }
 
     static async postOrbit(shipSymbol: string): Promise<Nav> {
         console.log("ORBITTING");
-        return await SpaceTraders.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/orbit`, "")
+        const response = await SpaceTraders.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/orbit`, "")
+        return response.data.nav;
     }
 
     static async postDock(shipSymbol: string): Promise<Nav> {
         console.log("DOCKING");
-        return await SpaceTraders.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/dock`, "");
+        const response = await SpaceTraders.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/dock`, "");
+        return response.data.nav;
     }
 
     static async get(url: string) {
@@ -70,11 +80,7 @@ class SpaceTraders {
         try {
             const response = await fetch(url, options);
             const data = await response.json();
-            if (data.data) {
-                return data.data;
-            } else {
-                return data.error;
-            }
+            return data;
         } catch (error) {
             console.error(error);
             throw error;
@@ -95,11 +101,7 @@ class SpaceTraders {
         try {
             const response = await fetch(url, options);
             const data = await response.json();
-            if (data.data) {
-                return data.data;
-            } else {
-                return data.error;
-            }
+            return data;
         } catch (error) {
             console.error(error);
             throw error;
@@ -120,12 +122,7 @@ class SpaceTraders {
         try {
             const response = await fetch(url, options);
             const data = await response.json();
-
-            if (data.data) {
-                return data.data;
-            } else {
-                return data.error;
-            }
+            return data;
         } catch (error) {
             console.error(error);
             throw error;
