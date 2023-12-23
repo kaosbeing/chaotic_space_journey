@@ -38,6 +38,24 @@ class SpaceTraders {
         return response.data;
     }
 
+    static async listWaypoints(systemSymbol: string, criterias?: { limit?: number, page?: number, type?: string, traits?: string }) {
+        console.log("Fetching WAYPOINT LIST");
+        let modifiers = "";
+
+        if (criterias) {
+            modifiers = "?";
+            criterias.limit ? modifiers += `limit=${criterias.limit}&` : "";
+            criterias.page ? modifiers += `page=${criterias.page}&` : "";
+            criterias.type ? modifiers += `type=${criterias.type}&` : "";
+            criterias.traits ? modifiers += `traits=${criterias.traits}&` : "";
+        }
+
+        let url = `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints${modifiers}`;
+        const response = await SpaceTraders.get(url);
+        return response;
+
+    }
+
     static async patchNav(shipSymbol: string, flightMode: string): Promise<Nav> {
         console.log("Patching NAV");
         const response = await SpaceTraders.patch(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/nav`, `{"flightMode":"${flightMode}"}`);
