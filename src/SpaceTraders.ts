@@ -86,6 +86,12 @@ class SpaceTraders {
         return response.data.nav;
     }
 
+    static async postNavigate(shipSymbol: string, waypointSymbol: string) {
+        console.log("NAVIGATING");
+        const response = await SpaceTraders.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/navigate`, `{"waypointSymbol": "${waypointSymbol}"}`);
+        return response.data;
+    }
+
     static async get(url: string) {
         const options = {
             method: 'GET',
