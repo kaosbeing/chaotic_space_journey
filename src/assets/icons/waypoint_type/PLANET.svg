@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="PLANET" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24"
+  width="24">
+  <defs>
+    <style>
+      .cls-1 {
+      fill: none;
+      stroke: #b6b5d1;
+      stroke-miterlimit: 10;
+      stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="12" cy="12" r="9.5" />
+  <polyline class="cls-1" points="5 6 8.77 6.75 11 10 14 6 13 3" />
+  <polyline class="cls-1" points="2.62 13.51 7 14 11 19 9 21" />
+  <polyline class="cls-1" points="21 9 18 13 15 14 17.32 20" />
+</svg>

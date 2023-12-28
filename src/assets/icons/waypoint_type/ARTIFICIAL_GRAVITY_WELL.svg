@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="ARTIFICIAL_GRAVITY_WELL" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24"
+  width="24">
+  <defs>
+    <style>
+      .cls-1 {
+      fill: none;
+      stroke: #b6b5d1;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <path class="cls-1"
+    d="m8.87,10.39c0-1.28,1.4-2.58,3.13-2.58s3.13,1.39,3.13,2.58c0,0,2.82.11,2.81.02l2.05-1.55-2.19-3.78-2.36.99c-.15-.11-.29-.21-.45-.3-.15-.09-.31-.17-.49-.24l-.32-2.54h-4.37l-.32,2.54c-.16.07-.32.15-.48.24-.16.09-.31.19-.46.3l-2.36-.99-2.19,3.78,2.05,1.55,2.81-.02Z" />
+  <circle class="cls-1" cx="12" cy="15.5" r="3" />
+  <path class="cls-1" d="m21.66,13.5h-3.65v2c0,3.31-2.69,6-6,6h0c-3.31,0-6-2.69-6-6v-2h-3.67" />
+</svg>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="MOON" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24"
+  width="24">
+  <defs>
+    <style>
+      .cls-1 {
+      fill: none;
+      }
+
+      .cls-1, .cls-2 {
+      stroke: #b6b5d1;
+      stroke-miterlimit: 10;
+      stroke-width: 2px;
+      }
+
+      .cls-2 {
+      fill: #b6b5d1;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="12" cy="12" r="9.5" />
+  <ellipse class="cls-2" cx="9" cy="12" rx="5" ry="8.5" />
+</svg>

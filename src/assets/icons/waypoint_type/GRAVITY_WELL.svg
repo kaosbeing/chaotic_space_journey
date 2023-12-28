@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="GRAVITY_WELL" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24"
+  width="24">
+  <defs>
+    <style>
+      .cls-1 {
+      fill: none;
+      stroke: #b6b5d1;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="12" cy="13.5" r="3" />
+  <path class="cls-1" d="m21.65,8.5h-3.65v5c0,3.31-2.69,6-6,6h0c-3.31,0-6-2.69-6-6v-5h-3.67" />
+</svg>

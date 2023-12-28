@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="GAS_GIANT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24"
+  width="24">
+  <defs>
+    <style>
+      .cls-1 {
+      stroke-linecap: round;
+      }
+
+      .cls-1, .cls-2 {
+      fill: none;
+      stroke: #b6b5d1;
+      stroke-miterlimit: 10;
+      stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <circle class="cls-2" cx="12" cy="12" r="9.5" />
+  <circle class="cls-2" cx="12" cy="12" r=".5" />
+  <path class="cls-1" d="m15,10.8c.57-.2,1.18-.31,1.86-.29,1.58.04,3.12.79,4.64,2.25" />
+  <path class="cls-1" d="m2.6,11.35c1.52,1.46,2.97,2.11,4.54,2.15.68.02,1.29-.1,1.86-.29" />
+  <path class="cls-2" d="m19.57,18.5c-1.34-.97-2.69-1.47-4.07-1.5-3.62-.09-5.38,3.09-9,3" />
+  <path class="cls-2" d="m4.73,5.81c1.24.83,2.49,1.26,3.77,1.29,3.62.09,5.38-3.09,9-3" />
+</svg>

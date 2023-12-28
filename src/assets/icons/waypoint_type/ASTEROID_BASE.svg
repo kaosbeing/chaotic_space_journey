@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="ASTEROID_BASE" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24"
+  width="24">
+  <defs>
+    <style>
+      .cls-1 {
+      fill: #b6b5d1;
+      stroke-width: 0px;
+      }
+
+      .cls-2 {
+      fill: none;
+      stroke: #b6b5d1;
+      stroke-miterlimit: 10;
+      stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <g>
+    <path class="cls-2"
+      d="m19.8,17.21c-.62.62-2.26,3.63-3,4-1.56.79-5.5.85-7.18.55-1.55-.28-3.75-2.34-4.95-3.54-.78-.78-1.68-5.34-.65-6.37,1.67-1.67,5.24-1.17,7.42-1.06,1.91.1,4.78-.04,6.24,1.41,1.22,1.22,4.02,3.1,2.11,5.01Z" />
+    <circle class="cls-2" cx="6.8" cy="17.21" r="2" />
+    <circle class="cls-1" cx="13.92" cy="19.71" r="1.49" />
+    <circle class="cls-1" cx="12.8" cy="14.21" r="1" />
+    <path class="cls-2" d="m20.31,16.6c-.83.55-1.95.32-2.5-.51s-.32-1.95.51-2.5" />
+  </g>
+  <path class="cls-1" d="m10.88,10.36V2.07h4.69l.2.98h2.73v4.88h-3.41l-.2-.98h-2.73v3.41h-1.28Z" />
+</svg>
