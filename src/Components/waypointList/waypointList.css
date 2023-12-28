@@ -1,0 +1,86 @@
+.waypointList {
+    height: 30rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--bg-2);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.waypointList__header {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.waypointList__icon {}
+
+.waypointList__title {
+    font-size: 1.5rem;
+    color: var(--accent-2);
+    font-weight: 600;
+}
+
+.waypointList__options {
+    background-color: var(--bg);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.waypointList__list {
+    border-radius: 0.5rem;
+    overflow-y: scroll;
+}
+
+.listItem {
+    display: grid;
+    grid-template-columns: 3fr 1fr 4fr 1fr;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background-color: var(--bg-2-hover);
+}
+
+.listItem>div {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.listitem__distance,
+.listitem__traits {
+    justify-content: center;
+}
+
+.listItem:nth-child(odd) {
+    background-color: var(--bg);
+}
+
+.listitem__header {
+    vertical-align: middle;
+    align-self: stretch;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.listItem__trait {
+    display: inline-block;
+    padding: 0.25rem;
+    background-color: var(--bg-0);
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.listitem__go {
+    width: min-content;
+    padding: 0.5rem;
+    outline: none;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: var(--confirm-2);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+}
