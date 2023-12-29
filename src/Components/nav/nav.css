@@ -1,11 +1,11 @@
 .nav {
-    height: min-content;
     display: flex;
     align-items: flex-start;
     padding: 1rem;
     gap: 0.5rem;
     border-radius: 0.5rem;
     background-color: var(--bg-2);
+    grid-area: nav;
 }
 
 .nav__content {
@@ -123,6 +123,7 @@
 }
 
 .nav__patch {
+    align-self: stretch;
     display: flex;
 }
 
@@ -130,12 +131,14 @@
 .nav__drift,
 .nav__burn,
 .nav__stealth {
+    width: 100%;
     background: var(--bg);
-    display: flex;
     padding: 0.5rem 1.5rem;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-self: stretch;
     outline: none;
     border: none;
     cursor: pointer;

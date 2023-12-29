@@ -126,7 +126,6 @@ const Dashboard = () => {
         }
     }
 
-
     const navigate = async (waypointSymbol: string) => {
         if (shipSymbol) {
             const response = await SpaceTraders.postNavigate(shipSymbol, waypointSymbol)
@@ -144,8 +143,8 @@ const Dashboard = () => {
             {
                 ship && waypoint ? (
                     <div className="dashboard__content">
-                        <WaypointList systemSymbol={ship.nav.systemSymbol} currentWaypoint={waypoint} navigate={navigate} fuel={fuel} nav={nav}></WaypointList>
                         <ShipOverview symbol={ship.symbol} cargo={cargo} cooldown={cooldown} fuel={fuel} frame={ship.frame}></ShipOverview>
+                        <WaypointList systemSymbol={ship.nav.systemSymbol} currentWaypoint={waypoint} navigate={navigate} fuel={fuel} nav={nav}></WaypointList>
                         <NavComponent nav={nav} changeFlightMode={changeFlightMode} changeNavStatus={changeNavStatus}></NavComponent>
                         <LocationComponent waypoint={waypoint} market={market} nav={nav} extract={extractRessources} refuel={refuelShip}></LocationComponent>
                         <CargoComponent cargo={cargo}></CargoComponent>

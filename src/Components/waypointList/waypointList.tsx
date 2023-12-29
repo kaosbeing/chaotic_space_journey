@@ -66,7 +66,7 @@ const WaypointList = ({ systemSymbol, currentWaypoint, fuel, nav, navigate }: { 
                         <div key={waypoint.symbol} className="listItem">
                             <div className="listitem__header">
                                 <img src={("/src/assets/icons/waypoint_type/" + waypoint.type + ".svg")} alt={waypoint.type} />
-                                <span>{waypoint.symbol}</span>
+                                <span className="listitem__symbol">{waypoint.symbol}</span>
                             </div>
                             <div className="listitem__distance"><span>{Math.round(Math.sqrt(Math.pow(currentWaypoint.x - waypoint.x, 2) + Math.pow(currentWaypoint.y - waypoint.y, 2)))}</span></div>
                             <div className="listitem__traits">

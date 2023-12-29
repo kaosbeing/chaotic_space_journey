@@ -1,12 +1,11 @@
 .waypointInfo {
     display: flex;
     flex-direction: column;
-    height: min-content;
-    width: 400px;
     background-color: var(--bg-2);
     border-radius: 0.5rem;
     padding: 1rem;
     gap: 1rem;
+    grid-area: location;
 }
 
 .waypointInfo__header {
