@@ -12,6 +12,10 @@
     max-width: 100%;
     padding: 1rem 2rem;
     gap: 2rem;
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+    grid-template-areas: "ship controls" "ship controls" "nav location" "cargo cargo";
 }
 
 .dashboard__content.loading {
@@ -42,22 +46,4 @@
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
-}
-
-@media screen and (width > 1000px) {
-    .dashboard__content {
-        display: grid;
-        grid-auto-columns: 1fr;
-        grid-auto-rows: 1fr;
-        grid-template-areas: "ship nav controls" "ship location controls" "cargo cargo cargo";
-    }
-}
-
-@media screen and (width < 800px) {
-    .dashboard__content {
-        display: grid;
-        grid-auto-columns: 1fr;
-        grid-auto-rows: 1fr;
-        grid-template-areas: "ship controls" "ship controls" "nav location" "cargo cargo";
-    }
 }
