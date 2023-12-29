@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import ProgressBar from '../progressBar/progressBar';
 
 // Icons
-import dockedIcon from "../../assets/icons/docked.svg";
-import in_orbitIcon from "../../assets/icons/in_orbit.svg";
-import in_transitIcon from "../../assets/icons/in_transit.svg";
-import locationIcon from "../../assets/icons/location.svg";
+import dockedIcon from "/assets/icons/docked.svg";
+import in_orbitIcon from "/assets/icons/in_orbit.svg";
+import in_transitIcon from "/assets/icons/in_transit.svg";
+import locationIcon from "/assets/icons/location.svg";
 
 function Ship({ ship }: { ship: ShipData }) {
     const [shipData, setShipData] = useState<ShipData>(ship);

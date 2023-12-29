@@ -1,25 +1,25 @@
 import "./nav.css";
-import "../../assets/icons/nav.svg";
+import "/assets/icons/nav.svg";
 import ProgressBar from "../progressBar/progressBar";
 import { useState } from "react";
 import { Nav as NavData } from "../../Models/ShipInterface";
 
-import navIcon from "../../assets/icons/nav.svg";
-import systemIcon from "../../assets/icons/system.svg";
-import waypointIcon from "../../assets/icons/location.svg";
+import navIcon from "/assets/icons/nav.svg";
+import systemIcon from "/assets/icons/system.svg";
+import waypointIcon from "/assets/icons/location.svg";
 
-import dockedIcon from "../../assets/icons/docked.svg";
-import inOrbitIcon from "../../assets/icons/in_orbit.svg";
-import inTransitIcon from "../../assets/icons/in_transit.svg";
+import dockedIcon from "/assets/icons/docked.svg";
+import inOrbitIcon from "/assets/icons/in_orbit.svg";
+import inTransitIcon from "/assets/icons/in_transit.svg";
 
-import cruiseIcon from "../../assets/icons/cruise.svg";
-import cruiseIconMuted from "../../assets/icons/cruise_muted.svg";
-import driftIcon from "../../assets/icons/drift.svg";
-import driftIconMuted from "../../assets/icons/drift_muted.svg";
-import burnIcon from "../../assets/icons/burn.svg";
-import burnIconMuted from "../../assets/icons/burn_muted.svg";
-import stealthIcon from "../../assets/icons/stealth.svg";
-import stealthIconMuted from "../../assets/icons/stealth_muted.svg";
+import cruiseIcon from "/assets/icons/cruise.svg";
+import cruiseIconMuted from "/assets/icons/cruise_muted.svg";
+import driftIcon from "/assets/icons/drift.svg";
+import driftIconMuted from "/assets/icons/drift_muted.svg";
+import burnIcon from "/assets/icons/burn.svg";
+import burnIconMuted from "/assets/icons/burn_muted.svg";
+import stealthIcon from "/assets/icons/stealth.svg";
+import stealthIconMuted from "/assets/icons/stealth_muted.svg";
 import { useParams } from "react-router-dom";
 
 const Nav = ({ nav, changeFlightMode, changeNavStatus }: { nav: NavData | null, changeFlightMode: (flightMode: string) => void, changeNavStatus: (action: string, shipSymbol: string) => void }) => {

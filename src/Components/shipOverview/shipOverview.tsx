@@ -4,12 +4,12 @@ import ProgressBar from "../progressBar/progressBar";
 import "./shipOverview.css";
 
 // Icons
-import shipIcon from "../../assets/icons/ship.svg";
-import fuelIcon from "../../assets/icons/fuel.svg";
-import cargoIcon from "../../assets/icons/cargo.svg";
-import integrityIcon from "../../assets/icons/condition.svg";
-import shipImg from "../../assets/img/ships/interceptor.png";
-import cooldownIcon from "../../assets/icons/cooldown.svg";
+import shipIcon from "/assets/icons/ship.svg";
+import fuelIcon from "/assets/icons/fuel.svg";
+import cargoIcon from "/assets/icons/cargo.svg";
+import integrityIcon from "/assets/icons/condition.svg";
+import shipImg from "/assets/img/ships/interceptor.png";
+import cooldownIcon from "/assets/icons/cooldown.svg";
 
 const ShipOverview = ({ symbol, frame, cargo, fuel, cooldown }: { symbol: string, frame: Frame, cargo: Cargo | null, fuel: Fuel | null, cooldown: Cooldown | null }) => {
     const [timer, setTimer] = useState(cooldown?.remainingSeconds || 0);

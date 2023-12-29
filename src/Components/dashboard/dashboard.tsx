@@ -5,14 +5,14 @@ import NavComponent from "../nav/nav";
 import LocationComponent from "../location/location";
 import ShipOverview from "../shipOverview/shipOverview";
 import CargoComponent from "../cargo/cargo";
+import WaypointList from "../waypointList/waypointList";
 
 import "./dashboard.css";
-import "../../assets/css/loader.css"
+import "../../css/loader.css"
 import { Cargo, Cooldown, Fuel, Nav, Ship } from "../../Models/ShipInterface";
 import { Waypoint as WaypointData } from "../../Models/WaypointInterface";
 import { Market } from "../../Models/MarketInterface";
-import refreshIcon from "../../assets/icons/refresh.svg";
-import WaypointList from "../waypointList/waypointList";
+import refreshIcon from "/assets/icons/refresh.svg";
 
 const Dashboard = () => {
     const { shipSymbol } = useParams();

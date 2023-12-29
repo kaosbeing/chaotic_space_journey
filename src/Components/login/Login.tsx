@@ -1,6 +1,6 @@
-import "../../assets/css/main.css";
+import "../../css/main.css";
 import "./login.css"
-import logo from "../../assets/logo.svg"
+import logo from "/assets/logo.svg"
 import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../../Context/auth/AuthContext";
 

@@ -1,7 +1,7 @@
 import { Waypoint as WaypointData, Trait as TraitData } from "../../Models/WaypointInterface";
-import infoIcon from "../../assets/icons/info.svg";
-import typeIcon from "../../assets/icons/waypoint_type.svg";
-import locationIcon from "../../assets/icons/location.svg";
+import infoIcon from "/assets/icons/info.svg";
+import typeIcon from "/assets/icons/waypoint_type.svg";
+import locationIcon from "/assets/icons/location.svg";
 import "./location.css";
 import { useParams } from "react-router-dom";
 import { Market } from "../../Models/MarketInterface";

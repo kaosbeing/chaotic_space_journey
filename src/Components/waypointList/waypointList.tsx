@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./waypointList.css";
 import { Waypoint } from "../../Models/WaypointInterface";
 import SpaceTraders from "../../SpaceTraders";
-import waypointsIcon from "../../assets/icons/nav.svg";
+import waypointsIcon from "/assets/icons/nav.svg";
 import { Fuel, Nav } from "../../Models/ShipInterface";
 
 const WaypointList = ({ systemSymbol, currentWaypoint, fuel, nav, navigate }: { systemSymbol: string, currentWaypoint: Waypoint, fuel: Fuel | null, nav: Nav | null, navigate: (waypointSymbol: string) => void }) => {
@@ -65,7 +65,7 @@ const WaypointList = ({ systemSymbol, currentWaypoint, fuel, nav, navigate }: { 
                     {waypoints.map((waypoint: Waypoint) => (
                         <div key={waypoint.symbol} className="listItem">
                             <div className="listitem__header">
-                                <img src={("/src/assets/icons/waypoint_type/" + waypoint.type + ".svg")} alt={waypoint.type} />
+                                <img src={("/assets/icons/waypoint_type/" + waypoint.type + ".svg")} alt={waypoint.type} />
                                 <span className="listitem__symbol">{waypoint.symbol}</span>
                             </div>
                             <div className="listitem__distance"><span>{Math.round(Math.sqrt(Math.pow(currentWaypoint.x - waypoint.x, 2) + Math.pow(currentWaypoint.y - waypoint.y, 2)))}</span></div>
