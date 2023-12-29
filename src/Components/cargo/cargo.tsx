@@ -1,5 +1,5 @@
 import { Cargo as CargoModel, Item as ItemModel } from "../../Models/ShipInterface";
-import cargoIcon from "../../assets/icons/cargo.svg";
+import cargoIcon from "/assets/icons/cargo.svg";
 import "./cargo.css";
 
 const Cargo = ({ cargo }: { cargo: CargoModel | null }) => {

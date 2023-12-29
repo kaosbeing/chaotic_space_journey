@@ -1,4 +1,4 @@
-import "./assets/css/main.css";
+import "./css/main.css";
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import SpaceTraders from './SpaceTraders';
