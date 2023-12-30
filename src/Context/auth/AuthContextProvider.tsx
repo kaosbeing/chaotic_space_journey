@@ -38,8 +38,8 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     };
 
     function logout(): void {
-        localStorage.clear();
         setToken(null);
+        localStorage.removeItem("agent-token");
         SpaceTraders.token = null;
         navigate('/login');
     }
