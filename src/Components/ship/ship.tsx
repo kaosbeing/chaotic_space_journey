@@ -73,8 +73,7 @@ function Ship({ ship }: { ship: ShipData }) {
     return (
         <Link to={shipData.symbol} className='fleetItem'>
             <div className='fleetItem__header'>
-                <span className='fleetItem__symbol'>{shipData.symbol}</span>
-                <span className='fleetItem__frameName'>{shipData.frame.name}</span>
+                <span className='fleetItem__symbol'>{shipData.registration.role.charAt(0).toUpperCase() + shipData.registration.role.slice(1).toLowerCase()} {shipData.frame.name}</span>
                 {renderStatusIcon()}
             </div>
             <div className='fleetItem__location'>

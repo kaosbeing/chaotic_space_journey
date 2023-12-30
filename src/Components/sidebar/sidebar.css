@@ -1,10 +1,51 @@
 .sideBar {
     display: flex;
     flex-direction: column;
-
+    gap: 1.25rem;
+    padding: 1rem;
     background-color: var(--bg-0);
     height: 100vh;
     max-height: 100vh;
-    min-width: 400px;
     width: min-content;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hero__img {
+    height: 4rem;
+}
+
+.hero__title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    text-transform: uppercase;
+}
+
+.hero__title--main {
+    font-size: 1.25rem;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.hero__title--sub {
+    font-weight: 400;
+    color: var(--txt-muted);
+    letter-spacing: 0.25rem;
+}
+
+.logout {
+    padding: 0.5rem 1rem;
+    background-color: var(--cancel);
+    color: #fff;
+    outline: none;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
 }

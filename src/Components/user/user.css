@@ -2,7 +2,6 @@
     background-color: var(--bg-2);
     border-radius: 0.5rem;
     padding: 1rem;
-    margin: 1rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -11,24 +10,24 @@
 }
 
 .user__symbol {
-    color: var(--accent);
+    color: var(--accent-2);
     font-family: Inter;
-    font-size: 2rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+    font-size: 1.5rem;
+    font-weight: 500;
 }
 
 .user__infos {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 
+.user__credits,
 .user__headquarters,
 .user__faction,
 .user__shipCount {
-    font-weight: 600;
+    font-weight: 500;
+    white-space: nowrap;
 }
 
 .user__hqWrapper,
@@ -39,9 +38,3 @@
     align-items: center;
     gap: 4px;
 }
-
-.user__credits {
-    font-weight: 600;
-}
-
-.user__creditsIcon {}
