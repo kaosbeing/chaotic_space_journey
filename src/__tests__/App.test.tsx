@@ -22,7 +22,7 @@ describe('App Component', () => {
         const mockUser = { username: 'testUser' };
         const mockFleet = { shipCount: 1 };
 
-        (ApiHandler.getUser as jest.Mock).mockResolvedValueOnce(mockUser);
+        (ApiHandler.getAgent as jest.Mock).mockResolvedValueOnce(mockUser);
         (ApiHandler.getFleet as jest.Mock).mockResolvedValueOnce(mockFleet);
 
         await act(async () => {

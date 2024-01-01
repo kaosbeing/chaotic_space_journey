@@ -8,37 +8,37 @@ import { Refuel } from "./Models/RefuelInterface";
 class ApiHandler {
     static token = localStorage.getItem("agent-token");
 
-    static async getUser(): Promise<Agent> {
+    static async getAgent(token: string): Promise<Agent> {
         console.log("Fetching AGENT");
-        const response = await ApiHandler.get("https://api.spacetraders.io/v2/my/agent");
+        const response = await ApiHandler.get("https://api.spacetraders.io/v2/my/agent", token);
         return response.data;
     }
 
-    static async getFleet(): Promise<Ship[]> {
+    static async getFleet(token: string): Promise<Ship[]> {
         console.log("Fetching FLEET");
-        const response = await ApiHandler.get("https://api.spacetraders.io/v2/my/ships");
+        const response = await ApiHandler.get("https://api.spacetraders.io/v2/my/ships", token);
         return response.data;
     }
 
-    static async getShip(shipSymbol: string): Promise<Ship> {
+    static async getShip(shipSymbol: string, token: string): Promise<Ship> {
         console.log("Fetching SHIP");
-        const response = await ApiHandler.get(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}`);
+        const response = await ApiHandler.get(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}`, token);
         return response.data;
     }
 
-    static async getMarket(systemSymbol: string, waypointSymbol: string): Promise<Market> {
+    static async getMarket(systemSymbol: string, waypointSymbol: string, token: string): Promise<Market> {
         console.log("Fetching MARKET");
-        const response = await ApiHandler.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}/market`);
+        const response = await ApiHandler.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}/market`, token);
         return response.data;
     }
 
-    static async getWaypoint(systemSymbol: string, waypointSymbol: string): Promise<Waypoint> {
+    static async getWaypoint(systemSymbol: string, waypointSymbol: string, token: string): Promise<Waypoint> {
         console.log("Fetching WAYPOINT");
-        const response = await ApiHandler.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}`);
+        const response = await ApiHandler.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}`, token);
         return response.data;
     }
 
-    static async listWaypoints(systemSymbol: string, criterias?: { limit?: number, page?: number, type?: string, traits?: string }) {
+    static async listWaypoints(systemSymbol: string, token: string, criterias?: { limit?: number, page?: number, type?: string, traits?: string }) {
         console.log("Fetching WAYPOINT LIST");
         let modifiers = "";
 
@@ -51,53 +51,53 @@ class ApiHandler {
         }
 
         let url = `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints${modifiers}`;
-        const response = await ApiHandler.get(url);
+        const response = await ApiHandler.get(url, token);
         return response;
 
     }
 
-    static async patchNav(shipSymbol: string, flightMode: string): Promise<Nav> {
+    static async patchNav(shipSymbol: string, flightMode: string, token: string): Promise<Nav> {
         console.log("Patching NAV");
-        const response = await ApiHandler.patch(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/nav`, `{"flightMode":"${flightMode}"}`);
+        const response = await ApiHandler.patch(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/nav`, token, `{"flightMode":"${flightMode}"}`);
         return response.data;
     }
 
-    static async postExtract(shipSymbol: string): Promise<Extract> {
+    static async postExtract(shipSymbol: string, token: string): Promise<Extract> {
         console.log("Extracting RESSOURCES");
-        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/extract`, "");
+        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/extract`, token);
         return response.data;
     }
 
-    static async postRefuel(shipSymbol: string): Promise<Refuel> {
+    static async postRefuel(shipSymbol: string, token: string): Promise<Refuel> {
         console.log("REFUELLING");
-        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/refuel`, "");
+        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/refuel`, token);
         return response.data;
     }
 
-    static async postOrbit(shipSymbol: string): Promise<Nav> {
+    static async postOrbit(shipSymbol: string, token: string): Promise<Nav> {
         console.log("ORBITTING");
-        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/orbit`, "")
+        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/orbit`, token)
         return response.data.nav;
     }
 
-    static async postDock(shipSymbol: string): Promise<Nav> {
+    static async postDock(shipSymbol: string, token: string): Promise<Nav> {
         console.log("DOCKING");
-        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/dock`, "");
+        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/dock`, token);
         return response.data.nav;
     }
 
-    static async postNavigate(shipSymbol: string, waypointSymbol: string) {
+    static async postNavigate(shipSymbol: string, waypointSymbol: string, token: string) {
         console.log("NAVIGATING");
-        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/navigate`, `{"waypointSymbol": "${waypointSymbol}"}`);
+        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/navigate`, token, `{"waypointSymbol": "${waypointSymbol}"}`);
         return response.data;
     }
 
-    static async get(url: string) {
+    static async get(url: string, token: string) {
         const options = {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
-                Authorization: `Bearer ${ApiHandler.token}`
+                Authorization: `Bearer ${token}`
             }
         };
 
@@ -111,13 +111,13 @@ class ApiHandler {
         }
     }
 
-    static async post(url: string, body: string) {
+    static async post(url: string, token: string, body: string = "") {
         const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
-                Authorization: `Bearer ${ApiHandler.token}`
+                Authorization: `Bearer ${token}`
             },
             body: body
         };
@@ -132,13 +132,13 @@ class ApiHandler {
         }
     }
 
-    static async patch(url: string, body: string) {
+    static async patch(url: string, token: string, body: string) {
         const options = {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
-                Authorization: `Bearer ${ApiHandler.token}`
+                Authorization: `Bearer ${token}`
             },
             body: body
         };

@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { AuthContext } from './AuthContext';
 import ApiHandler from '../../ApiHandler';
@@ -9,31 +9,24 @@ interface AuthContextProviderProps {
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
     const [token, setToken] = useState<string | null>(localStorage.getItem("agent-token"));
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (token && token.length != 0) {
+            setIsLoggedIn(true);
+        }
+    }, [])
+
     // Get agent using token in arguments
     async function login(token: string): Promise<void> {
-        const url = 'https://api.spacetraders.io/v2/my/agent';
-        const options = {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                Authorization: `Bearer ${token}`
-            }
-        };
-
         try {
-            const response = await fetch(url, options);
-            const data = await response.json();
-
-            if (!data.error) {
-                localStorage.setItem("agent-token", token);
-                ApiHandler.token = token;
-                navigate('/');
-            }
-        } catch (error) {
-            console.error(error);
+            const response = await ApiHandler.getAgent(token);
+            localStorage.setItem("agent-token", JSON.stringify(response));
+            navigate('/');
+        } catch (err) {
+            console.log(err);
         }
     };
 
@@ -44,7 +37,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         navigate('/login');
     }
 
-    return <AuthContext.Provider value={{ token, login, logout, }}>
+    return <AuthContext.Provider value={{ token, isLoggedIn, login, logout, }}>
         {children}
     </AuthContext.Provider>;
 }

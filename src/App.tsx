@@ -1,32 +1,33 @@
 import "./css/main.css";
 import { useNavigate } from 'react-router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ApiHandler from './ApiHandler';
 import Sidebar from './Components/sidebar/sidebar';
 import { Outlet } from 'react-router-dom';
 
 /* Interfaces */
-import { Ship } from './Models/ShipInterface';
-import { Agent } from './Models/AgentInterface';
+import { AuthContext } from "./Context/auth/AuthContext";
+import { SpacetradersContext } from "./Context/spacetraders/SpacetradersContext";
 
 function App() {
 	const navigate = useNavigate();
+	const authContext = useContext(AuthContext);
+	const STContext = useContext(SpacetradersContext);
 
-	if (!ApiHandler.token || ApiHandler.token.length == 0) {
+	if (!authContext.isLoggedIn) {
 		navigate('/login');
 	}
-
-	const [userData, setUserData] = useState<Agent | null>(null);
-	const [fleetData, setFleetData] = useState<Ship[] | null>(null);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const user = await ApiHandler.getUser();
-				setUserData(user);
+				if (authContext.token) {
+					const user = await ApiHandler.getAgent(authContext.token);
+					STContext.updateAgent(user);
 
-				const fleet = await ApiHandler.getFleet();
-				setFleetData(fleet);
+					const fleet = await ApiHandler.getFleet(authContext.token);
+					STContext.updateFleet(fleet);
+				}
 
 			} catch (error) {
 				console.error('Error fetching some data:', error);
@@ -37,7 +38,7 @@ function App() {
 	}, []);
 	return (
 		<>
-			<Sidebar user={userData} fleet={fleetData} />
+			<Sidebar />
 			<Outlet></Outlet>
 		</>
 	)

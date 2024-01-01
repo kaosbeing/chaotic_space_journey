@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ApiHandler from "../../ApiHandler";
 import NavComponent from "../nav/nav";
@@ -14,8 +14,10 @@ import { Waypoint as WaypointData } from "../../Models/WaypointInterface";
 import { Market } from "../../Models/MarketInterface";
 import refreshIcon from "/assets/icons/refresh.svg";
 import Marketplace from "../marketplace/marketplace";
+import { AuthContext } from "../../Context/auth/AuthContext";
 
 const Dashboard = () => {
+    const authContext = useContext(AuthContext);
     const { shipSymbol } = useParams();
 
     const [ship, setShip] = useState<Ship | null>(null)
@@ -28,8 +30,8 @@ const Dashboard = () => {
     const [fuel, setFuel] = useState<Fuel | null>(null);
 
     const fetchShip = async () => {
-        if (shipSymbol) {
-            setShip(await ApiHandler.getShip(shipSymbol))
+        if (shipSymbol && authContext.token) {
+            setShip(await ApiHandler.getShip(shipSymbol, authContext.token))
         }
     }
 
@@ -42,7 +44,9 @@ const Dashboard = () => {
     useEffect(() => {
         if (ship) {
             const fetchWaypoint = async () => {
-                setWaypoint(await ApiHandler.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol));
+                if (authContext.token) {
+                    setWaypoint(await ApiHandler.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol, authContext.token));
+                }
             }
 
             setNav(ship.nav);
@@ -57,7 +61,9 @@ const Dashboard = () => {
     useEffect(() => {
         if (waypoint && ship && waypoint.traits.some((trait) => trait.symbol == "MARKETPLACE")) {
             const fetchMarket = async () => {
-                setMarket(await ApiHandler.getMarket(ship.nav.systemSymbol, ship.nav.waypointSymbol));
+                if (authContext.token) {
+                    setMarket(await ApiHandler.getMarket(ship.nav.systemSymbol, ship.nav.waypointSymbol, authContext.token));
+                }
             }
 
             fetchMarket();
@@ -98,38 +104,46 @@ const Dashboard = () => {
     }, [shipSymbol])
 
     const changeFlightMode = async (flightMode: string) => {
-        if (shipSymbol) {
-            let updatedNav = await ApiHandler.patchNav(shipSymbol, flightMode);
+        if (shipSymbol && authContext.token) {
+            let updatedNav = await ApiHandler.patchNav(shipSymbol, flightMode, authContext.token);
             setNav(updatedNav);
         }
     }
 
     const extractRessources = async (shipSymbol: string) => {
-        let response = await ApiHandler.postExtract(shipSymbol);
-        setCargo(response.cargo);
-        setCooldown(response.cooldown);
+        if (authContext.token) {
+            let response = await ApiHandler.postExtract(shipSymbol, authContext.token);
+            setCargo(response.cargo);
+            setCooldown(response.cooldown);
 
-        // result of extraction : response.extraction (a mettre dans une notif plus tard)
+            // result of extraction : response.extraction (a mettre dans une notif plus tard)
+        }
     }
 
     const refuelShip = async (shipSymbol: string) => {
-        let response = await ApiHandler.postRefuel(shipSymbol);
-        setFuel(response.fuel);
+        if (authContext.token) {
+            let response = await ApiHandler.postRefuel(shipSymbol, authContext.token);
+            setFuel(response.fuel);
+        }
     }
 
     const changeNavStatus = async (action: string, shipSymbol: string) => {
         if (action === "DOCK") {
-            let response = await ApiHandler.postDock(shipSymbol);
-            setNav(response);
+            if (authContext.token) {
+                let response = await ApiHandler.postDock(shipSymbol, authContext.token);
+                setNav(response);
+            }
         } else if (action === "ORBIT") {
-            let response = await ApiHandler.postOrbit(shipSymbol);
-            setNav(response)
+            if (authContext.token) {
+                let response = await ApiHandler.postOrbit(shipSymbol, authContext.token);
+                setNav(response)
+            }
         }
     }
 
     const navigate = async (waypointSymbol: string) => {
-        if (shipSymbol) {
-            const response = await ApiHandler.postNavigate(shipSymbol, waypointSymbol)
+        if (shipSymbol && authContext.token) {
+            const response = await ApiHandler.postNavigate(shipSymbol, waypointSymbol, authContext.token)
             setFuel(response.fuel);
             setNav(response.nav);
         }
