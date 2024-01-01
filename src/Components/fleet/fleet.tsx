@@ -1,27 +1,29 @@
-import { Link } from "react-router-dom";
-import { Ship as ShipData } from "../../Models/ShipInterface";
-import Ship from "../ship/ship";
+import { Ship } from "../../Models/ShipInterface";
 import "./fleet.css";
-import chevron from "/assets/icons/chevron_right.svg";
 
-const Fleet = ({ fleet }: { fleet: ShipData[] | null }) => {
+const Fleet = ({ fleet }: { fleet: Ship[] | null }) => {
     return (
         <>
-            <Link to={"/fleet"} className="full_fleet">
-                <span>Full fleet</span>
-                <img src={chevron} />
-            </Link>
-            {fleet ? (
-                <div className="fleet">
-                    {fleet.map((ship: ShipData) => (
-                        <Ship key={ship.symbol} ship={ship} />
-                    ))}
-                </div>
-            ) : (
-                <div className="fleet loading">
-                    <div className="loader"></div>
-                </div>
-            )}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Fuel</th>
+                        <th>Cargo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {fleet ? (
+                        fleet.map(() => (
+                            <div></div>
+                        ))
+                    ) : (
+                        <div className="loader big"></div>
+                    )}
+                </tbody>
+            </table>
         </>
     );
 }

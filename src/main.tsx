@@ -12,7 +12,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 			<AuthContextProvider>
 				<Routes>
 					<Route path="/" element={<App />}>
-						<Route path="/:shipSymbol" element={<Dashboard />}></Route>
+						<Route path="/fleet/:shipSymbol" element={<Dashboard />}></Route>
+						<Route path="/fleet" element={<Dashboard />}></Route>
 					</Route>
 					<Route path="/login" element={<LoginPage />}></Route>
 				</Routes>

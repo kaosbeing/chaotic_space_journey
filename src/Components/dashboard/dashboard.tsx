@@ -38,7 +38,7 @@ const Dashboard = () => {
         fetchShip();
     }, [])
 
-    // Once ship is fetched, fetch ship
+    // Once ship is fetched, fetch waypoint
     useEffect(() => {
         if (ship) {
             const fetchWaypoint = async () => {
