@@ -5,36 +5,36 @@ import { Market } from "./Models/MarketInterface";
 import { Extract } from "./Models/ExtractInterface";
 import { Refuel } from "./Models/RefuelInterface";
 
-class SpaceTraders {
+class ApiHandler {
     static token = localStorage.getItem("agent-token");
 
     static async getUser(): Promise<Agent> {
         console.log("Fetching AGENT");
-        const response = await SpaceTraders.get("https://api.spacetraders.io/v2/my/agent");
+        const response = await ApiHandler.get("https://api.spacetraders.io/v2/my/agent");
         return response.data;
     }
 
     static async getFleet(): Promise<Ship[]> {
         console.log("Fetching FLEET");
-        const response = await SpaceTraders.get("https://api.spacetraders.io/v2/my/ships");
+        const response = await ApiHandler.get("https://api.spacetraders.io/v2/my/ships");
         return response.data;
     }
 
     static async getShip(shipSymbol: string): Promise<Ship> {
         console.log("Fetching SHIP");
-        const response = await SpaceTraders.get(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}`);
+        const response = await ApiHandler.get(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}`);
         return response.data;
     }
 
     static async getMarket(systemSymbol: string, waypointSymbol: string): Promise<Market> {
         console.log("Fetching MARKET");
-        const response = await SpaceTraders.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}/market`);
+        const response = await ApiHandler.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}/market`);
         return response.data;
     }
 
     static async getWaypoint(systemSymbol: string, waypointSymbol: string): Promise<Waypoint> {
         console.log("Fetching WAYPOINT");
-        const response = await SpaceTraders.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}`);
+        const response = await ApiHandler.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}`);
         return response.data;
     }
 
@@ -51,44 +51,44 @@ class SpaceTraders {
         }
 
         let url = `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints${modifiers}`;
-        const response = await SpaceTraders.get(url);
+        const response = await ApiHandler.get(url);
         return response;
 
     }
 
     static async patchNav(shipSymbol: string, flightMode: string): Promise<Nav> {
         console.log("Patching NAV");
-        const response = await SpaceTraders.patch(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/nav`, `{"flightMode":"${flightMode}"}`);
+        const response = await ApiHandler.patch(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/nav`, `{"flightMode":"${flightMode}"}`);
         return response.data;
     }
 
     static async postExtract(shipSymbol: string): Promise<Extract> {
         console.log("Extracting RESSOURCES");
-        const response = await SpaceTraders.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/extract`, "");
+        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/extract`, "");
         return response.data;
     }
 
     static async postRefuel(shipSymbol: string): Promise<Refuel> {
         console.log("REFUELLING");
-        const response = await SpaceTraders.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/refuel`, "");
+        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/refuel`, "");
         return response.data;
     }
 
     static async postOrbit(shipSymbol: string): Promise<Nav> {
         console.log("ORBITTING");
-        const response = await SpaceTraders.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/orbit`, "")
+        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/orbit`, "")
         return response.data.nav;
     }
 
     static async postDock(shipSymbol: string): Promise<Nav> {
         console.log("DOCKING");
-        const response = await SpaceTraders.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/dock`, "");
+        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/dock`, "");
         return response.data.nav;
     }
 
     static async postNavigate(shipSymbol: string, waypointSymbol: string) {
         console.log("NAVIGATING");
-        const response = await SpaceTraders.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/navigate`, `{"waypointSymbol": "${waypointSymbol}"}`);
+        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/navigate`, `{"waypointSymbol": "${waypointSymbol}"}`);
         return response.data;
     }
 
@@ -97,7 +97,7 @@ class SpaceTraders {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
-                Authorization: `Bearer ${SpaceTraders.token}`
+                Authorization: `Bearer ${ApiHandler.token}`
             }
         };
 
@@ -117,7 +117,7 @@ class SpaceTraders {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
-                Authorization: `Bearer ${SpaceTraders.token}`
+                Authorization: `Bearer ${ApiHandler.token}`
             },
             body: body
         };
@@ -138,7 +138,7 @@ class SpaceTraders {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
-                Authorization: `Bearer ${SpaceTraders.token}`
+                Authorization: `Bearer ${ApiHandler.token}`
             },
             body: body
         };
@@ -154,4 +154,4 @@ class SpaceTraders {
     }
 }
 
-export default SpaceTraders;
+export default ApiHandler;

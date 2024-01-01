@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { AuthContext } from './AuthContext';
-import SpaceTraders from '../../SpaceTraders';
+import ApiHandler from '../../ApiHandler';
 
 interface AuthContextProviderProps {
     children: ReactElement;
@@ -29,7 +29,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
             if (!data.error) {
                 localStorage.setItem("agent-token", token);
-                SpaceTraders.token = token;
+                ApiHandler.token = token;
                 navigate('/');
             }
         } catch (error) {
@@ -40,7 +40,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     function logout(): void {
         setToken(null);
         localStorage.removeItem("agent-token");
-        SpaceTraders.token = null;
+        ApiHandler.token = null;
         navigate('/login');
     }
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import SpaceTraders from "../../SpaceTraders";
+import ApiHandler from "../../ApiHandler";
 import NavComponent from "../nav/nav";
 import LocationComponent from "../location/location";
 import ShipOverview from "../shipOverview/shipOverview";
@@ -29,7 +29,7 @@ const Dashboard = () => {
 
     const fetchShip = async () => {
         if (shipSymbol) {
-            setShip(await SpaceTraders.getShip(shipSymbol))
+            setShip(await ApiHandler.getShip(shipSymbol))
         }
     }
 
@@ -42,7 +42,7 @@ const Dashboard = () => {
     useEffect(() => {
         if (ship) {
             const fetchWaypoint = async () => {
-                setWaypoint(await SpaceTraders.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol));
+                setWaypoint(await ApiHandler.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol));
             }
 
             setNav(ship.nav);
@@ -57,7 +57,7 @@ const Dashboard = () => {
     useEffect(() => {
         if (waypoint && ship && waypoint.traits.some((trait) => trait.symbol == "MARKETPLACE")) {
             const fetchMarket = async () => {
-                setMarket(await SpaceTraders.getMarket(ship.nav.systemSymbol, ship.nav.waypointSymbol));
+                setMarket(await ApiHandler.getMarket(ship.nav.systemSymbol, ship.nav.waypointSymbol));
             }
 
             fetchMarket();
@@ -99,13 +99,13 @@ const Dashboard = () => {
 
     const changeFlightMode = async (flightMode: string) => {
         if (shipSymbol) {
-            let updatedNav = await SpaceTraders.patchNav(shipSymbol, flightMode);
+            let updatedNav = await ApiHandler.patchNav(shipSymbol, flightMode);
             setNav(updatedNav);
         }
     }
 
     const extractRessources = async (shipSymbol: string) => {
-        let response = await SpaceTraders.postExtract(shipSymbol);
+        let response = await ApiHandler.postExtract(shipSymbol);
         setCargo(response.cargo);
         setCooldown(response.cooldown);
 
@@ -113,23 +113,23 @@ const Dashboard = () => {
     }
 
     const refuelShip = async (shipSymbol: string) => {
-        let response = await SpaceTraders.postRefuel(shipSymbol);
+        let response = await ApiHandler.postRefuel(shipSymbol);
         setFuel(response.fuel);
     }
 
     const changeNavStatus = async (action: string, shipSymbol: string) => {
         if (action === "DOCK") {
-            let response = await SpaceTraders.postDock(shipSymbol);
+            let response = await ApiHandler.postDock(shipSymbol);
             setNav(response);
         } else if (action === "ORBIT") {
-            let response = await SpaceTraders.postOrbit(shipSymbol);
+            let response = await ApiHandler.postOrbit(shipSymbol);
             setNav(response)
         }
     }
 
     const navigate = async (waypointSymbol: string) => {
         if (shipSymbol) {
-            const response = await SpaceTraders.postNavigate(shipSymbol, waypointSymbol)
+            const response = await ApiHandler.postNavigate(shipSymbol, waypointSymbol)
             setFuel(response.fuel);
             setNav(response.nav);
         }

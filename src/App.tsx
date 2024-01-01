@@ -1,7 +1,7 @@
 import "./css/main.css";
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
-import SpaceTraders from './SpaceTraders';
+import ApiHandler from './ApiHandler';
 import Sidebar from './Components/sidebar/sidebar';
 import { Outlet } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ import { Agent } from './Models/AgentInterface';
 function App() {
 	const navigate = useNavigate();
 
-	if (!SpaceTraders.token || SpaceTraders.token.length == 0) {
+	if (!ApiHandler.token || ApiHandler.token.length == 0) {
 		navigate('/login');
 	}
 
@@ -22,10 +22,10 @@ function App() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const user = await SpaceTraders.getUser();
+				const user = await ApiHandler.getUser();
 				setUserData(user);
 
-				const fleet = await SpaceTraders.getFleet();
+				const fleet = await ApiHandler.getFleet();
 				setFleetData(fleet);
 
 			} catch (error) {
