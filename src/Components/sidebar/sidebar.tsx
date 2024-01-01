@@ -13,9 +13,11 @@ import dockedIcon from "/assets/icons/docked.svg";
 import in_orbitIcon from "/assets/icons/in_orbit.svg";
 import in_transitIcon from "/assets/icons/in_transit.svg";
 import locationIcon from "/assets/icons/location.svg";
+import { SpacetradersContext } from "../../Context/spacetraders/SpacetradersContext";
 
-const Sidebar = ({ user, fleet }: { user: Agent | null, fleet: ShipData[] | null }) => {
+const Sidebar = () => {
     const authContext = useContext(AuthContext);
+    const STContext = useContext(SpacetradersContext);
     const [timeUntilArrival, setTimeUntilArrival] = useState<number>(0);
     const [flightProgress, setFlightProgress] = useState<number>(0);
     let timer: NodeJS.Timeout;
@@ -58,7 +60,7 @@ const Sidebar = ({ user, fleet }: { user: Agent | null, fleet: ShipData[] | null
     }
 
     useEffect(() => {
-        fleet?.map((ship: Ship) => {
+        STContext.fleet?.map((ship: Ship) => {
             calculateTimeAndProgress(ship);
 
             timer = setInterval(() => {
@@ -95,9 +97,9 @@ const Sidebar = ({ user, fleet }: { user: Agent | null, fleet: ShipData[] | null
                 <span>Full fleet</span>
                 <img src={chevron} />
             </Link>
-            {fleet ? (
+            {STContext.fleet ? (
                 <div className="fleet">
-                    {fleet.map((ship: ShipData) => (
+                    {STContext.fleet.map((ship: ShipData) => (
                         <Link key={ship.symbol} to={"/fleet/" + ship.symbol} className='fleetItem'>
                             <div className='fleetItem__header'>
                                 <span className='fleetItem__symbol'>{ship.registration.role.charAt(0).toUpperCase() + ship.registration.role.slice(1).toLowerCase()} {ship.frame.name}</span>
@@ -116,7 +118,7 @@ const Sidebar = ({ user, fleet }: { user: Agent | null, fleet: ShipData[] | null
                     <div className="loader"></div>
                 </div>
             )}
-            <User user={user} />
+            <User user={STContext.agent} />
             <button onClick={() => { authContext.logout() }} className="logout">Log out</button>
         </div>
     );

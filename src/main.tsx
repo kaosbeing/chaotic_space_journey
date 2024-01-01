@@ -5,18 +5,21 @@ import App from './App.tsx';
 import LoginPage from './Components/login/Login.tsx';
 import { AuthContextProvider } from './Context/auth/AuthContextProvider.tsx';
 import Dashboard from './Components/dashboard/dashboard.tsx';
+import { SpacetradersProvider } from './Context/spacetraders/SpacetradersContextProvider.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<AuthContextProvider>
-				<Routes>
-					<Route path="/" element={<App />}>
-						<Route path="/fleet/:shipSymbol" element={<Dashboard />}></Route>
-						<Route path="/fleet" element={<Dashboard />}></Route>
-					</Route>
-					<Route path="/login" element={<LoginPage />}></Route>
-				</Routes>
+				<SpacetradersProvider>
+					<Routes>
+						<Route path="/" element={<App />}>
+							<Route path="/fleet/:shipSymbol" element={<Dashboard />}></Route>
+							<Route path="/fleet" element={<Dashboard />}></Route>
+						</Route>
+						<Route path="/login" element={<LoginPage />}></Route>
+					</Routes>
+				</SpacetradersProvider>
 			</AuthContextProvider>
 		</BrowserRouter>
 	</React.StrictMode>,
