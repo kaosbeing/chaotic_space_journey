@@ -18,7 +18,7 @@ const WaypointList = ({ systemSymbol, currentWaypoint, fuel, nav, navigate }: { 
 
         for (let i = 2; i <= pages; i++) {
             let waypoints = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20, page: i });
-            fetchedWaypoints = fetchedWaypoints.concat(waypoints.data)
+            fetchedWaypoints = [...fetchedWaypoints, ...waypoints.data];
         }
 
         localStorage.setItem(systemSymbol, JSON.stringify(fetchedWaypoints));

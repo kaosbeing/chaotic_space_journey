@@ -34,9 +34,8 @@ const Sidebar = () => {
 
         if (timeUntilArrival <= 0) {
             clearInterval(timer);
-            let editedShipData = ship;
-            editedShipData.nav.status = "IN_ORBIT";
-            // setShipData(editedShipData);
+            const editedShipData = { ...ship, nav: { ...ship.nav, status: "IN_ORBIT" } };
+            STContext.updateShip(editedShipData);
         }
     };
 
