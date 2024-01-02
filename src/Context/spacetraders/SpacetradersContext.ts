@@ -7,11 +7,13 @@ interface Spacetraders {
     fleet: Ship[],
     updateAgent: (agent: Agent) => void,
     updateFleet: (fleet: Ship[]) => void,
+    updateShip: (ship: Ship) => void,
 }
 
 export const SpacetradersContext = createContext<Spacetraders>({
     agent: null,
     fleet: [],
     updateAgent: () => { },
-    updateFleet: () => { }
+    updateFleet: () => { },
+    updateShip: () => { }
 });

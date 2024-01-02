@@ -47,7 +47,16 @@ export function SpacetradersProvider({ children }: SpacetradersProviderProps) {
         setFleet(fleet);
     }
 
-    return <SpacetradersContext.Provider value={{ agent, fleet, updateAgent, updateFleet }}>
+    function updateShip(ship: Ship) {
+        const index = fleet.findIndex((fleet) => fleet.symbol === ship.symbol);
+        if (index !== -1) {
+            const updatedFleet = [...fleet];
+            updatedFleet[index] = ship;
+            setFleet(updatedFleet);
+        }
+    }
+
+    return <SpacetradersContext.Provider value={{ agent, fleet, updateAgent, updateFleet, updateShip }}>
         {children}
     </SpacetradersContext.Provider>;
 }
