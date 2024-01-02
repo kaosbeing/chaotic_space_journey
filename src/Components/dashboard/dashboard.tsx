@@ -5,7 +5,6 @@ import NavComponent from "../nav/nav";
 import LocationComponent from "../location/location";
 import ShipOverview from "../shipOverview/shipOverview";
 import CargoComponent from "../cargo/cargo";
-import WaypointList from "../waypointList/waypointList";
 
 import "./dashboard.css";
 import "../../css/loader.css"

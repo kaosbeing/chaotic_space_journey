@@ -1,26 +1,30 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./waypointList.css";
 import { Waypoint } from "../../Models/WaypointInterface";
 import ApiHandler from "../../ApiHandler";
 import waypointsIcon from "/assets/icons/nav.svg";
 import { Fuel, Nav } from "../../Models/ShipInterface";
+import { AuthContext } from "../../Context/auth/AuthContext";
 
 const WaypointList = ({ systemSymbol, currentWaypoint, fuel, nav, navigate }: { systemSymbol: string, currentWaypoint: Waypoint, fuel: Fuel | null, nav: Nav | null, navigate: (waypointSymbol: string) => void }) => {
     const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
+    const authContext = useContext(AuthContext);
 
     const fetchWholeSystem = async () => {
-        const response = await ApiHandler.listWaypoints(systemSymbol, { limit: 20 });
-        let pages = Math.ceil(response.meta.total / response.meta.limit);
+        if (authContext.token) {
+            const response = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20 });
+            let pages = Math.ceil(response.meta.total / response.meta.limit);
 
-        let fetchedWaypoints = response.data;
+            let fetchedWaypoints = response.data;
 
-        for (let i = 2; i <= pages; i++) {
-            let waypoints = await ApiHandler.listWaypoints(systemSymbol, { limit: 20, page: i });
-            fetchedWaypoints = fetchedWaypoints.concat(waypoints.data)
+            for (let i = 2; i <= pages; i++) {
+                let waypoints = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20, page: i });
+                fetchedWaypoints = fetchedWaypoints.concat(waypoints.data)
+            }
+
+            localStorage.setItem(systemSymbol, JSON.stringify(fetchedWaypoints));
+            setWaypoints(fetchedWaypoints);
         }
-
-        localStorage.setItem(systemSymbol, JSON.stringify(fetchedWaypoints));
-        setWaypoints(fetchedWaypoints);
     }
 
     useEffect(() => {

@@ -1,6 +1,6 @@
 import "./css/main.css";
 import { useNavigate } from 'react-router';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import ApiHandler from './ApiHandler';
 import Sidebar from './Components/sidebar/sidebar';
 import { Outlet } from 'react-router-dom';

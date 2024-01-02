@@ -1,7 +1,5 @@
 import { Agent } from '../../Models/AgentInterface';
 import "./user.css";
-import hqIcon from "/assets/icons/headquarters.svg";
-import factionIcon from "/assets/icons/faction.svg";
 import creditIcon from "/assets/icons/credits.svg";
 import fleetIcon from "/assets/icons/ship.svg";
 

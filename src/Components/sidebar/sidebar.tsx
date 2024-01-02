@@ -1,5 +1,4 @@
 import "./sidebar.css";
-import { Agent } from '../../Models/AgentInterface';
 import { Ship, Ship as ShipData } from '../../Models/ShipInterface';
 import User from '../user/user';
 import logo from "/assets/logo.svg";
