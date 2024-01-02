@@ -11,20 +11,18 @@ const WaypointList = ({ systemSymbol, currentWaypoint, fuel, nav, navigate }: { 
     const authContext = useContext(AuthContext);
 
     const fetchWholeSystem = async () => {
-        if (authContext.token) {
-            const response = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20 });
-            let pages = Math.ceil(response.meta.total / response.meta.limit);
+        const response = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20 });
+        let pages = Math.ceil(response.meta.total / response.meta.limit);
 
-            let fetchedWaypoints = response.data;
+        let fetchedWaypoints = response.data;
 
-            for (let i = 2; i <= pages; i++) {
-                let waypoints = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20, page: i });
-                fetchedWaypoints = fetchedWaypoints.concat(waypoints.data)
-            }
-
-            localStorage.setItem(systemSymbol, JSON.stringify(fetchedWaypoints));
-            setWaypoints(fetchedWaypoints);
+        for (let i = 2; i <= pages; i++) {
+            let waypoints = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20, page: i });
+            fetchedWaypoints = fetchedWaypoints.concat(waypoints.data)
         }
+
+        localStorage.setItem(systemSymbol, JSON.stringify(fetchedWaypoints));
+        setWaypoints(fetchedWaypoints);
     }
 
     useEffect(() => {

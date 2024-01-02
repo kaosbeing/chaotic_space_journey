@@ -21,14 +21,11 @@ function App() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				if (authContext.token) {
-					const user = await ApiHandler.getAgent(authContext.token);
-					STContext.updateAgent(user);
+				const user = await ApiHandler.getAgent(authContext.token);
+				STContext.updateAgent(user);
 
-					const fleet = await ApiHandler.getFleet(authContext.token);
-					STContext.updateFleet(fleet);
-				}
-
+				const fleet = await ApiHandler.getFleet(authContext.token);
+				STContext.updateFleet(fleet);
 			} catch (error) {
 				console.error('Error fetching some data:', error);
 			}

@@ -20,15 +20,11 @@ export function SpacetradersProvider({ children }: SpacetradersProviderProps) {
         let localFleet = localStorage.getItem("fleet");
 
         const fetchAgent = async () => {
-            if (authContext.token) {
-                ApiHandler.getAgent(authContext.token);
-            }
+            ApiHandler.getAgent(authContext.token);
         }
 
         const fetchFleet = async () => {
-            if (authContext.token) {
-                ApiHandler.getFleet(authContext.token);
-            }
+            ApiHandler.getFleet(authContext.token);
         }
 
         if (localAgent) {

@@ -29,7 +29,7 @@ const Dashboard = () => {
     const [fuel, setFuel] = useState<Fuel | null>(null);
 
     const fetchShip = async () => {
-        if (shipSymbol && authContext.token) {
+        if (shipSymbol) {
             setShip(await ApiHandler.getShip(shipSymbol, authContext.token))
         }
     }
@@ -43,9 +43,7 @@ const Dashboard = () => {
     useEffect(() => {
         if (ship) {
             const fetchWaypoint = async () => {
-                if (authContext.token) {
-                    setWaypoint(await ApiHandler.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol, authContext.token));
-                }
+                setWaypoint(await ApiHandler.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol, authContext.token));
             }
 
             setNav(ship.nav);
@@ -60,9 +58,7 @@ const Dashboard = () => {
     useEffect(() => {
         if (waypoint && ship && waypoint.traits.some((trait) => trait.symbol == "MARKETPLACE")) {
             const fetchMarket = async () => {
-                if (authContext.token) {
-                    setMarket(await ApiHandler.getMarket(ship.nav.systemSymbol, ship.nav.waypointSymbol, authContext.token));
-                }
+                setMarket(await ApiHandler.getMarket(ship.nav.systemSymbol, ship.nav.waypointSymbol, authContext.token));
             }
 
             fetchMarket();
@@ -103,45 +99,37 @@ const Dashboard = () => {
     }, [shipSymbol])
 
     const changeFlightMode = async (flightMode: string) => {
-        if (shipSymbol && authContext.token) {
+        if (shipSymbol) {
             let updatedNav = await ApiHandler.patchNav(shipSymbol, flightMode, authContext.token);
             setNav(updatedNav);
         }
     }
 
     const extractRessources = async (shipSymbol: string) => {
-        if (authContext.token) {
-            let response = await ApiHandler.postExtract(shipSymbol, authContext.token);
-            setCargo(response.cargo);
-            setCooldown(response.cooldown);
+        let response = await ApiHandler.postExtract(shipSymbol, authContext.token);
+        setCargo(response.cargo);
+        setCooldown(response.cooldown);
 
-            // result of extraction : response.extraction (a mettre dans une notif plus tard)
-        }
+        // result of extraction : response.extraction (a mettre dans une notif plus tard)
     }
 
     const refuelShip = async (shipSymbol: string) => {
-        if (authContext.token) {
-            let response = await ApiHandler.postRefuel(shipSymbol, authContext.token);
-            setFuel(response.fuel);
-        }
+        let response = await ApiHandler.postRefuel(shipSymbol, authContext.token);
+        setFuel(response.fuel);
     }
 
     const changeNavStatus = async (action: string, shipSymbol: string) => {
         if (action === "DOCK") {
-            if (authContext.token) {
-                let response = await ApiHandler.postDock(shipSymbol, authContext.token);
-                setNav(response);
-            }
+            let response = await ApiHandler.postDock(shipSymbol, authContext.token);
+            setNav(response);
         } else if (action === "ORBIT") {
-            if (authContext.token) {
-                let response = await ApiHandler.postOrbit(shipSymbol, authContext.token);
-                setNav(response)
-            }
+            let response = await ApiHandler.postOrbit(shipSymbol, authContext.token);
+            setNav(response)
         }
     }
 
     const navigate = async (waypointSymbol: string) => {
-        if (shipSymbol && authContext.token) {
+        if (shipSymbol) {
             const response = await ApiHandler.postNavigate(shipSymbol, waypointSymbol, authContext.token)
             setFuel(response.fuel);
             setNav(response.nav);
