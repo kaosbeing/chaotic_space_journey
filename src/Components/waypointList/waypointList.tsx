@@ -3,53 +3,50 @@ import "./waypointList.css";
 import { Waypoint } from "../../Models/WaypointInterface";
 import ApiHandler from "../../ApiHandler";
 import waypointsIcon from "/assets/icons/nav.svg";
-import { Fuel, Nav } from "../../Models/ShipInterface";
+import { Ship } from "../../Models/ShipInterface";
 import { AuthContext } from "../../Context/auth/AuthContext";
 
-const WaypointList = ({ systemSymbol, currentWaypoint, fuel, nav, navigate }: { systemSymbol: string, currentWaypoint: Waypoint, fuel: Fuel | null, nav: Nav | null, navigate: (waypointSymbol: string) => void }) => {
+const WaypointList = ({ currentWaypoint, ship, navigate }: { currentWaypoint: Waypoint, ship: Ship, navigate: (ship: Ship, waypointSymbol: string) => void }) => {
     const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
     const authContext = useContext(AuthContext);
 
     const fetchWholeSystem = async () => {
-        const response = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20 });
+        const response = await ApiHandler.listWaypoints(ship.nav.systemSymbol, authContext.token, { limit: 20 });
         let pages = Math.ceil(response.meta.total / response.meta.limit);
 
         let fetchedWaypoints = response.data;
 
         for (let i = 2; i <= pages; i++) {
-            let waypoints = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20, page: i });
+            let waypoints = await ApiHandler.listWaypoints(ship.nav.systemSymbol, authContext.token, { limit: 20, page: i });
             fetchedWaypoints = [...fetchedWaypoints, ...waypoints.data];
         }
 
-        localStorage.setItem(systemSymbol, JSON.stringify(fetchedWaypoints));
+        localStorage.setItem(ship.nav.systemSymbol, JSON.stringify(fetchedWaypoints));
         setWaypoints(fetchedWaypoints);
     }
 
     useEffect(() => {
-        const localSystem = localStorage.getItem(systemSymbol);
+        const localSystem = localStorage.getItem(ship.nav.systemSymbol);
 
         localSystem ? setWaypoints(JSON.parse(localSystem)) : fetchWholeSystem();
     }, [])
 
     const renderNavButton = (waypoint: Waypoint) => {
-        if (fuel && nav) {
+        const dist = Math.round(Math.sqrt(Math.pow(currentWaypoint.x - waypoint.x, 2) + Math.pow(currentWaypoint.y - waypoint.y, 2)));
+        let fuelConsumedByAFlight = 0;
 
-            const dist = Math.round(Math.sqrt(Math.pow(currentWaypoint.x - waypoint.x, 2) + Math.pow(currentWaypoint.y - waypoint.y, 2)));
-            let fuelConsumedByAFlight = 0;
+        if (ship.nav.flightMode == "CRUISE" || ship.nav.flightMode == "STEALTH") {
+            fuelConsumedByAFlight = dist;
+        } else if (ship.nav.flightMode == "BURN") {
+            fuelConsumedByAFlight = 2 * dist;
+        } else if (ship.nav.flightMode == "DRIFT") {
+            fuelConsumedByAFlight = 1;
+        }
 
-            if (nav.flightMode == "CRUISE" || nav.flightMode == "STEALTH") {
-                fuelConsumedByAFlight = dist;
-            } else if (nav.flightMode == "BURN") {
-                fuelConsumedByAFlight = 2 * dist;
-            } else if (nav.flightMode == "DRIFT") {
-                fuelConsumedByAFlight = 1;
-            }
-
-            if ((fuel.current >= fuelConsumedByAFlight || fuel.capacity == 0) && nav.status == "IN_ORBIT") {
-                return (
-                    <button onClick={() => { navigate(waypoint.symbol) }} className="listitem__go">Go</button>
-                )
-            }
+        if ((ship.fuel.current >= fuelConsumedByAFlight || ship.fuel.capacity == 0) && ship.nav.status == "IN_ORBIT") {
+            return (
+                <button onClick={() => { navigate(ship, waypoint.symbol) }} className="listitem__go">Go</button>
+            )
         }
     }
 

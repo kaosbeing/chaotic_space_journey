@@ -1,0 +1,26 @@
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    grid-area: controls;
+}
+
+.controls__options {
+    width: 100%;
+    height: min-content;
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.controls__button {
+    width: 100%;
+    background-color: var(--bg-2);
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: #fff;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}

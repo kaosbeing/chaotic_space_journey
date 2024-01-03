@@ -14,6 +14,7 @@ import refreshIcon from "/assets/icons/refresh.svg";
 import Marketplace from "../marketplace/marketplace";
 import { AuthContext } from "../../Context/auth/AuthContext";
 import { SpacetradersContext } from "../../Context/spacetraders/SpacetradersContext";
+import Controls from "../controls/controls";
 
 const Dashboard = () => {
     const authContext = useContext(AuthContext);
@@ -59,9 +60,9 @@ const Dashboard = () => {
                 <button onClick={fetchShip} className="dashboard__refresh"><img src={refreshIcon} alt="" /></button>
             </header>
             {
-                ship && waypoint ? (
+                ship && waypoint && market ? (
                     <div className="dashboard__content">
-                        <Marketplace market={market}></Marketplace>
+                        <Controls ship={ship} waypoint={waypoint} market={market} navigate={STContext.navigate}></Controls>
                         <ShipOverview symbol={ship.symbol} cargo={ship.cargo} cooldown={ship.cooldown} fuel={ship.fuel} frame={ship.frame}></ShipOverview>
                         <NavComponent ship={ship} changeFlightMode={STContext.changeFlightMode} changeNavStatus={STContext.changeNavStatus}></NavComponent>
                         <LocationComponent waypoint={waypoint} market={market} ship={ship} extract={STContext.extractRessources} refuel={STContext.refuelShip}></LocationComponent>
