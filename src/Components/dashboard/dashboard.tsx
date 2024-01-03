@@ -14,7 +14,6 @@ import refreshIcon from "/assets/icons/refresh.svg";
 import Marketplace from "../marketplace/marketplace";
 import { AuthContext } from "../../Context/auth/AuthContext";
 import { SpacetradersContext } from "../../Context/spacetraders/SpacetradersContext";
-import { Ship } from "../../Models/ShipInterface";
 
 const Dashboard = () => {
     const authContext = useContext(AuthContext);
@@ -30,11 +29,6 @@ const Dashboard = () => {
             STContext.updateShip(await ApiHandler.getShip(shipSymbol, authContext.token))
         }
     }
-
-    // Fetch ship on load
-    useEffect(() => {
-        fetchShip();
-    }, [])
 
     // Once ship is fetched, fetch waypoint
     useEffect(() => {
@@ -58,66 +52,6 @@ const Dashboard = () => {
         }
     }, [waypoint])
 
-    // Get all infos from localstorage if there is
-    useEffect(() => {
-        if (shipSymbol && localStorage.getItem(shipSymbol)) {
-            let localData = localStorage.getItem(shipSymbol);
-            if (localData) {
-                let shipData = JSON.parse(localData);
-
-                STContext.updateShip(shipData);
-                setWaypoint(shipData.waypoint);
-                setMarket(shipData.market);
-            }
-        }
-    }, [shipSymbol])
-
-    const changeFlightMode = async (flightMode: string) => {
-        if (shipSymbol) {
-            if (ship) {
-                let response = await ApiHandler.patchNav(shipSymbol, flightMode, authContext.token);
-                STContext.updateShip({ ...ship, nav: response })
-            }
-
-        }
-    }
-
-    const extractRessources = async (shipSymbol: string) => {
-        if (ship) {
-            let response = await ApiHandler.postExtract(shipSymbol, authContext.token);
-            STContext.updateShip({ ...ship, cargo: response.cargo, cooldown: response.cooldown });
-        }
-
-        // result of extraction : response.extraction (a mettre dans une notif plus tard)
-    }
-
-    const refuelShip = async (shipSymbol: string) => {
-        if (ship) {
-            let response = await ApiHandler.postRefuel(shipSymbol, authContext.token);
-            STContext.updateShip({ ...ship, fuel: response.fuel });
-        }
-    }
-
-    const changeNavStatus = async (action: string, shipSymbol: string) => {
-        if (ship) {
-
-            if (action === "DOCK") {
-                let response = await ApiHandler.postDock(shipSymbol, authContext.token);
-                STContext.updateShip({ ...ship, nav: response });
-            } else if (action === "ORBIT") {
-                let response = await ApiHandler.postOrbit(shipSymbol, authContext.token);
-                STContext.updateShip({ ...ship, nav: response });
-            }
-        }
-    }
-
-    const navigate = async (waypointSymbol: string) => {
-        if (shipSymbol && ship) {
-            const response = await ApiHandler.postNavigate(shipSymbol, waypointSymbol, authContext.token)
-            STContext.updateShip({ ...ship, fuel: response.fuel, nav: response.nav });
-        }
-    }
-
     return (
         <div className="dashboard">
             <header className="dashboard__header">
@@ -129,8 +63,8 @@ const Dashboard = () => {
                     <div className="dashboard__content">
                         <Marketplace market={market}></Marketplace>
                         <ShipOverview symbol={ship.symbol} cargo={ship.cargo} cooldown={ship.cooldown} fuel={ship.fuel} frame={ship.frame}></ShipOverview>
-                        <NavComponent nav={ship.nav} changeFlightMode={changeFlightMode} changeNavStatus={changeNavStatus}></NavComponent>
-                        <LocationComponent waypoint={waypoint} market={market} nav={ship.nav} extract={extractRessources} refuel={refuelShip}></LocationComponent>
+                        <NavComponent ship={ship} changeFlightMode={STContext.changeFlightMode} changeNavStatus={STContext.changeNavStatus}></NavComponent>
+                        <LocationComponent waypoint={waypoint} market={market} ship={ship} extract={STContext.extractRessources} refuel={STContext.refuelShip}></LocationComponent>
                         <CargoComponent cargo={ship.cargo}></CargoComponent>
                     </div >
                 ) : (

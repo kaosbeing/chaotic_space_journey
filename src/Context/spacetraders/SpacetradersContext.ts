@@ -8,6 +8,11 @@ interface Spacetraders {
     updateAgent: (agent: Agent) => void,
     updateFleet: (fleet: Ship[]) => void,
     updateShip: (ship: Ship) => void,
+    changeFlightMode: (ship: Ship, flightMode: string) => void,
+    extractRessources: (ship: Ship) => void,
+    refuelShip: (ship: Ship) => void,
+    changeNavStatus: (ship: Ship, action: string) => void,
+    navigate: (ship: Ship, waypointSymbol: string) => void,
 }
 
 export const SpacetradersContext = createContext<Spacetraders>({
@@ -15,5 +20,10 @@ export const SpacetradersContext = createContext<Spacetraders>({
     fleet: [],
     updateAgent: () => { },
     updateFleet: () => { },
-    updateShip: () => { }
+    updateShip: () => { },
+    changeFlightMode: () => { },
+    extractRessources: () => { },
+    refuelShip: () => { },
+    changeNavStatus: () => { },
+    navigate: () => { }
 });

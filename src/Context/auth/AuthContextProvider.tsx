@@ -8,7 +8,7 @@ interface AuthContextProviderProps {
 }
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
-    const [token, setToken] = useState<string | null>(localStorage.getItem("agent-token"));
+    const [token, setToken] = useState<string>(localStorage.getItem("agent-token") ?? "");
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
     const navigate = useNavigate();
@@ -31,9 +31,9 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     };
 
     function logout(): void {
-        setToken(null);
+        setToken("");
         localStorage.removeItem("agent-token");
-        ApiHandler.token = null;
+        ApiHandler.token = "";
         navigate('/login');
     }
 

@@ -3,14 +3,12 @@ import infoIcon from "/assets/icons/info.svg";
 import typeIcon from "/assets/icons/waypoint_type.svg";
 import locationIcon from "/assets/icons/location.svg";
 import "./location.css";
-import { useParams } from "react-router-dom";
 import { Market } from "../../Models/MarketInterface";
-import { Nav } from "../../Models/ShipInterface";
+import { Ship } from "../../Models/ShipInterface";
 
-const Location = ({ nav, waypoint, market, extract, refuel }: { nav: Nav | null, waypoint: WaypointData | null, market: Market | null, extract: (shipSymbol: string) => void, refuel: (shipSymbol: string) => void }) => {
-    const { shipSymbol } = useParams();
-    const canExcavate = (waypoint?.type == "ASTEROID" || waypoint?.type == "ENGINEERED_ASTEROID" || waypoint?.type == "ASTEROID_FIELD") && nav?.status == "IN_ORBIT";
-    const canRefuel = market?.tradeGoods?.some((tradeGood) => tradeGood.symbol == "FUEL") && nav?.status == "DOCKED";
+const Location = ({ ship, waypoint, market, extract, refuel }: { ship: Ship, waypoint: WaypointData | null, market: Market | null, extract: (ship: Ship) => void, refuel: (ship: Ship) => void }) => {
+    const canExcavate = (waypoint?.type == "ASTEROID" || waypoint?.type == "ENGINEERED_ASTEROID" || waypoint?.type == "ASTEROID_FIELD") && ship.nav.status == "IN_ORBIT";
+    const canRefuel = market?.tradeGoods?.some((tradeGood) => tradeGood.symbol == "FUEL") && ship.nav.status == "DOCKED";
 
     return (
         <div className="waypointInfo">
@@ -36,8 +34,8 @@ const Location = ({ nav, waypoint, market, extract, refuel }: { nav: Nav | null,
                 }
             </div>
             <div className="waypointInfo__actions">
-                <button onClick={() => { if (shipSymbol) { refuel(shipSymbol) } }} className={canRefuel ? "waypointInfo__refuel" : "waypointInfo__refuel waypointInfo__refuel--disabled"} disabled={!canRefuel}>Refuel</button>
-                <button onClick={() => { if (shipSymbol) { extract(shipSymbol) } }} className={canExcavate ? "waypointInfo__excavate" : "waypointInfo__excavate waypointInfo__excavate--disabled"} disabled={!canExcavate}>Excavate</button>
+                <button onClick={() => { refuel(ship) }} className={canRefuel ? "waypointInfo__refuel" : "waypointInfo__refuel waypointInfo__refuel--disabled"} disabled={!canRefuel}>Refuel</button>
+                <button onClick={() => { extract(ship) }} className={canExcavate ? "waypointInfo__excavate" : "waypointInfo__excavate waypointInfo__excavate--disabled"} disabled={!canExcavate}>Excavate</button>
             </div>
         </div>
     )
