@@ -4,6 +4,7 @@ import ApiHandler from '../../ApiHandler';
 import { Agent } from '../../Models/AgentInterface';
 import { Ship } from '../../Models/ShipInterface';
 import { AuthContext } from '../auth/AuthContext';
+import { Waypoint } from '../../Models/WaypointInterface';
 
 interface SpacetradersProviderProps {
     children: ReactElement;
@@ -95,7 +96,39 @@ export function SpacetradersProvider({ children }: SpacetradersProviderProps) {
         updateShip({ ...ship, fuel: response.fuel, nav: response.nav });
     }
 
-    return <SpacetradersContext.Provider value={{ agent, fleet, updateAgent, updateFleet, updateShip, changeFlightMode, extractRessources, refuelShip, changeNavStatus, navigate }}>
+    const fetchSystem = async (systemSymbol: string) => {
+        const response = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20 });
+        let pages = Math.ceil(response.meta.total / response.meta.limit);
+
+        let fetchedWaypoints = response.data;
+
+        for (let i = 2; i <= pages; i++) {
+            let waypoints = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20, page: i });
+            fetchedWaypoints = [...fetchedWaypoints, ...waypoints.data];
+        }
+
+        localStorage.setItem(systemSymbol, JSON.stringify(fetchedWaypoints));
+    }
+
+    const getWaypoint = async (systemSymbol: string, waypointSymbol: string): Promise<Waypoint | false> => {
+        const localData = localStorage.getItem(systemSymbol);
+
+        if (localData) {
+            let localWaypoint = JSON.parse(localData).find((waypoint: Waypoint) => waypoint.symbol === waypointSymbol);
+
+            if (!localWaypoint) {
+                fetchSystem(systemSymbol);
+                localWaypoint = JSON.parse(localData).find((waypoint: Waypoint) => waypoint.symbol === waypointSymbol);
+                return localWaypoint;
+            } else {
+                return localWaypoint;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    return <SpacetradersContext.Provider value={{ agent, fleet, updateAgent, updateFleet, updateShip, changeFlightMode, extractRessources, refuelShip, changeNavStatus, navigate, fetchSystem, getWaypoint }}>
         {children}
     </SpacetradersContext.Provider>;
 }

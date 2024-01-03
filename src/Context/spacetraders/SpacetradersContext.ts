@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 import { Agent } from '../../Models/AgentInterface';
 import { Ship } from '../../Models/ShipInterface';
+import { Waypoint } from '../../Models/WaypointInterface';
 
 interface Spacetraders {
     agent: Agent | null,
@@ -13,6 +14,8 @@ interface Spacetraders {
     refuelShip: (ship: Ship) => void,
     changeNavStatus: (ship: Ship, action: string) => void,
     navigate: (ship: Ship, waypointSymbol: string) => void,
+    fetchSystem: (systemSymbol: string) => void,
+    getWaypoint: (systemSymbol: string, waypointSymbol: string) => Promise<Waypoint | false>,
 }
 
 export const SpacetradersContext = createContext<Spacetraders>({
@@ -25,5 +28,7 @@ export const SpacetradersContext = createContext<Spacetraders>({
     extractRessources: () => { },
     refuelShip: () => { },
     changeNavStatus: () => { },
-    navigate: () => { }
+    navigate: () => { },
+    fetchSystem: () => { },
+    getWaypoint: () => { throw "not implemented yet !" },
 });

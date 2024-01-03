@@ -31,28 +31,6 @@ const Dashboard = () => {
         }
     }
 
-    // Once ship is fetched, fetch waypoint
-    useEffect(() => {
-        if (ship) {
-            const fetchWaypoint = async () => {
-                setWaypoint(await ApiHandler.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol, authContext.token));
-            }
-
-            fetchWaypoint();
-        }
-    }, [ship])
-
-    // If ship is at waypoint with marketplace, fetch market
-    useEffect(() => {
-        if (waypoint && ship && waypoint.traits.some((trait) => trait.symbol == "MARKETPLACE")) {
-            const fetchMarket = async () => {
-                setMarket(await ApiHandler.getMarket(ship.nav.systemSymbol, ship.nav.waypointSymbol, authContext.token));
-            }
-
-            fetchMarket();
-        }
-    }, [waypoint])
-
     return (
         <div className="dashboard">
             <header className="dashboard__header">
