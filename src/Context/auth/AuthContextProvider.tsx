@@ -23,8 +23,11 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     async function login(token: string): Promise<void> {
         try {
             const response = await ApiHandler.getAgent(token);
-            localStorage.setItem("agent-token", JSON.stringify(response));
-            navigate('/');
+            if (response) {
+                localStorage.setItem("agent-token", token);
+                ApiHandler.token = token;
+                navigate('/');
+            }
         } catch (err) {
             console.log(err);
         }
