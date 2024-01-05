@@ -67,8 +67,6 @@ export function SpacetradersProvider({ children }: SpacetradersProviderProps) {
             let response = await ApiHandler.postExtract(ship.symbol, authContext.token);
             updateShip({ ...ship, cargo: response.cargo, cooldown: response.cooldown });
         }
-
-        // result of extraction : response.extraction (a mettre dans une notif plus tard)
     }
 
     const refuelShip = async (ship: Ship) => {
@@ -80,7 +78,6 @@ export function SpacetradersProvider({ children }: SpacetradersProviderProps) {
 
     const changeNavStatus = async (ship: Ship, action: string) => {
         if (ship) {
-
             if (action === "DOCK") {
                 let response = await ApiHandler.postDock(ship.symbol, authContext.token);
                 updateShip({ ...ship, nav: response });
@@ -110,23 +107,19 @@ export function SpacetradersProvider({ children }: SpacetradersProviderProps) {
         localStorage.setItem(systemSymbol, JSON.stringify(fetchedWaypoints));
     }
 
-    const getWaypoint = async (systemSymbol: string, waypointSymbol: string): Promise<Waypoint | false> => {
-        const localData = localStorage.getItem(systemSymbol);
+    const getWaypoint = async (systemSymbol: string, waypointSymbol: string): Promise<Waypoint | null> => {
+        const systemData = localStorage.getItem(systemSymbol);
 
-        if (localData) {
-            let localWaypoint = JSON.parse(localData).find((waypoint: Waypoint) => waypoint.symbol === waypointSymbol);
-
-            if (!localWaypoint) {
-                fetchSystem(systemSymbol);
-                localWaypoint = JSON.parse(localData).find((waypoint: Waypoint) => waypoint.symbol === waypointSymbol);
-                return localWaypoint;
-            } else {
-                return localWaypoint;
-            }
-        } else {
-            return false;
+        if (!systemData) {
+            await fetchSystem(systemSymbol);
         }
-    }
+
+        const updatedSystemData = localStorage.getItem(systemSymbol);
+        const system: Waypoint[] | null = updatedSystemData ? JSON.parse(updatedSystemData) : null;
+
+        return system ? system.find(waypoint => waypoint.symbol === waypointSymbol) || null : null;
+    };
+
 
     return <SpacetradersContext.Provider value={{ agent, fleet, updateAgent, updateFleet, updateShip, changeFlightMode, extractRessources, refuelShip, changeNavStatus, navigate, fetchSystem, getWaypoint }}>
         {children}

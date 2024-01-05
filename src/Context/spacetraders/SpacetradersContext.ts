@@ -15,7 +15,7 @@ interface Spacetraders {
     changeNavStatus: (ship: Ship, action: string) => void,
     navigate: (ship: Ship, waypointSymbol: string) => void,
     fetchSystem: (systemSymbol: string) => void,
-    getWaypoint: (systemSymbol: string, waypointSymbol: string) => Promise<Waypoint | false>,
+    getWaypoint: (systemSymbol: string, waypointSymbol: string) => Promise<Waypoint | null>,
 }
 
 export const SpacetradersContext = createContext<Spacetraders>({
