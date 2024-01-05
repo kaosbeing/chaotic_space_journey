@@ -25,6 +25,17 @@ const Dashboard = () => {
     const [waypoint, setWaypoint] = useState<WaypointData | null>(null)
     const [market, setMarket] = useState<Market | null>(null);
 
+    useEffect(() => {
+        const fetchWaypoint = async () => {
+            if (ship) {
+                let waypoint = await STContext.getWaypoint(ship?.nav.systemSymbol, ship?.nav.waypointSymbol);
+                setWaypoint(waypoint ? waypoint : null);
+            }
+        };
+
+        fetchWaypoint();
+    }, [ship])
+
     const fetchShip = async () => {
         if (shipSymbol) {
             STContext.updateShip(await ApiHandler.getShip(shipSymbol, authContext.token))
@@ -38,9 +49,9 @@ const Dashboard = () => {
                 <button onClick={fetchShip} className="dashboard__refresh"><img src={refreshIcon} alt="" /></button>
             </header>
             {
-                ship && waypoint && market ? (
+                ship && waypoint ? (
                     <div className="dashboard__content">
-                        <Controls ship={ship} waypoint={waypoint} market={market} navigate={STContext.navigate}></Controls>
+                        {market && <Controls ship={ship} waypoint={waypoint} market={market} navigate={STContext.navigate}></Controls>}
                         <ShipOverview symbol={ship.symbol} cargo={ship.cargo} cooldown={ship.cooldown} fuel={ship.fuel} frame={ship.frame}></ShipOverview>
                         <NavComponent ship={ship} changeFlightMode={STContext.changeFlightMode} changeNavStatus={STContext.changeNavStatus}></NavComponent>
                         <LocationComponent waypoint={waypoint} market={market} ship={ship} extract={STContext.extractRessources} refuel={STContext.refuelShip}></LocationComponent>

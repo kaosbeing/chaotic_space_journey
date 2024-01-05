@@ -2,7 +2,7 @@ import { Market } from "../../Models/MarketInterface"
 import marketplaceIcon from "/assets/icons/marketplace.svg"
 import "./marketplace.css"
 
-const marketplace = ({ market }: { market: Market | null }) => {
+const marketplace = ({ market }: { market: Market }) => {
     return (
         <div className="marketplace">
             <div className="marketplace__header">
