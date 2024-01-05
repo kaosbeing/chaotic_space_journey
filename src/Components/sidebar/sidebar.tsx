@@ -59,8 +59,6 @@ const Sidebar = () => {
 
     useEffect(() => {
         STContext.fleet?.map((ship: Ship) => {
-            calculateTimeAndProgress(ship);
-
             timer = setInterval(() => {
                 calculateTimeAndProgress(ship);
             }, 1000);
