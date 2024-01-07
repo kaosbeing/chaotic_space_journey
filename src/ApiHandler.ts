@@ -92,6 +92,18 @@ class ApiHandler {
         return response.data;
     }
 
+    static async postBuy(shipSymbol: string, goodSymbol: string, units: number, token: string) {
+        console.log("BUYING " + goodSymbol);
+        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/purchase`, token, `{"symbol":"${goodSymbol}","units":${units}}`);
+        return response.data;
+    }
+
+    static async postSell(shipSymbol: string, goodSymbol: string, units: number, token: string) {
+        console.log("SELLING " + goodSymbol);
+        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/sell`, token, `{"symbol":"${goodSymbol}","units":${units}}`);
+        return response.data;
+    }
+
     static async get(url: string, token: string) {
         const options = {
             method: 'GET',
