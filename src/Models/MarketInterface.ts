@@ -15,7 +15,7 @@ export interface Transaction {
     timestamp: string;
 }
 
-interface TradeGood {
+export interface TradeGood {
     symbol: string;
     type: string;
     tradeVolume: number;

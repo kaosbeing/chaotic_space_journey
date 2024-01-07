@@ -28,7 +28,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchWaypoint = async () => {
             if (ship) {
-                let waypoint = await STContext.getWaypoint(ship?.nav.systemSymbol, ship?.nav.waypointSymbol);
+                let waypoint = await STContext.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol);
                 setWaypoint(waypoint ? waypoint : null);
             }
         };
@@ -36,22 +36,32 @@ const Dashboard = () => {
         fetchWaypoint();
     }, [ship])
 
-    const fetchShip = async () => {
+    const updateDashboard = async () => {
         if (shipSymbol) {
             STContext.updateShip(await ApiHandler.getShip(shipSymbol, authContext.token))
         }
     }
 
+    useEffect(() => {
+        const fetchMarket = async () => {
+            if (waypoint?.traits.some((trait) => trait.symbol === "MARKETPLACE")) {
+                setMarket(await ApiHandler.getMarket(waypoint.systemSymbol, waypoint.symbol, authContext.token));
+            }
+        }
+
+        fetchMarket();
+    }, [waypoint])
+
     return (
         <div className="dashboard">
             <header className="dashboard__header">
                 <h2 className="dashboard__title">Dashboard</h2>
-                <button onClick={fetchShip} className="dashboard__refresh"><img src={refreshIcon} alt="" /></button>
+                <button onClick={updateDashboard} className="dashboard__refresh"><img src={refreshIcon} alt="" /></button>
             </header>
             {
-                ship && waypoint ? (
+                STContext.agent && ship && waypoint ? (
                     <div className="dashboard__content">
-                        {market && <Controls ship={ship} waypoint={waypoint} market={market} navigate={STContext.navigate}></Controls>}
+                        <Controls ship={ship} agent={STContext.agent} waypoint={waypoint} market={market} shipyard={null} navigate={STContext.navigate}></Controls>
                         <ShipOverview symbol={ship.symbol} cargo={ship.cargo} cooldown={ship.cooldown} fuel={ship.fuel} frame={ship.frame}></ShipOverview>
                         <NavComponent ship={ship} changeFlightMode={STContext.changeFlightMode} changeNavStatus={STContext.changeNavStatus}></NavComponent>
                         <LocationComponent waypoint={waypoint} market={market} ship={ship} extract={STContext.extractRessources} refuel={STContext.refuelShip}></LocationComponent>

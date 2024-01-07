@@ -1,8 +1,84 @@
-import { Market } from "../../Models/MarketInterface"
+import { Market, TradeGood } from "../../Models/MarketInterface"
 import marketplaceIcon from "/assets/icons/marketplace.svg"
 import "./marketplace.css"
+import { Ship } from "../../Models/ShipInterface"
+import { useContext, useState } from "react"
+import { Agent } from "../../Models/AgentInterface"
+import ApiHandler from "../../ApiHandler"
+import { AuthContext } from "../../Context/auth/AuthContext"
+import { SpacetradersContext } from "../../Context/spacetraders/SpacetradersContext"
 
-const marketplace = ({ market }: { market: Market }) => {
+const marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agent: Agent }) => {
+    const authContext = useContext(AuthContext);
+    const STContext = useContext(SpacetradersContext);
+    const [displayModal, setDisplayModal] = useState<boolean>(false)
+    const [modalType, setModalType] = useState<"BUY" | "SELL">("BUY")
+    const [modalTradeGood, setModalTradeGood] = useState<TradeGood | null>(null)
+    const [modalTradeUnits, setModalTradeUnits] = useState<number>(0)
+
+    const renderTradeButtons = (tradegood: TradeGood) => {
+        const canSell = ship.cargo.inventory.some((item) => item.symbol === tradegood.symbol)
+        if (canSell) {
+            return (
+                <>
+                    <button onClick={(e) => { e.stopPropagation(); setModalType("BUY"); setModalTradeGood(tradegood); setDisplayModal(true); }} className="tradegoods__action">{tradegood.purchasePrice}</button>
+                    <button onClick={(e) => { e.stopPropagation(); setModalType("SELL"); setModalTradeGood(tradegood); setDisplayModal(true); }} className="tradegoods__action" > {tradegood.sellPrice}</button>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <button onClick={(e) => { e.stopPropagation(); setModalType("BUY"); setModalTradeGood(tradegood); setDisplayModal(true); }} className="tradegoods__action">{tradegood.purchasePrice}</button>
+                    <button className="tradegoods__action tradegoods__action--disabled" disabled > {tradegood.sellPrice}</button>
+                </>
+            );
+        }
+    }
+
+    // Everything used by the sell and buy modal
+    const renderTradeModal = () => {
+
+        const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            if (modalTradeGood) {
+                if (modalType === "BUY") {
+                    var response = await ApiHandler.postBuy(ship.symbol, modalTradeGood.symbol, modalTradeUnits, authContext.token);
+                } else {
+                    var response = await ApiHandler.postSell(ship.symbol, modalTradeGood.symbol, modalTradeUnits, authContext.token);
+                }
+                STContext.updateShip({ ...ship, cargo: response.cargo });
+                STContext.updateAgent(response.agent);
+            }
+            setDisplayModal(false);
+        }
+
+        if (!displayModal || !modalTradeGood) {
+            return (<></>)
+        }
+
+        return (
+            <div onClick={() => { setDisplayModal(false); }} className="sellmodal">
+                <div onClick={(e) => { e.stopPropagation() }} className="sellmodal__content">
+                    <h3 className="sellmodal__title">{modalType} : {modalTradeGood?.symbol}</h3>
+                    <div className="sellmodal__infos">
+                        <div className="sellmodal__unitprice">
+                            <span className="sellmodal__infotitle">Unit Price</span>
+                            <span className="sellmodal__infocontent">{modalType === "BUY" ? modalTradeGood?.purchasePrice : modalTradeGood?.sellPrice}</span>
+                        </div>
+                        <div className="sellmodal__tradeVolume">
+                            <span className="sellmodal__infotitle">Max per trade</span>
+                            <span>{modalTradeGood?.tradeVolume}</span>
+                        </div>
+                    </div>
+                    <form className="sellmodal__form" onSubmit={(e) => formSubmit(e)}>
+                        <input onInput={(e) => { setModalTradeUnits(parseInt((e.target as HTMLInputElement).value)) }} className="sellmodal__input" type="number" placeholder="Quantity" name="" id="" />
+                        <button className="sellmodal__button">{modalType === "BUY" ? "Buy" : "SELL"}</button>
+                    </form>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="marketplace">
             <div className="marketplace__header">
@@ -11,15 +87,12 @@ const marketplace = ({ market }: { market: Market }) => {
             </div>
             <div className="marketplace__tradegoods">
                 {market ? market.tradeGoods?.map((tradegood) => (
-                    <div>
-                        <div>
+                    <div key={tradegood.symbol} className="tradegood">
+                        <div className="tradegood__symbol">
                             {tradegood.symbol}
                         </div>
-                        <div>
-                            Buy for {tradegood.purchasePrice}
-                        </div>
-                        <div>
-                            Sell for {tradegood.sellPrice}
+                        <div className="tradegoods__actions">
+                            {renderTradeButtons(tradegood)}
                         </div>
                     </div>
                 ))
@@ -27,6 +100,7 @@ const marketplace = ({ market }: { market: Market }) => {
                         <div>Loading</div>
                     )}
             </div>
+            {renderTradeModal()}
         </div>
     )
 }

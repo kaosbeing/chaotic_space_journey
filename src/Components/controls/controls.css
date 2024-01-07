@@ -16,11 +16,40 @@
 .controls__button {
     width: 100%;
     background-color: var(--bg-2);
+    color: var(--txt-muted);
     border-radius: 0.25rem;
     padding: 0.75rem;
     font-size: 1rem;
-    color: #fff;
     outline: none;
     border: none;
     cursor: pointer;
+    transition: 300ms;
+}
+
+.controls__button:hover {
+    background-color: var(--bg-2-hover);
+}
+
+.controls__button--active {
+    background-color: var(--bg-3);
+    color: var(--accent);
+}
+
+.controls__button--active:hover {
+    background-color: var(--bg-3);
+}
+
+.controls__button--disabled {
+    background-color: var(--bg-0);
+    color: var(--bg-2);
+    cursor: not-allowed;
+}
+
+.controls__button--disabled:hover {
+    background-color: var(--bg-0);
+}
+
+.controls__body {
+    height: 100%;
+    max-height: 100%;
 }
