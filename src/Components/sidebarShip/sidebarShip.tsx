@@ -43,11 +43,11 @@ const sidebarShip = ({ ship }: { ship: Ship }) => {
 
             return (
                 <div className='fleetItem__travelStatus'>
-                    <span className='fleetItem__timer'>{timeUntilArrival}s</span>
-                    <ProgressBar max={100} value={flightProgress} color='var(--confirm)'></ProgressBar>
                     <div className='fleetItem__transitTiming'>
+                        <span className='fleetItem__timer'>{timeUntilArrival}s</span>
                         <span className='fleetItem__arrivalTime'>{arrivalDate.toLocaleString("fr-FR").replace("/2024", "")}</span>
                     </div>
+                    <ProgressBar max={100} value={flightProgress} color='var(--confirm)'></ProgressBar>
                 </div>
             )
         }
