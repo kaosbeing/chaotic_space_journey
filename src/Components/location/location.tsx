@@ -6,7 +6,7 @@ import "./location.css";
 import { Market } from "../../Models/MarketInterface";
 import { Ship } from "../../Models/ShipInterface";
 
-const Location = ({ ship, waypoint, market, extract, refuel }: { ship: Ship, waypoint: Waypoint | null, market: Market | null, extract: (ship: Ship) => void, refuel: (ship: Ship) => void }) => {
+const Location = ({ ship, waypoint, market, extract, refuel }: { ship: Ship, waypoint: Waypoint, market: Market | null, extract: (ship: Ship) => void, refuel: (ship: Ship) => void }) => {
     const canExcavate = (waypoint?.type == "ASTEROID" || waypoint?.type == "ENGINEERED_ASTEROID" || waypoint?.type == "ASTEROID_FIELD") && ship.nav.status == "IN_ORBIT";
     const canRefuel = market?.tradeGoods?.some((tradeGood) => tradeGood.symbol == "FUEL") && ship.nav.status == "DOCKED";
 
