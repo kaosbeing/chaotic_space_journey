@@ -27,13 +27,13 @@ const Sidebar = () => {
                 <img src={chevron} />
             </Link>
             {STContext.fleet ? (
-                <div className="fleet">
+                <div className="sideBar__fleet">
                     {STContext.fleet.map((ship) => (
                         <SidebarShip key={ship.symbol} ship={ship}></SidebarShip>
                     ))}
                 </div>
             ) : (
-                <div className="fleet loading">
+                <div className="sideBar__fleet loading">
                     <div className="loader"></div>
                 </div>
             )}

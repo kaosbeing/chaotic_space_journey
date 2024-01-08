@@ -39,7 +39,7 @@
     white-space: nowrap;
 }
 
-.fleet {
+.sideBar__fleet {
     height: 100%;
     overflow-y: scroll;
     display: flex;
