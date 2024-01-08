@@ -26,7 +26,7 @@ const sidebarShip = ({ ship }: { ship: Ship }) => {
         setTimeUntilArrival(timeUntilArrival);
         setFlightProgress(flightProgress);
 
-        if (timeUntilArrival == 0) {
+        if (timeUntilArrival <= 0 && ship.nav.status == "IN_TRANSIT") {
             clearInterval(timer);
             const editedShipData = { ...ship, nav: { ...ship.nav, status: "IN_ORBIT" } };
             STContext.updateShip(editedShipData);
