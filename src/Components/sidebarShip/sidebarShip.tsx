@@ -54,8 +54,6 @@ const sidebarShip = ({ ship }: { ship: Ship }) => {
     }
 
     const renderStatusIcon = (ship: Ship) => {
-        console.log(ship.nav.status);
-
         switch (ship.nav.status) {
             case "DOCKED":
                 return <img className='fleetItem__status' src={dockedIcon} alt="DOCKED" />

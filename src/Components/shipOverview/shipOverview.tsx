@@ -26,8 +26,6 @@ const ShipOverview = ({ symbol, frame, cargo, fuel, cooldown }: { symbol: string
 
         if (timer > 0) {
             intervalId = setInterval(() => {
-                console.log("tick");
-
                 setTimer((time) => time > 0 ? time - 1 : 0);
             }, 1000);
         }
