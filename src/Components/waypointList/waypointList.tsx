@@ -43,7 +43,7 @@ const WaypointList = ({ currentWaypoint, ship, navigate }: { currentWaypoint: Wa
             fuelConsumedByAFlight = 1;
         }
 
-        if ((ship.fuel.current >= fuelConsumedByAFlight || ship.fuel.capacity == 0) && ship.nav.status == "IN_ORBIT") {
+        if ((ship.fuel.current >= fuelConsumedByAFlight || ship.fuel.capacity == 0) && ship.nav.status == "IN_ORBIT" && waypoint.symbol !== ship.nav.waypointSymbol) {
             return (
                 <button onClick={() => { navigate(ship, waypoint.symbol) }} className="listitem__go">Go</button>
             )
