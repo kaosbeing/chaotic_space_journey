@@ -1,7 +1,7 @@
 import { render, screen, act } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import App from '../App';
-import SpaceTraders from '../SpaceTraders';
+import ApiHandler from '../ApiHandler';
 
 jest.mock('../SpaceTraders', () => ({
     __esModule: true,  // This is required for ES modules
@@ -22,8 +22,8 @@ describe('App Component', () => {
         const mockUser = { username: 'testUser' };
         const mockFleet = { shipCount: 1 };
 
-        (SpaceTraders.getUser as jest.Mock).mockResolvedValueOnce(mockUser);
-        (SpaceTraders.getFleet as jest.Mock).mockResolvedValueOnce(mockFleet);
+        (ApiHandler.getAgent as jest.Mock).mockResolvedValueOnce(mockUser);
+        (ApiHandler.getFleet as jest.Mock).mockResolvedValueOnce(mockFleet);
 
         await act(async () => {
             render(
@@ -44,7 +44,7 @@ describe('App Component', () => {
     });
 
     test('redirect to login if no token', async () => {
-        SpaceTraders.token = null;
+        ApiHandler.token = null;
 
         await act(async () => {
             render(

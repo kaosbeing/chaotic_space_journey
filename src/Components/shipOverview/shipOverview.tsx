@@ -16,7 +16,7 @@ const ShipOverview = ({ symbol, frame, cargo, fuel, cooldown }: { symbol: string
 
     useEffect(() => {
         if (cooldown && cooldown.expiration) {
-            let remainingCD = Math.round((new Date(cooldown.expiration).getTime() - Date.now()) / 1000);
+            const remainingCD = Math.round((new Date(cooldown.expiration).getTime() - Date.now()) / 1000);
             setTimer(remainingCD >= 0 ? remainingCD : 0);
         } else {
             setTimer(0);
@@ -26,8 +26,6 @@ const ShipOverview = ({ symbol, frame, cargo, fuel, cooldown }: { symbol: string
 
         if (timer > 0) {
             intervalId = setInterval(() => {
-                console.log("tick");
-
                 setTimer((time) => time > 0 ? time - 1 : 0);
             }, 1000);
         }

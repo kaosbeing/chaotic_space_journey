@@ -1,20 +1,55 @@
-.fleet {
+.fleet__wrapper {
+    border-radius: 0.5rem;
+    width: 100%;
     height: 100%;
-    overflow-y: scroll;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    scrollbar-width: thin;
-    scrollbar-color: var(--bg-2) var(--bg-0);
-
+    justify-content: center;
 }
 
-.fleet__title {
-    font-size: 2rem;
-    font-weight: 700;
+.fleet {
+    background-color: var(--bg-2);
+    border-radius: 1rem;
+}
+
+.fleet .fleet__row:last-child .fleet__cell:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+.fleet .fleet__row:last-child .fleet__cell:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+.fleet__head .fleet__cell {
+    font-size: 1.25rem;
+    color: var(--accent-2);
+    font-weight: 500;
+}
+
+.fleet__body {}
+
+.fleet__cell {
+    padding: 1rem 1rem;
     text-align: center;
-    padding: 1rem;
-    color: var(--accent);
 }
+
+.fleet__body .fleet__cell {
+    background-color: var(--bg-2-hover);
+}
+
+.fleet__body .fleet__row:nth-child(odd) .fleet__cell {
+    background-color: var(--bg);
+}
+
+.fleet__shipSymbol {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.fleet__shipRole {}
+
+.fleet__shipStatus {}
+
+.fleet__shipFuel {}
+
+.fleet__shipCargo {}

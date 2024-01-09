@@ -18,7 +18,7 @@ function LoginPage() {
             <div className="login">
                 <div className="login__hero">
                     <img src={logo} className="login__logo" />
-                    <h1 className="login__title">Chaotic Space Traders</h1>
+                    <h1 className="login__title"><span className="login__title--main">Chaotic</span><span className="login__title--sub">Space Journey</span></h1>
                 </div>
                 <form className="login__form" onSubmit={login}>
                     <input onInput={(e) => { setToken((e.target as HTMLTextAreaElement).value) }} type="text" className="login__textInput" name="token" placeholder="Token" />

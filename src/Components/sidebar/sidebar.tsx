@@ -1,14 +1,44 @@
 import "./sidebar.css";
-import { Agent } from '../../Models/AgentInterface';
-import { Ship } from '../../Models/ShipInterface';
-import Fleet from '../fleet/fleet';
 import User from '../user/user';
+import logo from "/assets/logo.svg";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/auth/AuthContext";
+import { Link } from "react-router-dom";
+import SidebarShip from "../sidebarShip/sidebarShip";
 
-const Sidebar = ({ user, fleet }: { user: Agent | null, fleet: Ship[] | null }) => {
+import chevron from "/assets/icons/chevron_right.svg";
+import { SpacetradersContext } from "../../Context/spacetraders/SpacetradersContext";
+
+const Sidebar = () => {
+    const authContext = useContext(AuthContext);
+    const STContext = useContext(SpacetradersContext);
+
     return (
         <div className='sideBar'>
-            <User user={user} />
-            <Fleet fleet={fleet} />
+            <div className="hero">
+                <img className="hero__img" src={logo} alt="" />
+                <div className="hero__title">
+                    <span className="hero__title--main">Chaotic</span>
+                    <span className="hero__title--sub">Space Journey</span>
+                </div>
+            </div>
+            <Link to={"/fleet"} className="full_fleet">
+                <span>View fleet</span>
+                <img src={chevron} />
+            </Link>
+            {STContext.fleet ? (
+                <div className="sideBar__fleet">
+                    {STContext.fleet.map((ship) => (
+                        <SidebarShip key={ship.symbol} ship={ship}></SidebarShip>
+                    ))}
+                </div>
+            ) : (
+                <div className="sideBar__fleet loading">
+                    <div className="loader"></div>
+                </div>
+            )}
+            <User user={STContext.agent} />
+            <button onClick={() => { authContext.logout() }} className="logout">Log out</button>
         </div>
     );
 };

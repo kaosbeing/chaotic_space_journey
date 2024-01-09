@@ -4,7 +4,7 @@ import "./progressBar.css";
 const ProgressBar = ({ color, value, max }: { color: string, value: number, max: number }) => {
     const [progress, setProgress] = useState(0);
 
-    let style = {
+    const style = {
         width: progress + "%",
         backgroundColor: color,
     }
