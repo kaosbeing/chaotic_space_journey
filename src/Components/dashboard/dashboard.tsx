@@ -15,6 +15,7 @@ import Marketplace from "../marketplace/marketplace";
 import { AuthContext } from "../../Context/auth/AuthContext";
 import { SpacetradersContext } from "../../Context/spacetraders/SpacetradersContext";
 import Controls from "../controls/controls";
+import { Shipyard } from "../../Models/Shipyard";
 
 const Dashboard = () => {
     const authContext = useContext(AuthContext);
@@ -24,6 +25,7 @@ const Dashboard = () => {
 
     const [waypoint, setWaypoint] = useState<WaypointData | null>(null)
     const [market, setMarket] = useState<Market | null>(null);
+    const [shipyard, setShipyard] = useState<Shipyard | null>(null);
 
     useEffect(() => {
         const fetchWaypoint = async () => {
@@ -43,13 +45,22 @@ const Dashboard = () => {
     }
 
     useEffect(() => {
-        const fetchMarket = async () => {
+        const fetchMarketAndShipyard = async () => {
+            if (!waypoint?.traits.some((trait) => trait.symbol === "SHIPYARD" || trait.symbol === "SHIPYARD")) {
+                setMarket(null);
+                setShipyard(null);
+            }
+
             if (waypoint?.traits.some((trait) => trait.symbol === "MARKETPLACE")) {
                 setMarket(await ApiHandler.getMarket(waypoint.systemSymbol, waypoint.symbol, authContext.token));
             }
+
+            if (waypoint?.traits.some((trait) => trait.symbol === "SHIPYARD")) {
+                setShipyard(await ApiHandler.getShipyard(waypoint.systemSymbol, waypoint.symbol, authContext.token));
+            }
         }
 
-        fetchMarket();
+        fetchMarketAndShipyard();
     }, [waypoint])
 
     return (
@@ -61,7 +72,7 @@ const Dashboard = () => {
             {
                 STContext.agent && ship && waypoint ? (
                     <div className="dashboard__content">
-                        <Controls ship={ship} agent={STContext.agent} waypoint={waypoint} market={market} shipyard={null} navigate={STContext.navigate}></Controls>
+                        <Controls ship={ship} agent={STContext.agent} waypoint={waypoint} market={market} shipyard={shipyard} navigate={STContext.navigate}></Controls>
                         <ShipOverview symbol={ship.symbol} cargo={ship.cargo} cooldown={ship.cooldown} fuel={ship.fuel} frame={ship.frame}></ShipOverview>
                         <NavComponent ship={ship} changeFlightMode={STContext.changeFlightMode} changeNavStatus={STContext.changeNavStatus}></NavComponent>
                         <LocationComponent waypoint={waypoint} market={market} ship={ship} extract={STContext.extractRessources} refuel={STContext.refuelShip}></LocationComponent>

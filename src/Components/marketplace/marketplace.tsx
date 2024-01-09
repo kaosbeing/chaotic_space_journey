@@ -17,7 +17,9 @@ const marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agen
     const [modalTradeUnits, setModalTradeUnits] = useState<number>(0)
 
     const renderTradeButtons = (tradegood: TradeGood) => {
-        const canSell = ship.cargo.inventory.some((item) => item.symbol === tradegood.symbol)
+        const canSell = ship.cargo.inventory.some((item) => item.symbol === tradegood.symbol) && ship.nav.status === "DOCKED";
+        const canBuy = agent.credits >= tradegood.purchasePrice && ship.nav.status === "DOCKED";
+
         if (canSell) {
             return (
                 <>
@@ -57,22 +59,22 @@ const marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agen
         }
 
         return (
-            <div onClick={() => { setDisplayModal(false); }} className="sellmodal">
-                <div onClick={(e) => { e.stopPropagation() }} className="sellmodal__content">
-                    <h3 className="sellmodal__title">{modalType} : {modalTradeGood?.symbol}</h3>
-                    <div className="sellmodal__infos">
-                        <div className="sellmodal__unitprice">
-                            <span className="sellmodal__infotitle">Unit Price</span>
-                            <span className="sellmodal__infocontent">{modalType === "BUY" ? modalTradeGood?.purchasePrice : modalTradeGood?.sellPrice}</span>
+            <div onClick={() => { setDisplayModal(false); }} className="trademodal">
+                <div onClick={(e) => { e.stopPropagation() }} className="trademodal__content">
+                    <h3 className="trademodal__title">{modalType} : {modalTradeGood?.symbol}</h3>
+                    <div className="trademodal__infos">
+                        <div className="trademodal__unitprice">
+                            <span className="trademodal__infotitle">Unit Price</span>
+                            <span className="trademodal__infocontent">{modalType === "BUY" ? modalTradeGood?.purchasePrice : modalTradeGood?.sellPrice}</span>
                         </div>
-                        <div className="sellmodal__tradeVolume">
-                            <span className="sellmodal__infotitle">Max per trade</span>
+                        <div className="trademodal__tradeVolume">
+                            <span className="trademodal__infotitle">Max per trade</span>
                             <span>{modalTradeGood?.tradeVolume}</span>
                         </div>
                     </div>
-                    <form className="sellmodal__form" onSubmit={(e) => formSubmit(e)}>
-                        <input onInput={(e) => { setModalTradeUnits(parseInt((e.target as HTMLInputElement).value)) }} className="sellmodal__input" type="number" placeholder="Quantity" name="" id="" />
-                        <button className="sellmodal__button">{modalType === "BUY" ? "Buy" : "SELL"}</button>
+                    <form className="trademodal__form" onSubmit={(e) => formSubmit(e)}>
+                        <input onInput={(e) => { setModalTradeUnits(parseInt((e.target as HTMLInputElement).value)) }} className="trademodal__input" type="number" placeholder="Quantity" name="" id="" />
+                        <button className="trademodal__button">{modalType === "BUY" ? "Buy" : "SELL"}</button>
                     </form>
                 </div>
             </div>

@@ -32,6 +32,12 @@ class ApiHandler {
         return response.data;
     }
 
+    static async getShipyard(systemSymbol: string, waypointSymbol: string, token: string) {
+        console.log("fetching SHIPYARD");
+        const response = await ApiHandler.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}/shipyard`, token);
+        return response.data;
+    }
+
     static async getWaypoint(systemSymbol: string, waypointSymbol: string, token: string): Promise<Waypoint> {
         console.log("Fetching WAYPOINT");
         const response = await ApiHandler.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}`, token);
@@ -101,6 +107,12 @@ class ApiHandler {
     static async postSell(shipSymbol: string, goodSymbol: string, units: number, token: string) {
         console.log("SELLING " + goodSymbol);
         const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/sell`, token, `{"symbol":"${goodSymbol}","units":${units}}`);
+        return response.data;
+    }
+
+    static async postBuyShip(shipType: string, waypointSymbol: string, token: string) {
+        console.log("BUYING ship");
+        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/`, token, `{"shipType":"${shipType}","waypointSymbol":"${waypointSymbol}"}`);
         return response.data;
     }
 

@@ -1,0 +1,64 @@
+.shipyard {
+    padding: 1rem;
+    background-color: var(--bg-2);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.shipyard__header {}
+
+.shipyard__title {
+    font-size: 1.5rem;
+    color: var(--accent-2);
+    font-weight: 600;
+}
+
+.shipyard__ships {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.shipyard__ship {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.shipyard__shipName {
+    color: var(--accent-2);
+    font-size: 1.1rem;
+}
+
+.shipyard__shipinfos {
+    display: flex;
+    gap: 1rem;
+}
+
+.shipyard__shipStats {
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    gap: 0.25rem;
+}
+
+.shipyard__purchase {
+    border: none;
+    outline: none;
+    border-radius: 0.25rem;
+    color: var(--txt);
+    background-color: var(--confirm);
+    font-size: 1rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.shipyard__purchase--disabled {
+    background-color: var(--bg-0);
+    color: var(--bg-2);
+    cursor: not-allowed;
+}
