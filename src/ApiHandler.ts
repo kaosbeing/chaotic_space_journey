@@ -56,7 +56,7 @@ class ApiHandler {
             criterias.traits ? modifiers += `traits=${criterias.traits}&` : "";
         }
 
-        let url = `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints${modifiers}`;
+        const url = `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints${modifiers}`;
         const response = await ApiHandler.get(url, token);
         return response;
 

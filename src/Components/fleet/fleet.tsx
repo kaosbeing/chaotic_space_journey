@@ -9,7 +9,7 @@ import in_transitIcon from "/assets/icons/in_transit.svg";
 import { Ship } from "../../Models/ShipInterface";
 
 const Fleet = () => {
-    let STContext = useContext(SpacetradersContext);
+    const STContext = useContext(SpacetradersContext);
 
     const renderStatusIcon = (ship: Ship) => {
         switch (ship.nav.status) {

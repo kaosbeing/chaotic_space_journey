@@ -17,8 +17,8 @@ export function SpacetradersProvider({ children }: SpacetradersProviderProps) {
     const [fleet, setFleet] = useState<Ship[]>([]);
 
     useEffect(() => {
-        let localAgent = localStorage.getItem("agent");
-        let localFleet = localStorage.getItem("fleet");
+        const localAgent = localStorage.getItem("agent");
+        const localFleet = localStorage.getItem("fleet");
 
         const fetchAgent = async () => {
             ApiHandler.getAgent(authContext.token);
@@ -58,20 +58,20 @@ export function SpacetradersProvider({ children }: SpacetradersProviderProps) {
     }
 
     const changeFlightMode = async (ship: Ship, flightMode: string) => {
-        let response = await ApiHandler.patchNav(ship.symbol, flightMode, authContext.token);
+        const response = await ApiHandler.patchNav(ship.symbol, flightMode, authContext.token);
         updateShip({ ...ship, nav: response })
     }
 
     const extractRessources = async (ship: Ship) => {
         if (ship) {
-            let response = await ApiHandler.postExtract(ship.symbol, authContext.token);
+            const response = await ApiHandler.postExtract(ship.symbol, authContext.token);
             updateShip({ ...ship, cargo: response.cargo, cooldown: response.cooldown });
         }
     }
 
     const refuelShip = async (ship: Ship) => {
         if (ship) {
-            let response = await ApiHandler.postRefuel(ship.symbol, authContext.token);
+            const response = await ApiHandler.postRefuel(ship.symbol, authContext.token);
             updateShip({ ...ship, fuel: response.fuel });
         }
     }
@@ -79,10 +79,10 @@ export function SpacetradersProvider({ children }: SpacetradersProviderProps) {
     const changeNavStatus = async (ship: Ship, action: string) => {
         if (ship) {
             if (action === "DOCK") {
-                let response = await ApiHandler.postDock(ship.symbol, authContext.token);
+                const response = await ApiHandler.postDock(ship.symbol, authContext.token);
                 updateShip({ ...ship, nav: response });
             } else if (action === "ORBIT") {
-                let response = await ApiHandler.postOrbit(ship.symbol, authContext.token);
+                const response = await ApiHandler.postOrbit(ship.symbol, authContext.token);
                 updateShip({ ...ship, nav: response });
             }
         }
@@ -95,12 +95,12 @@ export function SpacetradersProvider({ children }: SpacetradersProviderProps) {
 
     const fetchSystem = async (systemSymbol: string) => {
         const response = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20 });
-        let pages = Math.ceil(response.meta.total / response.meta.limit);
+        const pages = Math.ceil(response.meta.total / response.meta.limit);
 
         let fetchedWaypoints = response.data;
 
         for (let i = 2; i <= pages; i++) {
-            let waypoints = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20, page: i });
+            const waypoints = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20, page: i });
             fetchedWaypoints = [...fetchedWaypoints, ...waypoints.data];
         }
 

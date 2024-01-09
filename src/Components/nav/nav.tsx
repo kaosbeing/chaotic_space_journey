@@ -28,8 +28,8 @@ const Nav = ({ ship, changeFlightMode, changeNavStatus }: { ship: Ship, changeFl
     const [flightProgress, setFlightProgress] = useState<number>(0);
 
     const renderTransitInfos = () => {
-        let departureDate = new Date(ship.nav.route.departureTime);
-        let arrivalDate = new Date(ship.nav.route.arrival);
+        const departureDate = new Date(ship.nav.route.departureTime);
+        const arrivalDate = new Date(ship.nav.route.arrival);
 
         if (ship.nav.status === "IN_TRANSIT") {
             const interval = setInterval(() => {

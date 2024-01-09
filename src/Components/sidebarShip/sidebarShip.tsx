@@ -9,15 +9,15 @@ import in_orbitIcon from "/assets/icons/in_orbit.svg";
 import in_transitIcon from "/assets/icons/in_transit.svg";
 import locationIcon from "/assets/icons/location.svg";
 
-const sidebarShip = ({ ship }: { ship: Ship }) => {
+const SidebarShip = ({ ship }: { ship: Ship }) => {
     const STContext = useContext(SpacetradersContext);
     const [timeUntilArrival, setTimeUntilArrival] = useState<number>(0);
     const [flightProgress, setFlightProgress] = useState<number>(0);
     let timer: NodeJS.Timeout;
 
     const calculateTimeAndProgress = (ship: Ship) => {
-        let departureDate = new Date(ship.nav.route.departureTime);
-        let arrivalDate = new Date(ship.nav.route.arrival);
+        const departureDate = new Date(ship.nav.route.departureTime);
+        const arrivalDate = new Date(ship.nav.route.arrival);
 
         const currentTime = Date.now();
         const timeUntilArrival = Math.floor((arrivalDate.getTime() - currentTime) / 1000);
@@ -35,7 +35,7 @@ const sidebarShip = ({ ship }: { ship: Ship }) => {
 
     const renderTransitInfos = (ship: Ship) => {
         if (ship.nav.status === "IN_TRANSIT") {
-            let arrivalDate = new Date(ship.nav.route.arrival);
+            const arrivalDate = new Date(ship.nav.route.arrival);
 
             timer = setInterval(() => {
                 calculateTimeAndProgress(ship);
@@ -81,4 +81,4 @@ const sidebarShip = ({ ship }: { ship: Ship }) => {
     )
 }
 
-export default sidebarShip
+export default SidebarShip

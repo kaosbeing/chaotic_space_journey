@@ -7,7 +7,7 @@ import { Waypoint } from "../../Models/WaypointInterface";
 import { Market } from "../../Models/MarketInterface";
 import { Agent } from "../../Models/AgentInterface";
 import Shipyard from "../shipyard/shipyard";
-import { Shipyard as ShipyardData } from "../../Models/Shipyard";
+import { Shipyard as ShipyardData } from "../../Models/ShipyardInterface";
 
 const Controls = ({ ship, agent, waypoint, market, shipyard, navigate }: { ship: Ship, agent: Agent, waypoint: Waypoint, market: Market | null, shipyard: ShipyardData | null, navigate: (ship: Ship, waypointSymbol: string) => void }) => {
     const [state, setState] = useState<"navigation" | "marketplace" | "shipyard">("navigation");

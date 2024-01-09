@@ -1,5 +1,5 @@
 import "./shipyard.css";
-import { Shipyard as ShipyardData, ShipyardShip } from "../../Models/Shipyard"
+import { Shipyard as ShipyardData, ShipyardShip } from "../../Models/ShipyardInterface"
 import fuelIcon from "/assets/icons/fuel.svg";
 import cargoIcon from "/assets/icons/cargo.svg";
 import { Agent } from "../../Models/AgentInterface";

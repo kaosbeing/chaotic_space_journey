@@ -8,7 +8,7 @@ import ApiHandler from "../../ApiHandler"
 import { AuthContext } from "../../Context/auth/AuthContext"
 import { SpacetradersContext } from "../../Context/spacetraders/SpacetradersContext"
 
-const marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agent: Agent }) => {
+const Marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agent: Agent }) => {
     const authContext = useContext(AuthContext);
     const STContext = useContext(SpacetradersContext);
     const [displayModal, setDisplayModal] = useState<boolean>(false)
@@ -17,24 +17,27 @@ const marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agen
     const [modalTradeUnits, setModalTradeUnits] = useState<number>(0)
 
     const renderTradeButtons = (tradegood: TradeGood) => {
-        const canSell = ship.cargo.inventory.some((item) => item.symbol === tradegood.symbol) && ship.nav.status === "DOCKED";
         const canBuy = agent.credits >= tradegood.purchasePrice && ship.nav.status === "DOCKED";
+        const canSell = ship.cargo.inventory.some((item) => item.symbol === tradegood.symbol) && ship.nav.status === "DOCKED";
 
-        if (canSell) {
-            return (
-                <>
-                    <button onClick={(e) => { e.stopPropagation(); setModalType("BUY"); setModalTradeGood(tradegood); setDisplayModal(true); }} className="tradegoods__action">{tradegood.purchasePrice}</button>
-                    <button onClick={(e) => { e.stopPropagation(); setModalType("SELL"); setModalTradeGood(tradegood); setDisplayModal(true); }} className="tradegoods__action" > {tradegood.sellPrice}</button>
-                </>
-            );
-        } else {
-            return (
-                <>
-                    <button onClick={(e) => { e.stopPropagation(); setModalType("BUY"); setModalTradeGood(tradegood); setDisplayModal(true); }} className="tradegoods__action">{tradegood.purchasePrice}</button>
-                    <button className="tradegoods__action tradegoods__action--disabled" disabled > {tradegood.sellPrice}</button>
-                </>
-            );
-        }
+        return (
+            <>
+                <button
+                    onClick={(e) => { if (canBuy) { e.stopPropagation(); setModalType("BUY"); setModalTradeGood(tradegood); setDisplayModal(true); } }}
+                    className={canBuy ? "tradegoods__action" : "tradegoods__action--disabled tradegoods__action"}
+                    disabled={!canBuy}
+                >
+                    {tradegood.purchasePrice}
+                </button>
+                <button
+                    onClick={(e) => { if (canSell) { e.stopPropagation(); setModalType("SELL"); setModalTradeGood(tradegood); setDisplayModal(true); } }}
+                    className={canSell ? "tradegoods__action" : "tradegoods__action--disabled tradegoods__action"}
+                    disabled={!canSell}
+                >
+                    {tradegood.sellPrice}
+                </button>
+            </>
+        );
     }
 
     // Everything used by the sell and buy modal
@@ -43,10 +46,11 @@ const marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agen
         const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             if (modalTradeGood) {
+                let response;
                 if (modalType === "BUY") {
-                    var response = await ApiHandler.postBuy(ship.symbol, modalTradeGood.symbol, modalTradeUnits, authContext.token);
+                    response = await ApiHandler.postBuy(ship.symbol, modalTradeGood.symbol, modalTradeUnits, authContext.token);
                 } else {
-                    var response = await ApiHandler.postSell(ship.symbol, modalTradeGood.symbol, modalTradeUnits, authContext.token);
+                    response = await ApiHandler.postSell(ship.symbol, modalTradeGood.symbol, modalTradeUnits, authContext.token);
                 }
                 STContext.updateShip({ ...ship, cargo: response.cargo });
                 STContext.updateAgent(response.agent);
@@ -107,4 +111,4 @@ const marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agen
     )
 }
 
-export default marketplace
+export default Marketplace

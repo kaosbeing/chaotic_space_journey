@@ -31,7 +31,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         } catch (err) {
             console.log(err);
         }
-    };
+    }
 
     function logout(): void {
         setToken("");

@@ -1,21 +1,22 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ApiHandler from "../../ApiHandler";
+import { AuthContext } from "../../Context/auth/AuthContext";
+import { SpacetradersContext } from "../../Context/spacetraders/SpacetradersContext";
+
 import NavComponent from "../nav/nav";
 import LocationComponent from "../location/location";
 import ShipOverview from "../shipOverview/shipOverview";
 import CargoComponent from "../cargo/cargo";
+import Controls from "../controls/controls";
 
 import "./dashboard.css";
 import "../../css/loader.css"
+import refreshIcon from "/assets/icons/refresh.svg";
+
 import { Waypoint as WaypointData } from "../../Models/WaypointInterface";
 import { Market } from "../../Models/MarketInterface";
-import refreshIcon from "/assets/icons/refresh.svg";
-import Marketplace from "../marketplace/marketplace";
-import { AuthContext } from "../../Context/auth/AuthContext";
-import { SpacetradersContext } from "../../Context/spacetraders/SpacetradersContext";
-import Controls from "../controls/controls";
-import { Shipyard } from "../../Models/Shipyard";
+import { Shipyard } from "../../Models/ShipyardInterface";
 
 const Dashboard = () => {
     const authContext = useContext(AuthContext);
@@ -30,7 +31,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchWaypoint = async () => {
             if (ship) {
-                let waypoint = await STContext.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol);
+                const waypoint = await STContext.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol);
                 setWaypoint(waypoint ? waypoint : null);
             }
         };

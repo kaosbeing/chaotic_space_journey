@@ -12,12 +12,12 @@ const WaypointList = ({ currentWaypoint, ship, navigate }: { currentWaypoint: Wa
 
     const fetchWholeSystem = async () => {
         const response = await ApiHandler.listWaypoints(ship.nav.systemSymbol, authContext.token, { limit: 20 });
-        let pages = Math.ceil(response.meta.total / response.meta.limit);
+        const pages = Math.ceil(response.meta.total / response.meta.limit);
 
         let fetchedWaypoints = response.data;
 
         for (let i = 2; i <= pages; i++) {
-            let waypoints = await ApiHandler.listWaypoints(ship.nav.systemSymbol, authContext.token, { limit: 20, page: i });
+            const waypoints = await ApiHandler.listWaypoints(ship.nav.systemSymbol, authContext.token, { limit: 20, page: i });
             fetchedWaypoints = [...fetchedWaypoints, ...waypoints.data];
         }
 
