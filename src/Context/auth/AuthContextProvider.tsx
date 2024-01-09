@@ -25,7 +25,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
             const response = await ApiHandler.getAgent(token);
             if (response) {
                 localStorage.setItem("agent-token", token);
-                ApiHandler.token = token;
+                setToken(token);
                 navigate('/');
             }
         } catch (err) {
