@@ -73,3 +73,22 @@
     font-family: Inter;
     cursor: pointer;
 }
+
+@keyframes rotation {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.logo__galaxy {
+    transform-origin: center;
+    animation: rotation 20s infinite linear;
+}
+
+.logo__star {
+    transform-origin: center;
+}
