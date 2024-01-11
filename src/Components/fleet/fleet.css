@@ -26,8 +26,6 @@
     font-weight: 500;
 }
 
-.fleet__body {}
-
 .fleet__cell {
     padding: 1rem 1rem;
     text-align: center;
@@ -45,11 +43,3 @@
     color: var(--accent);
     font-weight: 500;
 }
-
-.fleet__shipRole {}
-
-.fleet__shipStatus {}
-
-.fleet__shipFuel {}
-
-.fleet__shipCargo {}

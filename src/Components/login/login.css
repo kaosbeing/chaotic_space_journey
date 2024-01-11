@@ -2,7 +2,6 @@
     padding: 2rem 4rem;
     background-color: var(--bg-2);
     border-radius: 0.5rem;
-    margin-top: 5rem;
     height: fit-content;
     width: fit-content;
     margin: auto;
@@ -59,7 +58,7 @@
     border: 1px solid var(--bg-3);
     outline: none;
     color: var(--txt);
-    font-family: Inter;
+    font-family: Inter, Arial, Helvetica, sans-serif;
 }
 
 .login__submit {
@@ -70,7 +69,7 @@
     border: none;
     outline: none;
     border-radius: 0.25rem;
-    font-family: Inter;
+    font-family: Inter, Arial, Helvetica, sans-serif;
     cursor: pointer;
 }
 

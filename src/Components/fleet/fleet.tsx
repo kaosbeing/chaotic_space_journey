@@ -14,11 +14,11 @@ const Fleet = () => {
     const renderStatusIcon = (ship: Ship) => {
         switch (ship.nav.status) {
             case "DOCKED":
-                return <img src={dockedIcon} className="fleet__shipStatus" />;
+                return <img src={dockedIcon} className="fleet__shipStatus" alt="" />;
             case "IN_ORBIT":
-                return <img src={in_orbitIcon} className="fleet__shipStatus" />;
+                return <img src={in_orbitIcon} className="fleet__shipStatus" alt="" />;
             case "IN_TRANSIT":
-                return <img src={in_transitIcon} className="fleet__shipStatus" />;
+                return <img src={in_transitIcon} className="fleet__shipStatus" alt="" />;
         }
     }
 
@@ -37,7 +37,7 @@ const Fleet = () => {
                 <tbody className="fleet__body">
                     {STContext.fleet ? (
                         STContext.fleet.map((ship) => (
-                            <tr className="fleet__row">
+                            <tr key={ship.symbol} className="fleet__row">
                                 <td className="fleet__cell"><Link to={"/fleet/" + ship.symbol} className="fleet__shipSymbol">{ship.symbol}</Link></td>
                                 <td className="fleet__cell"><span className="fleet__shipRole">{ship.registration.role}</span></td>
                                 <td className="fleet__cell">{renderStatusIcon(ship)}</td>

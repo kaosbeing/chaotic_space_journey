@@ -13,8 +13,6 @@
     gap: 0.25rem;
 }
 
-.shipOverview__icon {}
-
 .shipOverview__title {
     font-size: 1.5rem;
     color: var(--accent-2);
@@ -74,8 +72,6 @@
     gap: 0.25rem;
 }
 
-.shipOverview__fuelIcon {}
-
 .shipOverview__fuelTitle,
 .shipOverview__cargoTitle,
 .shipOverview__integrityTitle {
@@ -90,8 +86,6 @@
     justify-content: center;
     gap: 0.25rem;
 }
-
-.shipOverview__cooldownIcon {}
 
 .shipOverview__cooldownTimber {
     font-size: 1.5rem;

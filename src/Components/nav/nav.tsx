@@ -1,5 +1,4 @@
 import "./nav.css";
-import "/assets/icons/nav.svg";
 import ProgressBar from "../progressBar/progressBar";
 import { useState } from "react";
 import { Ship } from "../../Models/ShipInterface";
@@ -99,16 +98,16 @@ const Nav = ({ ship, changeFlightMode, changeNavStatus }: { ship: Ship, changeFl
                 </div>
                 <div className="nav__patch">
                     <button onClick={() => { changeFlightMode(ship, "CRUISE") }} className={ship.nav.flightMode == "CRUISE" ? "nav__cruise nav__cruise--active" : "nav__cruise"} disabled={ship.nav.flightMode == "CRUISE"}>
-                        <img className="nav__cruiseIcon" src={ship.nav.flightMode == "CRUISE" ? cruiseIcon : cruiseIconMuted} />
+                        <img className="nav__cruiseIcon" src={ship.nav.flightMode == "CRUISE" ? cruiseIcon : cruiseIconMuted} alt="" />
                     </button>
                     <button onClick={() => { changeFlightMode(ship, "DRIFT") }} className={ship.nav.flightMode == "DRIFT" ? "nav__drift nav__drift--active" : "nav__drift"} disabled={ship.nav.flightMode == "DRIFT"}>
-                        <img className="nav__driftIcon" src={ship.nav.flightMode == "DRIFT" ? driftIcon : driftIconMuted} />
+                        <img className="nav__driftIcon" src={ship.nav.flightMode == "DRIFT" ? driftIcon : driftIconMuted} alt="" />
                     </button>
                     <button onClick={() => { changeFlightMode(ship, "BURN") }} className={ship.nav.flightMode == "BURN" ? "nav__burn nav__burn--active" : "nav__burn"} disabled={ship.nav.flightMode == "BURN"}>
-                        <img className="nav__burnIcon" src={ship.nav.flightMode == "BURN" ? burnIcon : burnIconMuted} />
+                        <img className="nav__burnIcon" src={ship.nav.flightMode == "BURN" ? burnIcon : burnIconMuted} alt="" />
                     </button>
                     <button onClick={() => { changeFlightMode(ship, "STEALTH") }} className={ship.nav.flightMode == "STEALTH" ? "nav__stealth nav__stealth--active" : "nav__stealth"} disabled={ship.nav.flightMode == "STEALTH"}>
-                        <img className="nav__stealthIcon" src={ship.nav.flightMode == "STEALTH" ? stealthIcon : stealthIconMuted} />
+                        <img className="nav__stealthIcon" src={ship.nav.flightMode == "STEALTH" ? stealthIcon : stealthIconMuted} alt="" />
                     </button>
                 </div>
             </div>

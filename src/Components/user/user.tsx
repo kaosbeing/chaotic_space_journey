@@ -19,7 +19,7 @@ const User: React.FC<UserComponentProps> = ({ user }) => {
 							<span className='user__credits'>{user.credits}</span>
 						</div>
 						<div className='user__fleetWrapper'>
-							<img className='user__fleetIcon' src={fleetIcon} />
+							<img className='user__fleetIcon' src={fleetIcon} alt='' />
 							<span className='user__shipCount'>{user.shipCount} ships</span>
 						</div>
 

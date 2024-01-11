@@ -24,7 +24,7 @@ const Sidebar = () => {
             </div>
             <Link to={"/fleet"} className="full_fleet">
                 <span>View fleet</span>
-                <img src={chevron} />
+                <img src={chevron} alt="" />
             </Link>
             {STContext.fleet ? (
                 <div className="sideBar__fleet">

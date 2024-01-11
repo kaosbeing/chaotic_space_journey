@@ -6,7 +6,7 @@ const Cargo = ({ cargo }: { cargo: CargoModel | null }) => {
     return (
         <div className="cargo">
             <div className="cargo__header">
-                <img className="cargo__icon" src={cargoIcon} />
+                <img className="cargo__icon" src={cargoIcon} alt="" />
                 <h3 className="cargo__title">Cargo</h3>
             </div>
             <div className="cargo__content">

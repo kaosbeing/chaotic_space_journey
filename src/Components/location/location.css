@@ -14,8 +14,6 @@
     gap: 0.25rem;
 }
 
-.waypointInfo__icon {}
-
 .waypointInfo__title {
     font-size: 1.5rem;
     font-weight: 600;
@@ -35,15 +33,6 @@
     align-items: center;
     gap: 0.25rem;
 }
-
-.waypointInfo__waypointTypeIcon {}
-
-.waypointInfo__waypointType {}
-
-
-.waypointInfo__waypointCoordsIcon {}
-
-.waypointInfo__waypointCoords {}
 
 .waypointInfo__traits {
     display: flex;
