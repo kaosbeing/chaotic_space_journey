@@ -13,16 +13,16 @@ const Location = ({ ship, waypoint, market, extract, refuel }: { ship: Ship, way
     return (
         <div className="waypointInfo">
             <div className="waypointInfo__header">
-                <img className="waypointInfo__icon" src={infoIcon} />
+                <img className="waypointInfo__icon" src={infoIcon} alt="" />
                 <h3 className="waypointInfo__title">Current location</h3>
             </div>
             <div className="waypointInfo__infos">
                 <div className="waypointInfo__waypointTypeWrapper">
-                    <img className="waypointInfo__waypointTypeIcon" src={typeIcon} />
+                    <img className="waypointInfo__waypointTypeIcon" src={typeIcon} alt="" />
                     <span className="waypointInfo__waypointType">{waypoint?.type}</span>
                 </div>
                 <div className="waypointInfo__waypointCoordsWrapper">
-                    <img className="waypointInfo__waypointCoordsIcon" src={locationIcon} />
+                    <img className="waypointInfo__waypointCoordsIcon" src={locationIcon} alt="" />
                     <span className="waypointInfo__waypointCoords">{waypoint?.x}, {waypoint?.y}</span>
                 </div>
             </div>

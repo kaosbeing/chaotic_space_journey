@@ -53,7 +53,7 @@ const WaypointList = ({ currentWaypoint, ship, navigate }: { currentWaypoint: Wa
     return (
         <div className="waypointList">
             <div className="waypointList__header">
-                <img className="waypointList__icon" src={waypointsIcon} />
+                <img className="waypointList__icon" src={waypointsIcon} alt="" />
                 <h3 className="waypointList__title">Waypoints</h3>
             </div>
             <div className="waypointList__options">

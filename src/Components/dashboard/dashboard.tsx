@@ -32,7 +32,7 @@ const Dashboard = () => {
         const fetchWaypoint = async () => {
             if (ship) {
                 const waypoint = await STContext.getWaypoint(ship.nav.systemSymbol, ship.nav.waypointSymbol);
-                setWaypoint(waypoint ? waypoint : null);
+                setWaypoint(waypoint);
             }
         };
 
@@ -47,7 +47,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchMarketAndShipyard = async () => {
-            if (!waypoint?.traits.some((trait) => trait.symbol === "SHIPYARD" || trait.symbol === "SHIPYARD")) {
+            if (!waypoint?.traits.some((trait) => trait.symbol === "SHIPYARD" || trait.symbol === "MARKETPLACE")) {
                 setMarket(null);
                 setShipyard(null);
             }

@@ -30,5 +30,5 @@ export const SpacetradersContext = createContext<Spacetraders>({
     changeNavStatus: () => { },
     navigate: () => { },
     fetchSystem: () => { },
-    getWaypoint: () => { throw "not implemented yet !" },
+    getWaypoint: () => { throw new Error("not implemented yet !") },
 });

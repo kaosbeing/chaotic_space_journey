@@ -12,10 +12,10 @@ import shipImg from "/assets/img/ships/interceptor.png";
 import cooldownIcon from "/assets/icons/cooldown.svg";
 
 const ShipOverview = ({ symbol, frame, cargo, fuel, cooldown }: { symbol: string, frame: Frame, cargo: Cargo | null, fuel: Fuel | null, cooldown: Cooldown | null }) => {
-    const [timer, setTimer] = useState(cooldown?.remainingSeconds || 0);
+    const [timer, setTimer] = useState(cooldown?.remainingSeconds ?? 0);
 
     useEffect(() => {
-        if (cooldown && cooldown.expiration) {
+        if (cooldown?.expiration) {
             const remainingCD = Math.round((new Date(cooldown.expiration).getTime() - Date.now()) / 1000);
             setTimer(remainingCD >= 0 ? remainingCD : 0);
         } else {
@@ -42,18 +42,18 @@ const ShipOverview = ({ symbol, frame, cargo, fuel, cooldown }: { symbol: string
 
                     <div className="shipOverview">
                         <div className="shipOverview__header">
-                            <img className="shipOverview__icon" src={shipIcon} />
+                            <img className="shipOverview__icon" src={shipIcon} alt="" />
                             <h2 className="shipOverview__title">Current Ship</h2>
                         </div>
                         <div className="shipOverview__hero">
-                            <img className="shipOverview__heroImg" src={shipImg} />
+                            <img className="shipOverview__heroImg" src={shipImg} alt="" />
                             <span className="shipOverview__shipType">{frame.name}</span>
                         </div>
                         <div className="shipOverview__symbol">{symbol}</div>
                         <div className="shipOverview__fuel">
                             <div className="shipOverview__fuelHeader">
                                 <div className="shipOverview__progressTitleWrapper">
-                                    <img className="shipOverview__fuelIcon" src={fuelIcon}></img>
+                                    <img className="shipOverview__fuelIcon" src={fuelIcon} alt="" />
                                     <h3 className="shipOverview__fuelTitle">Fuel</h3>
                                 </div>
                                 <div className="shipOverview__fuelLevel">
@@ -65,7 +65,7 @@ const ShipOverview = ({ symbol, frame, cargo, fuel, cooldown }: { symbol: string
                         <div className="shipOverview__cargo">
                             <div className="shipOverview__cargoHeader">
                                 <div className="shipOverview__progressTitleWrapper">
-                                    <img className="shipOverview__cargoIcon" src={cargoIcon}></img>
+                                    <img className="shipOverview__cargoIcon" src={cargoIcon} alt="" />
                                     <h3 className="shipOverview__cargoTitle">Cargo</h3>
                                 </div>
                                 <div className="shipOverview__cargoLevel">
@@ -77,7 +77,7 @@ const ShipOverview = ({ symbol, frame, cargo, fuel, cooldown }: { symbol: string
                         <div className="shipOverview__integrity">
                             <div className="shipOverview__integrityHeader">
                                 <div className="shipOverview__progressTitleWrapper">
-                                    <img className="shipOverview__integrityIcon" src={integrityIcon}></img>
+                                    <img className="shipOverview__integrityIcon" src={integrityIcon} alt="" />
                                     <h3 className="shipOverview__integrityTitle">Condition</h3>
                                 </div>
                                 <div className="shipOverview__integrityLevel">
