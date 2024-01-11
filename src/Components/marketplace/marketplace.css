@@ -62,7 +62,7 @@
     cursor: not-allowed;
 }
 
-.sellmodal {
+.trademodal {
     z-index: 1000;
     position: fixed;
     top: 0;
@@ -76,7 +76,7 @@
     justify-content: center;
 }
 
-.sellmodal__content {
+.trademodal__content {
     padding: 1rem;
     background-color: var(--bg-2);
     border-radius: 0.5rem;
@@ -86,54 +86,54 @@
     gap: 1rem;
 }
 
-.sellmodal__form {
+.trademodal__form {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.sellmodal__title {
+.trademodal__title {
     font-weight: 600;
     font-size: 1.5rem;
     color: var(--accent-2);
 }
 
-.sellmodal__infos {
+.trademodal__infos {
     display: flex;
     gap: 1.5rem;
 }
 
-.sellmodal__unitprice,
-.sellmodal__tradeVolume {
+.trademodal__unitprice,
+.trademodal__tradeVolume {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.sellmodal__infotitle {
+.trademodal__infotitle {
     font-size: 0.8rem;
     font-weight: 500;
     text-transform: uppercase;
     color: var(--txt-muted);
 }
 
-.sellmodal__infocontent {}
+.trademodal__infocontent {}
 
-.sellmodal__input,
-.sellmodal__button {
+.trademodal__input,
+.trademodal__button {
     outline: none;
     border: none;
     border-radius: 0.25rem;
     padding: 0.5rem;
 }
 
-.sellmodal__input {
+.trademodal__input {
     font-size: 1rem;
     background-color: var(--bg-0);
     color: var(--txt);
 }
 
-.sellmodal__button {
+.trademodal__button {
     font-size: 1rem;
     background-color: var(--confirm);
     color: var(--txt);

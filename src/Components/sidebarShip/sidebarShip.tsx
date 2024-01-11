@@ -8,6 +8,7 @@ import dockedIcon from "/assets/icons/docked.svg";
 import in_orbitIcon from "/assets/icons/in_orbit.svg";
 import in_transitIcon from "/assets/icons/in_transit.svg";
 import locationIcon from "/assets/icons/location.svg";
+import "./sidebarShip.css"
 
 const SidebarShip = ({ ship }: { ship: Ship }) => {
     const STContext = useContext(SpacetradersContext);
@@ -42,10 +43,10 @@ const SidebarShip = ({ ship }: { ship: Ship }) => {
             }, 1000);
 
             return (
-                <div className='fleetItem__travelStatus'>
-                    <div className='fleetItem__transitTiming'>
-                        <span className='fleetItem__timer'>{timeUntilArrival}s</span>
-                        <span className='fleetItem__arrivalTime'>{arrivalDate.toLocaleString("fr-FR").replace("/2024", "")}</span>
+                <div className='sidebarShip__travelStatus'>
+                    <div className='sidebarShip__transitTiming'>
+                        <span className='sidebarShip__timer'>{timeUntilArrival}s</span>
+                        <span className='sidebarShip__arrivalTime'>{arrivalDate.toLocaleString("fr-FR").replace("/2024", "")}</span>
                     </div>
                     <ProgressBar max={100} value={flightProgress} color='var(--confirm)'></ProgressBar>
                 </div>
@@ -56,25 +57,25 @@ const SidebarShip = ({ ship }: { ship: Ship }) => {
     const renderStatusIcon = (ship: Ship) => {
         switch (ship.nav.status) {
             case "DOCKED":
-                return <img className='fleetItem__status' src={dockedIcon} alt="DOCKED" />
+                return <img className='sidebarShip__status' src={dockedIcon} alt="DOCKED" />
             case "IN_ORBIT":
-                return <img className='fleetItem__status' src={in_orbitIcon} alt="IN_ORBIT" />
+                return <img className='sidebarShip__status' src={in_orbitIcon} alt="IN_ORBIT" />
             case "IN_TRANSIT":
-                return <img className='fleetItem__status' src={in_transitIcon} alt="IN_TRANSIT" />
+                return <img className='sidebarShip__status' src={in_transitIcon} alt="IN_TRANSIT" />
             default:
-                return <img className='fleetItem__status' src="" alt="UNKNOWN" />
+                return <img className='sidebarShip__status' src="" alt="UNKNOWN" />
         }
     }
 
     return (
-        <Link key={ship.symbol} to={"/fleet/" + ship.symbol} className='fleetItem'>
-            <div className='fleetItem__header'>
-                <span className='fleetItem__symbol'>{ship.registration.role.charAt(0).toUpperCase() + ship.registration.role.slice(1).toLowerCase()} {ship.frame.name}</span>
+        <Link key={ship.symbol} to={"/fleet/" + ship.symbol} className='sidebarShip'>
+            <div className='sidebarShip__header'>
+                <span className='sidebarShip__symbol'>{ship.registration.role.charAt(0).toUpperCase() + ship.registration.role.slice(1).toLowerCase()} {ship.frame.name}</span>
                 {renderStatusIcon(ship)}
             </div>
-            <div className='fleetItem__location'>
-                <img className='fleetItem__locationIcon' src={locationIcon} alt="" />
-                <span className='fleetItem__waypointSymbol'>{ship.nav.waypointSymbol}</span>
+            <div className='sidebarShip__location'>
+                <img className='sidebarShip__locationIcon' src={locationIcon} alt="" />
+                <span className='sidebarShip__waypointSymbol'>{ship.nav.waypointSymbol}</span>
             </div>
             {renderTransitInfos(ship)}
         </Link>
