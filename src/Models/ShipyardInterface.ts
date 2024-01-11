@@ -14,7 +14,7 @@ interface Transaction {
     price: number;
     agentSymbol: string;
     timestamp: string; // Should be a valid date-time string
-};
+}
 
 export interface ShipyardShip {
     type: "SHIP_PROBE" |
