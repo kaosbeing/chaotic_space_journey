@@ -17,7 +17,7 @@ export function AuthContextProvider({ children }: Readonly<AuthContextProviderPr
         if (token && token.length != 0) {
             setIsLoggedIn(true);
         }
-    }, [])
+    }, [token])
 
     // Get agent using token in arguments
     async function login(token: string): Promise<void> {

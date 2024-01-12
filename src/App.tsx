@@ -12,13 +12,8 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-	const navigate = useNavigate();
 	const authContext = useContext(AuthContext);
 	const STContext = useContext(SpacetradersContext);
-
-	if (!authContext.isLoggedIn) {
-		navigate('/login');
-	}
 
 	useEffect(() => {
 		const fetchData = async () => {
