@@ -7,7 +7,6 @@ import { Agent } from "../../Models/AgentInterface"
 import ApiHandler from "../../ApiHandler"
 import { AuthContext } from "../../Context/auth/AuthContext"
 import { SpacetradersContext } from "../../Context/spacetraders/SpacetradersContext"
-import Cargo from "../cargo/cargo"
 
 const Marketplace = ({ market, ship, agent, display, close }: { market: Market, ship: Ship, agent: Agent, display: boolean, close: () => void }) => {
     const authContext = useContext(AuthContext);
