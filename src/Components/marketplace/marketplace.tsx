@@ -7,6 +7,7 @@ import { Agent } from "../../Models/AgentInterface"
 import ApiHandler from "../../ApiHandler"
 import { AuthContext } from "../../Context/auth/AuthContext"
 import { SpacetradersContext } from "../../Context/spacetraders/SpacetradersContext"
+import Cargo from "../cargo/cargo"
 
 const Marketplace = ({ market, ship, agent, display, close }: { market: Market, ship: Ship, agent: Agent, display: boolean, close: () => void }) => {
     const authContext = useContext(AuthContext);
@@ -83,7 +84,7 @@ const Marketplace = ({ market, ship, agent, display, close }: { market: Market, 
                         </div>
                     </div>
                     <form className="trademodal__form" onSubmit={(e) => formSubmit(e)}>
-                        <input onInput={(e) => { setModalTradeUnits(parseInt((e.target as HTMLInputElement).value)) }} className="trademodal__input" type="number" placeholder="Quantity" name="" id="" />
+                        <input onInput={(e) => { setModalTradeUnits(parseInt((e.target as HTMLInputElement).value)) }} min={1} max={ship.cargo.capacity} className="trademodal__input" type="number" placeholder="Quantity" name="" id="" />
                         <button className="trademodal__button">{modalType === "BUY" ? "Buy" : "SELL"}</button>
                     </form>
                 </div>
