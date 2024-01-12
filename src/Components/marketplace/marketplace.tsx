@@ -52,8 +52,10 @@ const Marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agen
                 } else {
                     response = await ApiHandler.postSell(ship.symbol, modalTradeGood.symbol, modalTradeUnits, authContext.token);
                 }
-                STContext.updateShip({ ...ship, cargo: response.cargo });
-                STContext.updateAgent(response.agent);
+                if (response) {
+                    STContext.updateShip({ ...ship, cargo: response.cargo });
+                    STContext.updateAgent(response.agent);
+                }
             }
             setDisplayModal(false);
         }
