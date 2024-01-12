@@ -7,6 +7,7 @@ import { AuthContextProvider } from './Context/auth/AuthContextProvider.tsx';
 import Dashboard from './Components/dashboard/dashboard.tsx';
 import { SpacetradersProvider } from './Context/spacetraders/SpacetradersContextProvider.tsx';
 import Fleet from './Components/fleet/fleet.tsx';
+import RequireAuth from './Components/RequireAuth/RequireAuth.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
@@ -14,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 			<AuthContextProvider>
 				<SpacetradersProvider>
 					<Routes>
-						<Route path="/" element={<App />}>
+						<Route path="/" element={<RequireAuth><App /></RequireAuth>}>
 							<Route path="/fleet/:shipSymbol" element={<Dashboard />}></Route>
 							<Route path="/fleet" element={<Fleet />}></Route>
 						</Route>
