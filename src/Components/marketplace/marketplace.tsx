@@ -8,7 +8,7 @@ import ApiHandler from "../../ApiHandler"
 import { AuthContext } from "../../Context/auth/AuthContext"
 import { SpacetradersContext } from "../../Context/spacetraders/SpacetradersContext"
 
-const Marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agent: Agent }) => {
+const Marketplace = ({ market, ship, agent, display, close }: { market: Market, ship: Ship, agent: Agent, display: boolean, close: () => void }) => {
     const authContext = useContext(AuthContext);
     const STContext = useContext(SpacetradersContext);
     const [displayModal, setDisplayModal] = useState<boolean>(false)
@@ -22,20 +22,24 @@ const Marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agen
 
         return (
             <>
-                <button
-                    onClick={(e) => { if (canBuy) { e.stopPropagation(); setModalType("BUY"); setModalTradeGood(tradegood); setDisplayModal(true); } }}
-                    className={canBuy ? "tradegoods__action" : "tradegoods__action--disabled tradegoods__action"}
-                    disabled={!canBuy}
-                >
-                    {tradegood.purchasePrice}
-                </button>
-                <button
-                    onClick={(e) => { if (canSell) { e.stopPropagation(); setModalType("SELL"); setModalTradeGood(tradegood); setDisplayModal(true); } }}
-                    className={canSell ? "tradegoods__action" : "tradegoods__action--disabled tradegoods__action"}
-                    disabled={!canSell}
-                >
-                    {tradegood.sellPrice}
-                </button>
+                <td className="tradegood__cell">
+                    <button
+                        onClick={(e) => { if (canBuy) { e.stopPropagation(); setModalType("BUY"); setModalTradeGood(tradegood); setDisplayModal(true); } }}
+                        className={canBuy ? "tradegoods__action" : "tradegoods__action--disabled tradegoods__action"}
+                        disabled={!canBuy}
+                    >
+                        {tradegood.purchasePrice}
+                    </button>
+                </td>
+                <td className="tradegood__cell">
+                    <button
+                        onClick={(e) => { if (canSell) { e.stopPropagation(); setModalType("SELL"); setModalTradeGood(tradegood); setDisplayModal(true); } }}
+                        className={canSell ? "tradegoods__action" : "tradegoods__action--disabled tradegoods__action"}
+                        disabled={!canSell}
+                    >
+                        {tradegood.sellPrice}
+                    </button>
+                </td>
             </>
         );
     }
@@ -66,7 +70,7 @@ const Marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agen
 
         return (
             <div onKeyDown={(e) => { if (e.key === "Escape") { setDisplayModal(false) } }} onClick={() => { setDisplayModal(false); }} className="trademodal">
-                <div onKeyDown={(e) => { e.stopPropagation() }} onClick={(e) => { e.stopPropagation() }} className="trademodal__content">
+                <div onClick={(e) => { e.stopPropagation() }} className="trademodal__content">
                     <h3 className="trademodal__title">{modalType} : {modalTradeGood?.symbol}</h3>
                     <div className="trademodal__infos">
                         <div className="trademodal__unitprice">
@@ -88,28 +92,41 @@ const Marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agen
     }
 
     return (
-        <div className="marketplace">
-            <div className="marketplace__header">
-                <img className="marketplace__icon" src={marketplaceIcon} alt="" />
-                <h3 className="marketplace__title">Marketplace</h3>
-            </div>
-            <div className="marketplace__tradegoods">
-                {market ? market.tradeGoods?.map((tradegood) => (
-                    <div key={tradegood.symbol} className="tradegood">
-                        <div className="tradegood__symbol">
-                            {tradegood.symbol}
+        <>
+            {display && (
+                <div onKeyDown={(e) => { (e.key === "Escape" && close()) }} onClick={() => { close() }} className="marketplace__wrapper">
+                    <div onClick={(e) => { e.stopPropagation() }} className="marketplace">
+                        <div className="marketplace__header">
+                            <img className="marketplace__icon" src={marketplaceIcon} alt="" />
+                            <h3 className="marketplace__title">Marketplace</h3>
                         </div>
-                        <div className="tradegoods__actions">
-                            {renderTradeButtons(tradegood)}
-                        </div>
+                        <table className="marketplace__tradegoods">
+                            <thead>
+                                <tr className="tradegood__head">
+                                    <th className="tradegood__cell">Symbol</th>
+                                    <th className="tradegood__cell">Purchase</th>
+                                    <th className="tradegood__cell">Sell</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {market ? market.tradeGoods?.map((tradegood) => (
+                                    <tr key={tradegood.symbol} className="tradegood">
+                                        <td className="tradegood__symbol tradegood__cell">
+                                            {tradegood.symbol}
+                                        </td>
+                                        {renderTradeButtons(tradegood)}
+                                    </tr>
+                                ))
+                                    : (
+                                        <div>Loading</div>
+                                    )}
+                            </tbody>
+                        </table>
+                        {renderTradeModal()}
                     </div>
-                ))
-                    : (
-                        <div>Loading</div>
-                    )}
-            </div>
-            {renderTradeModal()}
-        </div>
+                </div>
+            )}
+        </>
     )
 }
 
