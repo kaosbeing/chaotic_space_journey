@@ -86,7 +86,7 @@ class ApiHandler {
             if (criterias.traits) { modifiers.set("traits", criterias.traits) }
         }
 
-        const url = `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints${modifiers}`;
+        const url = `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints?${modifiers}`;
         try {
             const response = ApiHandler.handleResponse(await ApiHandler.get(url, token));
             return response ? response : null;
@@ -111,6 +111,7 @@ class ApiHandler {
         console.log("Extracting RESSOURCES");
         try {
             const response = ApiHandler.handleResponse(await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/extract`, token));
+            response && toast.success(`Extracted ${response.data.extraction.yield.units} ${response.data.extraction.yield.symbol} successfully !`)
             return response ? response.data : null;
         } catch (err) {
             toast.error(err as string);
@@ -166,6 +167,7 @@ class ApiHandler {
         console.log("BUYING " + goodSymbol);
         try {
             const response = ApiHandler.handleResponse(await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/purchase`, token, `{"symbol":"${goodSymbol}","units":${units}}`));
+            response && toast.success(`Bought ${units} ${goodSymbol} successfully ! Lost ${response.data.transaction.totalPrice} credits.`)
             return response ? response.data : null;
         } catch (err) {
             toast.error(err as string);
@@ -177,6 +179,7 @@ class ApiHandler {
         console.log("SELLING " + goodSymbol);
         try {
             const response = ApiHandler.handleResponse(await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/sell`, token, `{"symbol":"${goodSymbol}","units":${units}}`));
+            response && toast.success(`Sold ${units} ${goodSymbol} successfully ! Gained ${response.data.transaction.totalPrice} credits.`)
             return response ? response.data : null;
         } catch (err) {
             toast.error(err as string);

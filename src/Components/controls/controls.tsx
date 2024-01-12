@@ -10,33 +10,68 @@ import Shipyard from "../shipyard/shipyard";
 import { Shipyard as ShipyardData } from "../../Models/ShipyardInterface";
 
 const Controls = ({ ship, agent, waypoint, market, shipyard, navigate }: { ship: Ship, agent: Agent, waypoint: Waypoint, market: Market | null, shipyard: ShipyardData | null, navigate: (ship: Ship, waypointSymbol: string) => void }) => {
-    const [state, setState] = useState<"navigation" | "marketplace" | "shipyard">("navigation");
+    const [displayWaypointList, setDisplayWaypointList] = useState<boolean>(false);
+    const [displayMarketplace, setDisplayMarketplace] = useState<boolean>(false);
+    const [displayShipyard, setDisplayShipyard] = useState<boolean>(false);
 
-    const renderOutlet = () => {
-        switch (state) {
-            case "navigation":
-                return <WaypointList currentWaypoint={waypoint} ship={ship} navigate={navigate} ></WaypointList>
-            case "marketplace":
-                return market ? <Marketplace agent={agent} ship={ship} market={market}></Marketplace> : <></>
-            case "shipyard":
-                return shipyard ? <Shipyard shipyard={shipyard} agent={agent}></Shipyard> : <></>;
-        }
+    const closeWaypointList = () => {
+        setDisplayWaypointList(false);
+    }
+    const closeMarketplace = () => {
+        setDisplayMarketplace(false);
+    }
+    const closeShipyard = () => {
+        setDisplayShipyard(false);
     }
 
+    const renderOutlet = () => {
+        return (
+            <>
+                <WaypointList currentWaypoint={waypoint} ship={ship} navigate={navigate} display={displayWaypointList} close={closeWaypointList}></WaypointList>
+                {market && <Marketplace agent={agent} ship={ship} market={market} display={displayMarketplace} close={closeMarketplace}></Marketplace>}
+                {shipyard && <Shipyard shipyard={shipyard} agent={agent} display={displayShipyard} close={closeShipyard}></Shipyard>}
+            </>
+        )
+    }
+
+    const hasMarket = market !== null;
+    const hasShipyard = shipyard !== null;
+    // (state === "marketplace")
+    // (state === "shipyard")
+
     return (
-        <div className='controls'>
-            <div className='controls__options'>
-                <button className={"controls__button " + (state === "navigation" ? "controls__button--active" : "")}
-                    onClick={() => setState("navigation")}>Navigation</button>
-                <button className={"controls__button " + ((market && state === "marketplace") ? "controls__button--active" : "controls__button--disabled")}
-                    onClick={() => setState("marketplace")} disabled={market ? false : true}>Market</button>
-                <button className={"controls__button " + ((shipyard && state === "shipyard") ? "controls__button--active" : "controls__button--disabled")}
-                    onClick={() => setState("shipyard")} disabled={shipyard ? false : true}>Shipyard</button>
+        <>
+            <div className='controls'>
+                <div className="controls__header">
+                    <img className="controls__icon" src={""} alt="" />
+                    <h3 className="controls__title">Actions</h3>
+                </div>
+                <div className="controls__body">
+
+                    <button
+                        className="controls__button"
+                        onClick={() => setDisplayWaypointList(true)}
+                    >Navigation</button>
+
+                    <button
+                        className={(hasMarket) ? "controls__button" : "controls__button controls__button--disabled"}
+                        onClick={() => {
+                            setDisplayMarketplace(true);
+                        }}
+                        disabled={!hasMarket}
+                    >Market</button>
+
+                    <button
+                        className={(hasShipyard) ? "controls__button" : "controls__button controls__button--disabled"}
+                        onClick={() => {
+                            setDisplayShipyard(true);
+                        }}
+                        disabled={!hasShipyard}
+                    >Shipyard</button>
+                </div>
             </div>
-            <div className='controls__body'>
-                {renderOutlet()}
-            </div>
-        </div>
+            {renderOutlet()}
+        </>
     )
 }
 

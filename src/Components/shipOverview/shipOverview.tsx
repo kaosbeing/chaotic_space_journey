@@ -8,7 +8,6 @@ import shipIcon from "/assets/icons/ship.svg";
 import fuelIcon from "/assets/icons/fuel.svg";
 import cargoIcon from "/assets/icons/cargo.svg";
 import integrityIcon from "/assets/icons/condition.svg";
-import shipImg from "/assets/img/ships/interceptor.png";
 import cooldownIcon from "/assets/icons/cooldown.svg";
 
 const ShipOverview = ({ symbol, frame, cargo, fuel, cooldown }: { symbol: string, frame: Frame, cargo: Cargo | null, fuel: Fuel | null, cooldown: Cooldown | null }) => {
@@ -43,13 +42,8 @@ const ShipOverview = ({ symbol, frame, cargo, fuel, cooldown }: { symbol: string
                     <div className="shipOverview">
                         <div className="shipOverview__header">
                             <img className="shipOverview__icon" src={shipIcon} alt="" />
-                            <h2 className="shipOverview__title">Current Ship</h2>
+                            <h2 className="shipOverview__title">{symbol}</h2>
                         </div>
-                        <div className="shipOverview__hero">
-                            <img className="shipOverview__heroImg" src={shipImg} alt="" />
-                            <span className="shipOverview__shipType">{frame.name}</span>
-                        </div>
-                        <div className="shipOverview__symbol">{symbol}</div>
                         <div className="shipOverview__fuel">
                             <div className="shipOverview__fuelHeader">
                                 <div className="shipOverview__progressTitleWrapper">
