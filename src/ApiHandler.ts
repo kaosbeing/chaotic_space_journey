@@ -134,7 +134,7 @@ class ApiHandler {
         console.log("ORBITTING");
         try {
             const response = ApiHandler.handleResponse(await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/orbit`, token));
-            return response ? response.data : null;
+            return response ? response.data.nav : null;
         } catch (err) {
             toast.error(err as string);
             return null;
