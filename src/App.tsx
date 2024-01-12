@@ -8,6 +8,8 @@ import { Outlet } from 'react-router-dom';
 /* Interfaces */
 import { AuthContext } from "./Context/auth/AuthContext";
 import { SpacetradersContext } from "./Context/spacetraders/SpacetradersContext";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 	const navigate = useNavigate();
@@ -22,10 +24,14 @@ function App() {
 		const fetchData = async () => {
 			try {
 				const user = await ApiHandler.getAgent(authContext.token);
-				STContext.updateAgent(user);
+				if (user) {
+					STContext.updateAgent(user);
+				}
 
 				const fleet = await ApiHandler.getFleet(authContext.token);
-				STContext.updateFleet(fleet);
+				if (fleet) {
+					STContext.updateFleet(fleet);
+				}
 			} catch (error) {
 				console.error('Error fetching some data:', error);
 			}
@@ -35,6 +41,16 @@ function App() {
 	}, []);
 	return (
 		<>
+			<ToastContainer
+				position="bottom-right"
+				autoClose={3000}
+				newestOnTop
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss={false}
+				draggable
+				theme="dark"
+			/>
 			<Sidebar />
 			<Outlet></Outlet>
 		</>
