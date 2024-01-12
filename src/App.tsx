@@ -1,5 +1,4 @@
 import "./css/main.css";
-import { useNavigate } from 'react-router';
 import { useContext, useEffect } from 'react';
 import ApiHandler from './ApiHandler';
 import Sidebar from './Components/sidebar/sidebar';
@@ -12,13 +11,8 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-	const navigate = useNavigate();
 	const authContext = useContext(AuthContext);
 	const STContext = useContext(SpacetradersContext);
-
-	if (!authContext.isLoggedIn) {
-		navigate('/login');
-	}
 
 	useEffect(() => {
 		const fetchData = async () => {
