@@ -59,20 +59,26 @@ export function SpacetradersProvider({ children }: Readonly<SpacetradersProvider
 
     const changeFlightMode = async (ship: Ship, flightMode: string) => {
         const response = await ApiHandler.patchNav(ship.symbol, flightMode, authContext.token);
-        updateShip({ ...ship, nav: response })
+        if (response) {
+            updateShip({ ...ship, nav: response })
+        }
     }
 
     const extractRessources = async (ship: Ship) => {
         if (ship) {
             const response = await ApiHandler.postExtract(ship.symbol, authContext.token);
-            updateShip({ ...ship, cargo: response.cargo, cooldown: response.cooldown });
+            if (response) {
+                updateShip({ ...ship, cargo: response.cargo, cooldown: response.cooldown });
+            }
         }
     }
 
     const refuelShip = async (ship: Ship) => {
         if (ship) {
             const response = await ApiHandler.postRefuel(ship.symbol, authContext.token);
-            updateShip({ ...ship, fuel: response.fuel });
+            if (response) {
+                updateShip({ ...ship, fuel: response.fuel });
+            }
         }
     }
 
@@ -80,31 +86,41 @@ export function SpacetradersProvider({ children }: Readonly<SpacetradersProvider
         if (ship) {
             if (action === "DOCK") {
                 const response = await ApiHandler.postDock(ship.symbol, authContext.token);
-                updateShip({ ...ship, nav: response });
+                if (response) {
+                    updateShip({ ...ship, nav: response });
+                }
             } else if (action === "ORBIT") {
                 const response = await ApiHandler.postOrbit(ship.symbol, authContext.token);
-                updateShip({ ...ship, nav: response });
+                if (response) {
+                    updateShip({ ...ship, nav: response });
+                }
             }
         }
     }
 
     const navigate = async (ship: Ship, waypointSymbol: string) => {
         const response = await ApiHandler.postNavigate(ship.symbol, waypointSymbol, authContext.token)
-        updateShip({ ...ship, fuel: response.fuel, nav: response.nav });
+        if (response) {
+            updateShip({ ...ship, fuel: response.fuel, nav: response.nav });
+        }
     }
 
     const fetchSystem = async (systemSymbol: string) => {
         const response = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20 });
-        const pages = Math.ceil(response.meta.total / response.meta.limit);
+        if (response) {
+            const pages = Math.ceil(response.meta.total / response.meta.limit);
 
-        let fetchedWaypoints = response.data;
+            let fetchedWaypoints = response.data;
 
-        for (let i = 2; i <= pages; i++) {
-            const waypoints = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20, page: i });
-            fetchedWaypoints = [...fetchedWaypoints, ...waypoints.data];
+            for (let i = 2; i <= pages; i++) {
+                const response = await ApiHandler.listWaypoints(systemSymbol, authContext.token, { limit: 20, page: i });
+                if (response) {
+                    fetchedWaypoints = [...fetchedWaypoints, ...response.data];
+                }
+            }
+
+            localStorage.setItem(systemSymbol, JSON.stringify(fetchedWaypoints));
         }
-
-        localStorage.setItem(systemSymbol, JSON.stringify(fetchedWaypoints));
     }
 
     const getWaypoint = async (systemSymbol: string, waypointSymbol: string): Promise<Waypoint | null> => {
@@ -121,7 +137,20 @@ export function SpacetradersProvider({ children }: Readonly<SpacetradersProvider
     };
 
 
-    return <SpacetradersContext.Provider value={{ agent, fleet, updateAgent, updateFleet, updateShip, changeFlightMode, extractRessources, refuelShip, changeNavStatus, navigate, fetchSystem, getWaypoint }}>
+    const getWaypointList = async (systemSymbol: string): Promise<Waypoint[] | null> => {
+        let localSystem = localStorage.getItem(systemSymbol);
+
+        if (!localSystem) {
+            await fetchSystem(systemSymbol);
+            localSystem = localStorage.getItem(systemSymbol);
+        }
+
+
+        return localSystem ? JSON.parse(localSystem) : null;
+    };
+
+
+    return <SpacetradersContext.Provider value={{ agent, fleet, updateAgent, updateFleet, updateShip, changeFlightMode, extractRessources, refuelShip, changeNavStatus, navigate, fetchSystem, getWaypoint, getWaypointList }}>
         {children}
     </SpacetradersContext.Provider>;
 }

@@ -33,9 +33,11 @@ const Shipyard = ({ shipyard, agent }: { shipyard: ShipyardData, agent: Agent })
 
     const buyShip = async (ship: ShipyardShip) => {
         const response = await ApiHandler.postBuyShip(ship.type, shipyard.symbol, token);
-        const newFleet = [...STContext.fleet, response.ship];
-        STContext.updateFleet(newFleet);
-        STContext.updateAgent(response.agent);
+        if (response) {
+            const newFleet = [...STContext.fleet, response.ship];
+            STContext.updateFleet(newFleet);
+            STContext.updateAgent(response.agent);
+        }
     }
 
     return (

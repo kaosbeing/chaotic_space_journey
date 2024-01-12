@@ -41,7 +41,10 @@ const Dashboard = () => {
 
     const updateDashboard = async () => {
         if (shipSymbol) {
-            STContext.updateShip(await ApiHandler.getShip(shipSymbol, authContext.token))
+            const response = await ApiHandler.getShip(shipSymbol, authContext.token);
+            if (response) {
+                STContext.updateShip(response)
+            }
         }
     }
 

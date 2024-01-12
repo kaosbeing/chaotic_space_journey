@@ -3,48 +3,80 @@ import { Waypoint } from "./Models/WaypointInterface";
 import { Agent } from "./Models/AgentInterface";
 import { Market } from "./Models/MarketInterface";
 import { Extract } from "./Models/ExtractInterface";
-import { Refuel } from "./Models/RefuelInterface";
+import { toast } from 'react-toastify';
+import { Shipyard } from "./Models/ShipyardInterface";
+import { Navigate, Purchaseship, Trade, Refuel, GenericSuccess } from "./Models/ApiInterface";
 
 class ApiHandler {
     static token = localStorage.getItem("agent-token");
 
-    static async getAgent(token: string): Promise<Agent> {
+    static async getAgent(token: string): Promise<Agent | null> {
         console.log("Fetching AGENT");
-        const response = await ApiHandler.get("https://api.spacetraders.io/v2/my/agent", token);
-        return response.data;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.get("https://api.spacetraders.io/v2/my/agent", token));
+            return response ? response.data : response;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async getFleet(token: string): Promise<Ship[]> {
+    static async getFleet(token: string): Promise<Ship[] | null> {
         console.log("Fetching FLEET");
-        const response = await ApiHandler.get("https://api.spacetraders.io/v2/my/ships", token);
-        return response.data;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.get("https://api.spacetraders.io/v2/my/ships", token));
+            return response ? response.data : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async getShip(shipSymbol: string, token: string): Promise<Ship> {
+    static async getShip(shipSymbol: string, token: string): Promise<Ship | null> {
         console.log("Fetching SHIP");
-        const response = await ApiHandler.get(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}`, token);
-        return response.data;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.get(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}`, token));
+            return response ? response.data : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async getMarket(systemSymbol: string, waypointSymbol: string, token: string): Promise<Market> {
+    static async getMarket(systemSymbol: string, waypointSymbol: string, token: string): Promise<Market | null> {
         console.log("Fetching MARKET");
-        const response = await ApiHandler.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}/market`, token);
-        return response.data;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}/market`, token));
+            return response ? response.data : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async getShipyard(systemSymbol: string, waypointSymbol: string, token: string) {
+    static async getShipyard(systemSymbol: string, waypointSymbol: string, token: string): Promise<Shipyard | null> {
         console.log("fetching SHIPYARD");
-        const response = await ApiHandler.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}/shipyard`, token);
-        return response.data;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}/shipyard`, token));
+            return response ? response.data : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async getWaypoint(systemSymbol: string, waypointSymbol: string, token: string): Promise<Waypoint> {
+    static async getWaypoint(systemSymbol: string, waypointSymbol: string, token: string): Promise<Waypoint | null> {
         console.log("Fetching WAYPOINT");
-        const response = await ApiHandler.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}`, token);
-        return response.data;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.get(`https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${waypointSymbol}`, token));
+            return response ? response.data : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async listWaypoints(systemSymbol: string, token: string, criterias?: { limit?: number, page?: number, type?: string, traits?: string }) {
+    static async listWaypoints(systemSymbol: string, token: string, criterias?: { limit?: number, page?: number, type?: string, traits?: string }): Promise<GenericSuccess | null> {
         console.log("Fetching WAYPOINT LIST");
         const modifiers = new URLSearchParams();
         if (criterias) {
@@ -53,63 +85,114 @@ class ApiHandler {
             if (criterias.type) { modifiers.set("type", criterias.type) }
             if (criterias.traits) { modifiers.set("traits", criterias.traits) }
         }
-        const url = `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints?${modifiers}`;
-        const response = await ApiHandler.get(url, token);
-        return response;
+
+        const url = `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints${modifiers}`;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.get(url, token));
+            return response ? response : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async patchNav(shipSymbol: string, flightMode: string, token: string): Promise<Nav> {
+    static async patchNav(shipSymbol: string, flightMode: string, token: string): Promise<Nav | null> {
         console.log("Patching NAV");
-        const response = await ApiHandler.patch(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/nav`, token, `{"flightMode":"${flightMode}"}`);
-        return response.data;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.patch(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/nav`, token, `{"flightMode":"${flightMode}"}`));
+            return response ? response.data : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async postExtract(shipSymbol: string, token: string): Promise<Extract> {
+    static async postExtract(shipSymbol: string, token: string): Promise<Extract | null> {
         console.log("Extracting RESSOURCES");
-        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/extract`, token);
-        return response.data;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/extract`, token));
+            return response ? response.data : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async postRefuel(shipSymbol: string, token: string): Promise<Refuel> {
+    static async postRefuel(shipSymbol: string, token: string): Promise<Refuel | null> {
         console.log("REFUELLING");
-        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/refuel`, token);
-        return response.data;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/refuel`, token));
+            return response ? response.data : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async postOrbit(shipSymbol: string, token: string): Promise<Nav> {
+    static async postOrbit(shipSymbol: string, token: string): Promise<Nav | null> {
         console.log("ORBITTING");
-        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/orbit`, token)
-        return response.data.nav;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/orbit`, token));
+            return response ? response.data : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async postDock(shipSymbol: string, token: string): Promise<Nav> {
+    static async postDock(shipSymbol: string, token: string): Promise<Nav | null> {
         console.log("DOCKING");
-        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/dock`, token);
-        return response.data.nav;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/dock`, token));
+            return response ? response.data.nav : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async postNavigate(shipSymbol: string, waypointSymbol: string, token: string) {
+    static async postNavigate(shipSymbol: string, waypointSymbol: string, token: string): Promise<Navigate | null> {
         console.log("NAVIGATING");
-        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/navigate`, token, `{"waypointSymbol": "${waypointSymbol}"}`);
-        return response.data;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/navigate`, token, `{"waypointSymbol": "${waypointSymbol}"}`));
+            return response ? response.data : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async postBuy(shipSymbol: string, goodSymbol: string, units: number, token: string) {
+    static async postBuy(shipSymbol: string, goodSymbol: string, units: number, token: string): Promise<Trade | null> {
         console.log("BUYING " + goodSymbol);
-        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/purchase`, token, `{"symbol":"${goodSymbol}","units":${units}}`);
-        return response.data;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/purchase`, token, `{"symbol":"${goodSymbol}","units":${units}}`));
+            return response ? response.data : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async postSell(shipSymbol: string, goodSymbol: string, units: number, token: string) {
+    static async postSell(shipSymbol: string, goodSymbol: string, units: number, token: string): Promise<Trade | null> {
         console.log("SELLING " + goodSymbol);
-        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/sell`, token, `{"symbol":"${goodSymbol}","units":${units}}`);
-        return response.data;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/${shipSymbol}/sell`, token, `{"symbol":"${goodSymbol}","units":${units}}`));
+            return response ? response.data : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
-    static async postBuyShip(shipType: string, waypointSymbol: string, token: string) {
+    static async postBuyShip(shipType: string, waypointSymbol: string, token: string): Promise<Purchaseship | null> {
         console.log("BUYING ship");
-        const response = await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/`, token, `{"shipType":"${shipType}","waypointSymbol":"${waypointSymbol}"}`);
-        return response.data;
+        try {
+            const response = ApiHandler.handleResponse(await ApiHandler.post(`https://api.spacetraders.io/v2/my/ships/`, token, `{"shipType":"${shipType}","waypointSymbol":"${waypointSymbol}"}`));
+            return response ? response.data : null;
+        } catch (err) {
+            toast.error(err as string);
+            return null;
+        }
     }
 
     static async get(url: string, token: string) {
@@ -170,6 +253,18 @@ class ApiHandler {
         } catch (error) {
             console.error(error);
             throw error;
+        }
+    }
+
+    static handleResponse(response: any): GenericSuccess | null {
+        if (response.data) {
+            return response;
+        } else if (response.error) {
+            toast.error(response.error.message)
+            return null;
+        } else {
+            toast.error("Unknown error ! (⊙_⊙)?")
+            return null;
         }
     }
 }

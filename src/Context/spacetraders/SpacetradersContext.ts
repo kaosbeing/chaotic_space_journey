@@ -16,6 +16,7 @@ interface Spacetraders {
     navigate: (ship: Ship, waypointSymbol: string) => void,
     fetchSystem: (systemSymbol: string) => void,
     getWaypoint: (systemSymbol: string, waypointSymbol: string) => Promise<Waypoint | null>,
+    getWaypointList: (systemSymbol: string) => Promise<Waypoint[] | null>
 }
 
 export const SpacetradersContext = createContext<Spacetraders>({
@@ -31,4 +32,5 @@ export const SpacetradersContext = createContext<Spacetraders>({
     navigate: () => { },
     fetchSystem: () => { },
     getWaypoint: () => { throw new Error("not implemented yet !") },
+    getWaypointList: () => { throw new Error("not implemented yet !") },
 });
