@@ -1,11 +1,30 @@
+.waypointList__wrapper {
+    width: 100%;
+    min-height: 100%;
+    background-color: #14141440;
+    backdrop-filter: blur(2px);
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.waypointlist__scrollable {
+    max-height: 100vh;
+    overflow-y: scroll;
+}
+
 .waypointList {
+    margin: 3rem;
     padding: 1rem;
-    max-height: 100%;
+    width: max-content;
     border-radius: 0.5rem;
     background-color: var(--bg-2);
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .waypointList__header {
@@ -14,7 +33,10 @@
     gap: 0.25rem;
 }
 
-.waypointList__icon {}
+.waypointList__icon {
+    width: 2rem;
+    height: 2rem;
+}
 
 .waypointList__title {
     font-size: 1.5rem;
@@ -22,32 +44,30 @@
     font-weight: 600;
 }
 
-.waypointList__options {
-    background-color: var(--bg);
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-}
-
 .waypointList__list {
-    min-height: 20rem;
-    height: 60%;
-    max-height: 30rem;
     border-radius: 0.5rem;
     overflow-y: scroll;
 }
 
+.waypointlist__listheader {
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    background-color: var(--bg-0);
+}
+
 .listItem {
-    display: grid;
-    grid-template-columns: 3fr 1fr 4fr 1fr;
-    gap: 0.5rem;
-    padding: 0.5rem;
     background-color: var(--bg-2-hover);
 }
 
-.listItem>div {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
+.listItem__cell {
+    vertical-align: middle;
+    padding: 1rem;
+}
+
+.listitem__icon {
+    width: 2rem;
+    height: 2rem;
 }
 
 .listitem__distance,
@@ -59,17 +79,11 @@
     word-break: keep-all;
 }
 
-.listitem__traits {
-    flex-wrap: wrap;
-
-}
-
 .listItem:nth-child(odd) {
     background-color: var(--bg);
 }
 
 .listitem__header {
-    vertical-align: middle;
     align-self: stretch;
     display: flex;
     gap: 0.5rem;
@@ -79,6 +93,7 @@
 .listItem__trait {
     display: inline-block;
     padding: 0.25rem;
+    margin: 0.25rem;
     background-color: var(--bg-0);
     border-radius: 0.25rem;
     font-size: 0.75rem;
