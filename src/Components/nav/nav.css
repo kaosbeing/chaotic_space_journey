@@ -29,8 +29,6 @@
     gap: 0.25rem;
 }
 
-.nav__icon {}
-
 .nav__title {
     color: var(--accent-2);
     font-size: 1.5rem;
@@ -53,14 +51,6 @@
     gap: 0.25rem;
 }
 
-.nav__systemIcon {}
-
-.nav__system {}
-
-.nav__waypointIcon {}
-
-.nav__waypoint {}
-
 .nav__travelStatus {
     align-self: stretch;
     display: flex;
@@ -72,10 +62,6 @@
     display: flex;
     justify-content: space-between;
 }
-
-.nav__timer {}
-
-.nav__arrivalTime {}
 
 .nav__progressBar {
     align-self: stretch;
@@ -175,11 +161,3 @@
 .nav__changeStatus--active:hover {
     background-color: var(--bg-3);
 }
-
-.nav__cruiseIcon {}
-
-.nav__driftIcon {}
-
-.nav__burnIcon {}
-
-.nav__stealthIcon {}

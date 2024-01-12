@@ -63,8 +63,8 @@ const Marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agen
         }
 
         return (
-            <div onClick={() => { setDisplayModal(false); }} className="trademodal">
-                <div onClick={(e) => { e.stopPropagation() }} className="trademodal__content">
+            <div onKeyDown={(e) => { if (e.key === "Escape") { setDisplayModal(false) } }} onClick={() => { setDisplayModal(false); }} className="trademodal">
+                <div onKeyDown={(e) => { e.stopPropagation() }} onClick={(e) => { e.stopPropagation() }} className="trademodal__content">
                     <h3 className="trademodal__title">{modalType} : {modalTradeGood?.symbol}</h3>
                     <div className="trademodal__infos">
                         <div className="trademodal__unitprice">
@@ -88,7 +88,7 @@ const Marketplace = ({ market, ship, agent }: { market: Market, ship: Ship, agen
     return (
         <div className="marketplace">
             <div className="marketplace__header">
-                <img className="marketplace__icon" src={marketplaceIcon} />
+                <img className="marketplace__icon" src={marketplaceIcon} alt="" />
                 <h3 className="marketplace__title">Marketplace</h3>
             </div>
             <div className="marketplace__tradegoods">

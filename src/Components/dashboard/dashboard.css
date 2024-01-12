@@ -33,7 +33,6 @@
     font-size: 2rem;
     font-weight: 700;
     color: var(--accent-2);
-    font-family: Inter;
 }
 
 .dashboard__refresh {
@@ -47,10 +46,3 @@
     border-radius: 0.5rem;
     cursor: pointer;
 }
-
-/* 
-@media screen and (min-width: 1600px) {
-    .dashboard__content {
-        grid-template-areas: "ship nav controls cargo""ship location controls cargo";
-    }
-} */

@@ -28,9 +28,9 @@ const Controls = ({ ship, agent, waypoint, market, shipyard, navigate }: { ship:
             <div className='controls__options'>
                 <button className={"controls__button " + (state === "navigation" ? "controls__button--active" : "")}
                     onClick={() => setState("navigation")}>Navigation</button>
-                <button className={"controls__button " + (market ? state === "marketplace" ? "controls__button--active" : "" : "controls__button--disabled")}
+                <button className={"controls__button " + ((market && state === "marketplace") ? "controls__button--active" : "controls__button--disabled")}
                     onClick={() => setState("marketplace")} disabled={market ? false : true}>Market</button>
-                <button className={"controls__button " + (shipyard ? state === "shipyard" ? "controls__button--active" : "" : "controls__button--disabled")}
+                <button className={"controls__button " + ((shipyard && state === "shipyard") ? "controls__button--active" : "controls__button--disabled")}
                     onClick={() => setState("shipyard")} disabled={shipyard ? false : true}>Shipyard</button>
             </div>
             <div className='controls__body'>

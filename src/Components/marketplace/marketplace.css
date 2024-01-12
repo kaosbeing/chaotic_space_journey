@@ -38,8 +38,6 @@
     background-color: var(--bg);
 }
 
-.tradegood__symbol {}
-
 .tradegoods__actions {
     display: flex;
     gap: 0.5rem;
@@ -116,8 +114,6 @@
     text-transform: uppercase;
     color: var(--txt-muted);
 }
-
-.trademodal__infocontent {}
 
 .trademodal__input,
 .trademodal__button {

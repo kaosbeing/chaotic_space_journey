@@ -10,7 +10,7 @@ interface SpacetradersProviderProps {
     children: ReactElement;
 }
 
-export function SpacetradersProvider({ children }: SpacetradersProviderProps) {
+export function SpacetradersProvider({ children }: Readonly<SpacetradersProviderProps>) {
     const authContext = useContext(AuthContext);
 
     const [agent, setAgent] = useState<Agent | null>(null);
@@ -133,7 +133,7 @@ export function SpacetradersProvider({ children }: SpacetradersProviderProps) {
         const updatedSystemData = localStorage.getItem(systemSymbol);
         const system: Waypoint[] | null = updatedSystemData ? JSON.parse(updatedSystemData) : null;
 
-        return system ? system.find(waypoint => waypoint.symbol === waypointSymbol) || null : null;
+        return system ? system.find(waypoint => waypoint.symbol === waypointSymbol) ?? null : null;
     };
 
 

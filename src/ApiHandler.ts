@@ -78,14 +78,12 @@ class ApiHandler {
 
     static async listWaypoints(systemSymbol: string, token: string, criterias?: { limit?: number, page?: number, type?: string, traits?: string }): Promise<GenericSuccess | null> {
         console.log("Fetching WAYPOINT LIST");
-        let modifiers = "";
-
+        const modifiers = new URLSearchParams();
         if (criterias) {
-            modifiers = "?";
-            criterias.limit ? modifiers += `limit=${criterias.limit}&` : "";
-            criterias.page ? modifiers += `page=${criterias.page}&` : "";
-            criterias.type ? modifiers += `type=${criterias.type}&` : "";
-            criterias.traits ? modifiers += `traits=${criterias.traits}&` : "";
+            if (criterias.limit) { modifiers.set("limit", criterias.limit.toString()) }
+            if (criterias.page) { modifiers.set("page", criterias.page.toString()) }
+            if (criterias.type) { modifiers.set("type", criterias.type) }
+            if (criterias.traits) { modifiers.set("traits", criterias.traits) }
         }
 
         const url = `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints${modifiers}`;

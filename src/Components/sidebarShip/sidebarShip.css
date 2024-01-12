@@ -43,8 +43,6 @@
     border-radius: 0.25rem;
 }
 
-.sidebarShip__status {}
-
 .sidebarShip__location {
     display: flex;
     flex-direction: row;
@@ -52,18 +50,12 @@
     gap: 0.25rem;
 }
 
-.sidebarShip__locationIcon {}
-
-.sidebarShip__waypointSymbol {}
-
 .sidebarShip__travelStatus {
     align-self: stretch;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
-
-.sidebarShip__timer {}
 
 .sidebarShip__progressBar {
     align-self: stretch;
@@ -80,7 +72,3 @@
     align-items: flex-start;
     align-self: stretch;
 }
-
-.sidebarShip__departureTime {}
-
-.sidebarShip__arrivalTime {}

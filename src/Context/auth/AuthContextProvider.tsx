@@ -7,7 +7,7 @@ interface AuthContextProviderProps {
     children: ReactElement;
 }
 
-export function AuthContextProvider({ children }: AuthContextProviderProps) {
+export function AuthContextProvider({ children }: Readonly<AuthContextProviderProps>) {
     const [token, setToken] = useState<string>(localStorage.getItem("agent-token") ?? "");
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
