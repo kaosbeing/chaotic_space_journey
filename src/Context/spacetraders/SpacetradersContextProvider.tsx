@@ -137,7 +137,20 @@ export function SpacetradersProvider({ children }: Readonly<SpacetradersProvider
     };
 
 
-    return <SpacetradersContext.Provider value={{ agent, fleet, updateAgent, updateFleet, updateShip, changeFlightMode, extractRessources, refuelShip, changeNavStatus, navigate, fetchSystem, getWaypoint }}>
+    const getWaypointList = async (systemSymbol: string): Promise<Waypoint[] | null> => {
+        let localSystem = localStorage.getItem(systemSymbol);
+
+        if (!localSystem) {
+            await fetchSystem(systemSymbol);
+            localSystem = localStorage.getItem(systemSymbol);
+        }
+
+
+        return localSystem ? JSON.parse(localSystem) : null;
+    };
+
+
+    return <SpacetradersContext.Provider value={{ agent, fleet, updateAgent, updateFleet, updateShip, changeFlightMode, extractRessources, refuelShip, changeNavStatus, navigate, fetchSystem, getWaypoint, getWaypointList }}>
         {children}
     </SpacetradersContext.Provider>;
 }

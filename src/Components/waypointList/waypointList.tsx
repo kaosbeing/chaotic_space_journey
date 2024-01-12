@@ -1,34 +1,21 @@
 import { useContext, useEffect, useState } from "react";
 import "./waypointList.css";
 import { Waypoint } from "../../Models/WaypointInterface";
-import ApiHandler from "../../ApiHandler";
 import waypointsIcon from "/assets/icons/nav.svg";
 import { Ship } from "../../Models/ShipInterface";
-import { AuthContext } from "../../Context/auth/AuthContext";
+import { SpacetradersContext } from "../../Context/spacetraders/SpacetradersContext";
 
 const WaypointList = ({ currentWaypoint, ship, navigate }: { currentWaypoint: Waypoint, ship: Ship, navigate: (ship: Ship, waypointSymbol: string) => void }) => {
-    const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
-    const authContext = useContext(AuthContext);
-
-    const fetchWholeSystem = async () => {
-        const response = await ApiHandler.listWaypoints(ship.nav.systemSymbol, authContext.token, { limit: 20 });
-        const pages = Math.ceil(response.meta.total / response.meta.limit);
-
-        let fetchedWaypoints = response.data;
-
-        for (let i = 2; i <= pages; i++) {
-            const waypoints = await ApiHandler.listWaypoints(ship.nav.systemSymbol, authContext.token, { limit: 20, page: i });
-            fetchedWaypoints = [...fetchedWaypoints, ...waypoints.data];
-        }
-
-        localStorage.setItem(ship.nav.systemSymbol, JSON.stringify(fetchedWaypoints));
-        setWaypoints(fetchedWaypoints);
-    }
+    const STContext = useContext(SpacetradersContext);
+    const [waypoints, setWaypoints] = useState<Waypoint[]>();
 
     useEffect(() => {
-        const localSystem = localStorage.getItem(ship.nav.systemSymbol);
+        const fetchWaypointList = async () => {
+            const waypointList = await STContext.getWaypointList(ship.nav.systemSymbol) ?? [];
+            setWaypoints(waypointList);
+        }
 
-        localSystem ? setWaypoints(JSON.parse(localSystem)) : fetchWholeSystem();
+        fetchWaypointList();
     }, [])
 
     const renderNavButton = (waypoint: Waypoint) => {
