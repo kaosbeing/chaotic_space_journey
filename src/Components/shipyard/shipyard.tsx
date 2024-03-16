@@ -68,7 +68,7 @@ const Shipyard = ({ shipyard, agent, display, close }: { shipyard: ShipyardData,
                                         <div>Mounts : {ship.mounts?.map((mount) => <span className="shipyard__shipmount" key={mount.name}>{mount.name}</span>)}</div>
                                         <div>Modules : {ship.modules?.map((module) => <span className="shipyard__shipmodule" key={module.name}>{module.name}</span>)}</div>
                                         <p className="shipyard__shipDesc">{ship.description}</p>
-                                        <button className={canBuy(ship) ? "shipyard__purchase" : "shipyard__purchase shipyard__purchase--disabled"} onClick={() => { if (canBuy(ship)) { buyShip(ship) } }} disabled={canBuy(ship)}>{ship.purchasePrice}</button>
+                                        <button className={canBuy(ship) ? "shipyard__purchase" : "shipyard__purchase shipyard__purchase--disabled"} onClick={() => { if (canBuy(ship)) { buyShip(ship) } }} disabled={!canBuy(ship)}>{ship.purchasePrice}</button>
                                     </div>
                                 ))}
                             </div>
