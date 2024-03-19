@@ -11,7 +11,7 @@ import RequireAuth from './Components/RequireAuth/RequireAuth.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
-		<BrowserRouter>
+		<BrowserRouter basename='/chaotic_space_journey'>
 			<AuthContextProvider>
 				<SpacetradersProvider>
 					<Routes>
