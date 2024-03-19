@@ -47,7 +47,7 @@ const WaypointList = ({ currentWaypoint, ship, navigate, display, close }: { cur
                 <tr key={waypoint.symbol} className="listItem">
                     <td className=" listItem__cell">
                         <div className="listitem__header">
-                            <img className="listitem__icon" src={("/assets/icons/waypoint_type/" + waypoint.type + ".svg")} alt={waypoint.type} />
+                            <img className="listitem__icon" src={(import.meta.env.BASE_URL + "/assets/icons/waypoint_type/" + waypoint.type + ".svg")} alt={waypoint.type} />
                             <span className="listitem__symbol">{waypoint.symbol}</span>
                         </div>
                     </td>
